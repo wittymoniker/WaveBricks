@@ -1,0 +1,86 @@
+# depslib dependency file v1.0
+1485629426 source:c:\weed op\weed-op\weed op\entities.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<cmath>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+
+1485627323 c:\weed op\weed-op\freeglut\include\gl\glut.h
+	"freeglut_std.h"
+
+1485627323 c:\weed op\weed-op\freeglut\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1485627803 source:c:\weed op\weed-op\weed op\file.cpp
+
+1485628510 source:c:\weed op\weed-op\weed op\main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<cmath>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	"entities.cpp"
+	"file.cpp"
+
+1485629426 c:\weed op\weed-op\weed op\entities.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<cmath>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+
+1485627803 c:\weed op\weed-op\weed op\file.cpp
+
+1485627589 source:c:\weed op\weed-op\weed op\src\entities.cpp
+	"entities.h"
+
+1485627589 c:\weed op\weed-op\weed op\include\entities.h
+
+1494529936 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<cmath>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+
+1485631403 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
+
+1494530407 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<cmath>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+	"entities.cpp"
+	"file.cpp"
+
+1494529936 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<cmath>
+	<vector>
+	<windows.h>
+	<stdlib.h>
+	<fstream>
+
+1485631403 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
+
