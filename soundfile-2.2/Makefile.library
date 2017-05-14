@@ -1,0 +1,68 @@
+## soundfile library GNU makefile for linux.
+##
+## Programmer:    Craig Stuart Sapp <craig@ccrma.stanford.edu>
+## Creation Date: Sun Jan 20 12:40:05 PST 2002
+## Last Modified: Sun Aug 29 03:53:25 PDT 2004
+## Filename:      ...soundfile/Makefile.library
+##
+## To run this makefile, type (without quotes) "make -f Makefile.library".
+##
+
+# Use LINUX  for linux computers
+# Use VISUAL for Windows computers
+# Use SUN    for Sun computers
+# Use OSX    for Apple OS X computers
+OSTYPE = LINUX
+
+SRCDIR     = src
+INCDIR     = include
+OBJDIR     = obj
+LIBDIR     = lib
+LIBFILE    = libsoundfile.a
+
+COMPILER   = g++
+
+DEFINES    = $(addprefix -D,$(OSTYPE))
+
+FLAGS      = -Wall -c -g -O6 $(DEFINES) -I$(INCDIR) -I$(SRCDIR)
+
+#########################################################################
+
+# setting up the directory paths to search for dependency files
+vpath %.h   $(INCDIR):$(SRCDIR)
+vpath %.cpp $(SRCDIR):$(INCDIR)
+vpath %.o   $(OBJDIR)
+
+# generating a list of the object files
+OBJS = $(notdir $(patsubst %.cpp,%.o,$(wildcard $(SRCDIR)/*.cpp)))
+
+# defining an explicit rule for object file dependencies
+%.o : %.cpp 
+	$(COMPILER) $(FLAGS) -o $(OBJDIR)/$(notdir $@) $<
+
+# targets which don't actually refer to files
+.PHONY : examples library lib clean mkdirs
+
+
+#########################################################################
+
+all: library
+
+lib: library
+library: mkdirs $(OBJS)
+	@echo Creating soundfile library file for linux ...
+	-rm -f $(LIBDIR)/$(LIBFILE)
+	ar r   $(LIBDIR)/$(LIBFILE) $(OBJDIR)/*.o 
+	ranlib $(LIBDIR)/$(LIBFILE)
+
+mkdirs:
+	-mkdir $(OBJDIR)
+	-mkdir $(LIBDIR)
+
+clean:
+	-rm -rf $(OBJDIR)/*.o
+	-rmdir $(OBJDIR)
+
+
+
+

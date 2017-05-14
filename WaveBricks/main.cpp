@@ -30,8 +30,67 @@ USING INTEGRATED FREEGLUT
 #include <fstream>
 #include "entities.cpp"
 #include "file.cpp"
+#include <winioctl.h>
+#include <unistd.h>
+#include <fcntl.h> //open
+#include <soundcard.h>
+#include <stdio.h>
 using namespace std;
 
+
+using namespace std;
+
+#define TYPE char
+#define RATE 44100 //sampling rate
+#define SIZE sizeof(TYPE) //size of sample, in bytes
+#define CHANNELS 1 //number of stereo channels
+#define PI 3.14159
+#define SAMPLE_MAX (pow(2,SIZE*8 - 1) - 1)
+
+void writeToSoundDevice(TYPE* buf, int deviceID, int buffSize) {
+  int status;
+  status = write(deviceID, buf, buffSize);
+  if (status != buffSize)
+    perror("Wrote wrong number of bytes\n");
+  status = ioctl(deviceID, SOUND_PCM_SYNC, 0);
+  if (status == -1)
+    perror("SOUND_PCM_SYNC failed\n");
+}
+
+int main(int argc, char* argv[])
+{
+  int deviceID, arg, status, i, numSamples;
+  numSamples = atoi(argv[1]);
+
+  TYPE* samples = (TYPE *) malloc((size_t) numSamples * sizeof(TYPE)* CHANNELS);
+  FILE *inFile = fopen(argv[2], "rb");
+  fread(samples, (size_t)sizeof(TYPE), numSamples*CHANNELS, inFile);
+  fclose(inFile);
+
+  deviceID = open("/dev/dsp", O_WRONLY, 0);
+  if (deviceID < 0)
+    perror("Opening /dev/dsp failed\n");
+  arg = SIZE * 8;
+  status = ioctl(deviceID, SOUND_PCM_WRITE_BITS, &arg);
+  if (status == -1)
+    perror("Unable to set sample size\n");
+  arg = CHANNELS;
+  status = ioctl(deviceID, SOUND_PCM_WRITE_CHANNELS, &arg);
+  if (status == -1)
+    perror("Unable to set number of channels\n");
+  arg = RATE;
+  status = ioctl(deviceID, SOUND_PCM_WRITE_RATE, &arg);
+  if (status == -1)
+    perror("Unable to set number of bits\n");
+
+  writeToSoundDevice(samples, deviceID, numSamples * CHANNELS);
+  FILE *outFile = fopen(argv[3], "wb");
+  fwrite(samples, 1, numSamples*CHANNELS, outFile);
+  fclose(outFile);
+  close(deviceID);
+}
+
+P
 
 static void resize(int width, int height)
 {
@@ -118,12 +177,13 @@ const GLfloat high_shininess[] = { 100.0f };
 
 int main(int argc, char *argv[])
 {
+
     glutInit(&argc, argv);
     glutInitWindowSize(1080, 960);
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
-    glutCreateWindow("GLUT Shapes");
+    glutCreateWindow("WaveBricks");
 
     glutReshapeFunc(resize);
     glutDisplayFunc(display);

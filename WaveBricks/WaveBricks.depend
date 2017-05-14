@@ -84,3 +84,13 @@
 
 1485631403 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
+1494792049 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\avi_utils.cpp
+	<windows.h>
+	<vfw.h>
+	"avi_utils.h"
+	<pshpack1.h>
+	<poppack.h>
+
+1494793194 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\avi_utils.h
+	<float.h>
+

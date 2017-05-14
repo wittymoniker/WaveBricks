@@ -44,10 +44,18 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/lib" />
 		</Linker>
+		<Unit filename="Bitmap.h">
+			<Option compile="1" />
+			<Option link="1" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="entities.cpp" />
 		<Unit filename="file.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/entities.cpp" />
+		<Unit filename="soundcard.h">
+			<Option compile="1" />
+			<Option link="1" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
