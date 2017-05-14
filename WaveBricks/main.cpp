@@ -35,62 +35,63 @@ USING INTEGRATED FREEGLUT
 #include <fcntl.h> //open
 #include <soundcard.h>
 #include <stdio.h>
+#include "al.h"
+#include "alc.h"
 using namespace std;
 
 
 using namespace std;
 
-#define TYPE char
-#define RATE 44100 //sampling rate
-#define SIZE sizeof(TYPE) //size of sample, in bytes
-#define CHANNELS 1 //number of stereo channels
-#define PI 3.14159
-#define SAMPLE_MAX (pow(2,SIZE*8 - 1) - 1)
+#ifdef LIBAUDIO
+#include <audio/wave.h>
+#define BACKEND	"libaudio"
+#else
+#include "alut.h"
+#define BACKEND "alut"
+#endif
 
-void writeToSoundDevice(TYPE* buf, int deviceID, int buffSize) {
-  int status;
-  status = write(deviceID, buf, buffSize);
-  if (status != buffSize)
-    perror("Wrote wrong number of bytes\n");
-  status = ioctl(deviceID, SOUND_PCM_SYNC, 0);
-  if (status == -1)
-    perror("SOUND_PCM_SYNC failed\n");
-}
-
-int main(int argc, char* argv[])
+static void list_audio_devices(const ALCchar *devices)
 {
-  int deviceID, arg, status, i, numSamples;
-  numSamples = atoi(argv[1]);
+	const ALCchar *device = devices, *next = devices + 1;
+	size_t len = 0;
 
-  TYPE* samples = (TYPE *) malloc((size_t) numSamples * sizeof(TYPE)* CHANNELS);
-  FILE *inFile = fopen(argv[2], "rb");
-  fread(samples, (size_t)sizeof(TYPE), numSamples*CHANNELS, inFile);
-  fclose(inFile);
-
-  deviceID = open("/dev/dsp", O_WRONLY, 0);
-  if (deviceID < 0)
-    perror("Opening /dev/dsp failed\n");
-  arg = SIZE * 8;
-  status = ioctl(deviceID, SOUND_PCM_WRITE_BITS, &arg);
-  if (status == -1)
-    perror("Unable to set sample size\n");
-  arg = CHANNELS;
-  status = ioctl(deviceID, SOUND_PCM_WRITE_CHANNELS, &arg);
-  if (status == -1)
-    perror("Unable to set number of channels\n");
-  arg = RATE;
-  status = ioctl(deviceID, SOUND_PCM_WRITE_RATE, &arg);
-  if (status == -1)
-    perror("Unable to set number of bits\n");
-
-  writeToSoundDevice(samples, deviceID, numSamples * CHANNELS);
-  FILE *outFile = fopen(argv[3], "wb");
-  fwrite(samples, 1, numSamples*CHANNELS, outFile);
-  fclose(outFile);
-  close(deviceID);
+	fprintf(stdout, "Devices list:\n");
+	fprintf(stdout, "----------\n");
+	while (device && *device != '\0' && next && *next != '\0') {
+		fprintf(stdout, "%s\n", device);
+		len = strlen(device);
+		device += (len + 1);
+		next += (len + 2);
+	}
+	fprintf(stdout, "----------\n");
 }
 
-P
+#define TEST_ERROR(_msg)		\
+	error = alGetError();		\
+	if (error != AL_NO_ERROR) {	\
+		fprintf(stderr, _msg "\n");	\
+		return -1;		\
+	}
+
+static inline ALenum to_al_format(short channels, short samples)
+{
+	bool stereo = (channels > 1);
+
+	switch (samples) {
+	case 16:
+		if (stereo)
+			return AL_FORMAT_STEREO16;
+		else
+			return AL_FORMAT_MONO16;
+	case 8:
+		if (stereo)
+			return AL_FORMAT_STEREO8;
+		else
+			return AL_FORMAT_MONO8;
+	default:
+		return -1;
+	}
+}
 
 static void resize(int width, int height)
 {

@@ -45,17 +45,15 @@
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/lib" />
 		</Linker>
 		<Unit filename="Bitmap.h">
-			<Option compile="1" />
-			<Option link="1" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="al.h" />
+		<Unit filename="alc.h" />
+		<Unit filename="alut.h" />
 		<Unit filename="entities.cpp" />
 		<Unit filename="file.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="soundcard.h">
-			<Option compile="1" />
-			<Option link="1" />
-		</Unit>
+		<Unit filename="soundcard.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

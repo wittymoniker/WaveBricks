@@ -62,7 +62,7 @@
 
 1485631403 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
-1494530407 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1494799319 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<cmath>
@@ -72,6 +72,15 @@
 	<fstream>
 	"entities.cpp"
 	"file.cpp"
+	<winioctl.h>
+	<unistd.h>
+	<fcntl.h>
+	<soundcard.h>
+	<stdio.h>
+	"al.h"
+	"alc.h"
+	<audio/wave.h>
+	"alut.h"
 
 1494529936 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<GLUT/glut.h>
@@ -93,4 +102,36 @@
 
 1494793194 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\avi_utils.h
 	<float.h>
+
+1494794510 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\soundcard.h
+
+1494799153 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\al.h
+
+1494799153 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\alc.h
+
+1494799262 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\alut.h
+	<alc.h>
+	<al.h>
+	<OpenAL/alc.h>
+	<OpenAL/al.h>
+	"al.h"
+	"alc.h"
+
+1494799153 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\alc.h
+
+1494799153 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\al.h
+
+1494799153 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\al.h
+
+1494799153 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\alc.h
+
+1494794510 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\soundcard.h
+
+1494799262 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\alut.h
+	<alc.h>
+	<al.h>
+	<OpenAL/alc.h>
+	<OpenAL/al.h>
+	"al.h"
+	"alc.h"
 
