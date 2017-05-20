@@ -44,15 +44,24 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/lib" />
 		</Linker>
+		<Unit filename="AviFile.cpp" />
+		<Unit filename="AviFile.h" />
 		<Unit filename="Bitmap.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="ImgStream.cpp" />
+		<Unit filename="ImgStream.h" />
+		<Unit filename="ImgStream.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="Resource.h" />
 		<Unit filename="al.h" />
 		<Unit filename="alc.h" />
 		<Unit filename="alut.h" />
 		<Unit filename="entities.cpp" />
 		<Unit filename="file.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="new.h" />
 		<Unit filename="soundcard.h" />
 		<Extensions>
 			<code_completion />

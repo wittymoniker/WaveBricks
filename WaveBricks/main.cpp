@@ -2,20 +2,12 @@
 WEED OP ENGINE - WEED GROWING VIDEO GAME
 
 TODO:
-    SOUND PLAYER, CUSTOM SOUNDS
-    MODELS, WAVEFRONTS IMAGES, SOUNDS
-    TEXTURING EXAMPLE
-    PERSPECTIVE MOVING, CAMERA FUNCTION
-    CLASS FOR UI HANDLER, UI LOOP W MULTITHREAD
-    CLASS FOR ENTITIES
-    CLASS FOR CHARACTER INPUTS
-    CONSOLIDATE TICK / RENDER TO CALL UPDATES FOR EACH CLASS AND THEN RENDER TO PACKED ENVIRONMENT DATA
-    PARSE JUNK FUNCTIONS / FIND OUT WHAT IN HERE IS NEEDED (GLUT MAIN LOOP SHOULD WORK WITH A SUBSEQUENT AND SEPARATE TICK PROCESS?)
-    GAME DESCRIPTION HERE
-
-
-OPENAL DOWNLOAD : http://www.openal.org/downloads/ may be useful plz find audio lib
-USING INTEGRATED FREEGLUT
+    BEGIN BUILDING ENGINE, LEARNING ABOUT OUR LIBRARIES:
+    -OPENAL
+    -SOUNDPlayer
+    -ImgStream(useless now?):
+    -AviFile
+    -entities.cpp needs work - will house our synth functions which controls shapes and sounds, and interconnects them generally
  */
 
 #ifdef __APPLE__
@@ -72,6 +64,7 @@ static void list_audio_devices(const ALCchar *devices)
 		fprintf(stderr, _msg "\n");	\
 		return -1;		\
 	}
+
 
 static inline ALenum to_al_format(short channels, short samples)
 {

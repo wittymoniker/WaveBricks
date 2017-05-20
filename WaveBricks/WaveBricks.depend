@@ -62,7 +62,7 @@
 
 1485631403 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
-1494799319 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1495244829 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<cmath>
@@ -134,4 +134,42 @@
 	<OpenAL/al.h>
 	"al.h"
 	"alc.h"
+
+1495245212 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\avifile.cpp
+	"StdAfx.h"
+	"avifile.h"
+	<windows.h>
+	<vfw.h>
+	<tchar.h>
+
+1345337591 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\stdafx.h
+	<windows.h>
+	<vfw.h>
+
+1495245260 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\avifile.h
+	<vfw.h>
+	<tchar.h>
+	<windows.h>
+
+1495244570 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\imgstream.cpp
+	"stdafx.h"
+	"ImgStream.h"
+	"AviFile.h"
+	<stdio.h>
+
+1054914960 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\imgstream.h
+	"resource.h"
+
+1054914960 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\resource.h
+
+1060484880 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\imgstream.rc
+	"resource.h"
+	"windows.h"
+
+1495245212 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\avifile.cpp
+	"StdAfx.h"
+	"avifile.h"
+	<windows.h>
+	<vfw.h>
+	<tchar.h>
 
