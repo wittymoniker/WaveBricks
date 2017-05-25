@@ -51,9 +51,7 @@
 
 1485627589 c:\weed op\weed-op\weed op\include\entities.h
 
-1494529936 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
-	<GLUT/glut.h>
-	<GL/glut.h>
+1495750823 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<cmath>
 	<vector>
 	<windows.h>
@@ -62,9 +60,11 @@
 
 1485631403 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
-1495244829 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1495750918 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<GLUT/glut.h>
+	"GLUI/glui.h"
 	<GL/glut.h>
+	"GL/glui.h"
 	<cmath>
 	<vector>
 	<windows.h>
@@ -82,9 +82,7 @@
 	<audio/wave.h>
 	"alut.h"
 
-1494529936 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
-	<GLUT/glut.h>
-	<GL/glut.h>
+1495751056 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<cmath>
 	<vector>
 	<windows.h>

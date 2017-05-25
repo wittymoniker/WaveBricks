@@ -44,6 +44,7 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/lib" />
 		</Linker>
+		<Unit filename="../glui-master/include/GL/glui.h" />
 		<Unit filename="AviFile.cpp" />
 		<Unit filename="AviFile.h" />
 		<Unit filename="Bitmap.h">
