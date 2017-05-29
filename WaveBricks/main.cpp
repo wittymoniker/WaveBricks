@@ -21,6 +21,7 @@ TODO:
 #include <vector>
 #include <windows.h>
 #include <stdlib.h>
+#include<iostream>
 #include <fstream>
 #include "file.cpp"
 #include <winioctl.h>
@@ -31,6 +32,7 @@ TODO:
 #include "al.h"
 #include "alc.h"
 #include "entities.h"
+#include"synths.h"
 using namespace std;
 
 
@@ -92,9 +94,10 @@ static inline ALenum to_al_format(short channels, short samples)
 bool left;
 bool right;
 int mX,mY;
-static void updateMouse(){
+static void updateMouse(int x, int y){
     bool right=0;
     bool left=0;
+    mX=x, mY=y;
     if((GetKeyState(VK_LBUTTON))){
         left=true;
     }
@@ -103,7 +106,6 @@ static void updateMouse(){
     }
 }
 
-float charPos;//
 bool selector;//
 string activeWind;//
 bool play;//
@@ -113,8 +115,6 @@ float tempo;//
 static void key(unsigned char key, int x, int y)
 {
     //TODO: refer switches of mouse to trigger and change value from here.
-
-    updateMouse();
     selector=false;
     if(bool left=1){
         selector=true;
@@ -160,9 +160,10 @@ const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
 const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
 const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat high_shininess[] = { 100.0f };
-static void GLInit(){
+static void WBInit(){
     int argc;char **argv;
     glutInit(&argc, argv);
+    alutInit(&argc, argv);
     glutInitWindowSize(1080, 960);
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -198,13 +199,14 @@ static void GLInit(){
     glutMainLoop();
 }
 
-static void addInst(int argc, char *argv[]){
-    glutInit(&argc, argv);
+static void addInst(int argc, char *argv[], int indexInst){
+    //glutInit(&argc, argv);
+    //alutInit(&argc, argv);
     glutInitWindowSize(400, 960);
     glutInitWindowPosition(10,10);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
-    glutCreateWindow("WaveBricks Instrument");
+    glutCreateWindow("WaveBricks Instrument " + char(indexInst));
 
     glutReshapeFunc(resize);
     glutDisplayFunc(display);
@@ -236,18 +238,36 @@ static void addInst(int argc, char *argv[]){
 }
 /* Program entry point */
 int instCount = 0;
+char wnd_title[256];
 bool recording = false;
 bool stop = false;
+ALuint songbuffer;
+std::vector<instrument> instruments;
+std::vector<synthpanel> sounds;
+std::stringstream striger;
+string winTit;
 void updateUI(){
+    HWND hwnd=GetForegroundWindow();
+    for (int i =0; i<=instCount; i++){
+        winTit <<"Wavebricks Instrument " << i;
+        if(("Wavebricks Instrument " + char(i)==GetWindowText(hwnd,wnd_title,sizeof(wnd_title))){
 
+        }
+        winTit="";
+    }
 }
 int main(int argc, char **argv)
 {
-    GLInit();
+    cout << "           WaveBricks v 1.0\n      copyright 2017 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
+    WBInit();
+    cout << "done.\nbegin init loop.";
     while (!stop){
+        HWND hwnd=GetForegroundWindow();
+        void glutPassiveMotionFunc(void *updateMouse);
         for(int i; i <=instCount;i++){
-            if(instrument::instruments[i]::sX != 0 && instrument::instruments[i]::sY != 0){
-
+            if(instruments[i].sX != 0 && instruments[i].sY != 0){
+                instruments[i].tick();
+                instruments[i].render();
             }
         }
     }
