@@ -93,7 +93,7 @@ static inline ALenum to_al_format(short channels, short samples)
 
 bool left;
 bool right;
-int mX,mY;
+float mX,mY;
 static void updateMouse(int x, int y){
     bool right=0;
     bool left=0;
@@ -198,7 +198,10 @@ static void WBInit(){
 
     glutMainLoop();
 }
+static void mainUI(){
 
+}
+int winSelect=0;
 static void addInst(int argc, char *argv[], int indexInst){
     //glutInit(&argc, argv);
     //alutInit(&argc, argv);
@@ -242,20 +245,37 @@ char wnd_title[256];
 bool recording = false;
 bool stop = false;
 ALuint songbuffer;
-std::vector<instrument> instruments;
-std::vector<synthpanel> sounds;
-std::stringstream striger;
+
 string winTit;
+
+
+GLUI *glui;
+GLUI_Rollout		*object_rollout;
+GLUI_RadioGroup		*object_type_radio;
+GLUI_Rotation		*object_rotation;
+GLUI_Translation	*object_xz_trans;
+GLUI_Translation	*object_y_trans;
+
+GLUI_Rollout		*anim_rollout;
+GLUI_Button			*action_button;
+
+GLUI_Checkbox *draw_floor_check;
+GLUI_Checkbox *draw_object_check;
+
+// This  checkbox utilizes the callback
+GLUI_Checkbox *use_depth_buffer;
 void updateUI(){
     HWND hwnd=GetForegroundWindow();
     for (int i =0; i<=instCount; i++){
-        winTit <<"Wavebricks Instrument " << i;
-        if(("Wavebricks Instrument " + char(i)==GetWindowText(hwnd,wnd_title,sizeof(wnd_title))){
-
+        winTit = GetWindowText(hwnd,wnd_title,sizeof(wnd_title));
+        if("Wavebricks Instrument " + i==winTit){
+            winSelect=i;
         }
         winTit="";
     }
 }
+std::vector<instrument> instruments;
+std::vector<synthpanel> sounds;
 int main(int argc, char **argv)
 {
     cout << "           WaveBricks v 1.0\n      copyright 2017 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
@@ -266,7 +286,10 @@ int main(int argc, char **argv)
         void glutPassiveMotionFunc(void *updateMouse);
         for(int i; i <=instCount;i++){
             if(instruments[i].sX != 0 && instruments[i].sY != 0){
-                instruments[i].tick();
+                instruments[i].tick(sounds[i].verts, sounds[i].yRes, sounds[i].xRes, sounds[i].zRes,
+                                    sounds[i].sX,sounds[i].sY,sounds[i].sZ, sounds[i].rx,sounds[i].ry,sounds[i].rz,
+                                    sounds[i].rox,sounds[i].roy,sounds[i].roz, sounds[i].r,sounds[i].g,sounds[i].b,
+                                    sounds[i].fade, sounds[i].dim2);
                 instruments[i].render();
             }
         }

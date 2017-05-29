@@ -51,7 +51,7 @@
 
 1485627589 c:\weed op\weed-op\weed op\include\entities.h
 
-1495929465 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
+1496084429 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<cmath>
 	<vector>
 	<windows.h>
@@ -67,7 +67,7 @@
 
 1485631403 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
-1495989171 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1496087859 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<GLUT/glut.h>
 	"GLUI/glui.h"
 	<GL/glut.h>
@@ -87,6 +87,7 @@
 	"al.h"
 	"alc.h"
 	"entities.h"
+	"synths.h"
 	<audio/wave.h>
 	"alut.h"
 
@@ -179,8 +180,26 @@
 	<vfw.h>
 	<tchar.h>
 
-1495989123 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
+1496084665 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
 	<windows.h>
 	<stdlib.h>
 	<vector>
+
+1496089174 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\synths.h
+	<windows.h>
+	<stdlib.h>
+	<vector>
+	<GL/glui.h>
+	<GL/glut.h>
+	<al.h>
+	<alc.h>
+	<alut.h>
+
+1494799262 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\alut.h
+	<alc.h>
+	<al.h>
+	<OpenAL/alc.h>
+	<OpenAL/al.h>
+	"al.h"
+	"alc.h"
 

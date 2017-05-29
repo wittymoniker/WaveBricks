@@ -13,23 +13,26 @@ template< class T >
 class reference_wrapper;
 class synthpanel{
     public:
+        static float rate;
         void play();
         void stop();
         void pKeys();
         void getWaves();
+        void getNote();
         void dispValues();
         void getVisualArgs();
         float vol, fLow, fHigh, res;
-        float track,tempo;
+        static float track,tempo;
         int scale, seq;
-        float verts, yRes, xRes, sX,sY, rx,ry,rz, r,g,b, fade;
+        float verts, yRes, xRes, zRes, sX,sY,sZ, rx,ry,rz, rox,roy,roz, r,g,b, fade;
         bool linear, dim2;
-        ALuint soundstream;
-        std::string name;
-        std::vector<vector<float> > waves;
-        std::vector<vector<float> >seqNotes;
-        std::vector<vector<vector<float> > >seqNoteParams;
-        std::vector<float>audioData;
+        static ALuint soundstream;
+        static ALuint note[32000];
+        static std::string name;
+        static std::vector<vector <float> > waves;
+        static std::vector<vector<float> >seqNotes;
+        static std::vector<vector<vector<float> > >seqNoteParams;
+        static std::vector<float>audioData;
 };
 
 #endif // SYNTHS_H_INCLUDED

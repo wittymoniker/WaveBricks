@@ -8,10 +8,10 @@ template< class T >
 class reference_wrapper;
 class instrument{
     public:
-        void tick(float, float, float, float, float, float,float,float, float,float,float, float,float,float,
+        void tick(float, float, float, float, float, float, float, float,float,float, float,float,float, float,float,float,
                   float, bool);
         void render();
-        float type, yRes, xRes, sX, sY, x,y,z, r,g,b, rx,ry,rz, rrx,rry,rrz, fade;
+        float type, yRes, xRes, sX, sY,sZ, x,y,z, r,g,b, rx,ry,rz, rrx,rry,rrz, fade;
         bool gravity, collide, d2;
         std::string name;
 };

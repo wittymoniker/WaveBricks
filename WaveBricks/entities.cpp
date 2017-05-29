@@ -20,7 +20,7 @@ static int slices = 128;//if needed
 static int stacks = 128;//if needed
 static double coords;
 
-void instrument::tick(float verts, float yResolution, float xResolution, float scX, float scY, float rpx,float rpy,float rpz, float cr,float cg,float cb,
+void instrument::tick(float verts, float yResolution, float xResolution, float zResolution, float scX, float scY, float scZ, float rpx,float rpy,float rpz, float cr,float cg,float cb,
                       float rox,float roy,float roz, float fader, bool dim2){
 
                       if(d2){
