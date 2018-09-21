@@ -37,7 +37,6 @@
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/include" />
 		</Compiler>
 		<Linker>
-			<Add library="freeglut" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
 			<Add library="winmm" />

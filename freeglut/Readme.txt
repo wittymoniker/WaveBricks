@@ -1,8 +1,8 @@
-freeglut 3.0.0-1.mp for MSVC
+freeglut 3.0.0-1.mp for MinGW
 
 This package contains freeglut import libraries, headers, and Windows DLLs.
 These allow 32 and 64 bit GLUT applications to be compiled on Windows using
-Microsoft Visual C++.
+MinGW. Both static and shared versions of the library are included.
 
 For more information on freeglut, visit http://freeglut.sourceforge.net/.
 
@@ -10,8 +10,8 @@ For more information on freeglut, visit http://freeglut.sourceforge.net/.
 Installation
 
 Create a folder on your PC which is readable by all users, for example
-“C:\Program Files\Common Files\MSVC\freeglut\” on a typical Windows system. Copy
-the “lib\” and “include\” folders from this zip archive to that location.
+“C:\Program Files\Common Files\MinGW\freeglut\” on a typical Windows system.
+Copy the “lib\” and “include\” folders from this zip archive to that location.
 
 The appropriate freeglut DLL can either be placed in the same folder as your
 application, or can be installed in a system-wide folder which appears in your
@@ -21,32 +21,17 @@ bit DLL, as they are not interchangeable.
 
 Compiling 32 bit Applications
 
-To create a 32 bit freeglut application, create a new Win32 C++ project in MSVC.
-From the “Win32 Application Wizard”, choose a “Windows application”, check the
-“Empty project” box, and submit.
+If you want your application to be compatible with GLUT, you should
+“#include <GL/glut.h>”. If you want to use freeglut specific extensions, you
+should “#include <GL/freeglut.h>” instead.
 
-You’ll now need to configure the compiler and linker settings. Open up the
-project properties, and select “All Configurations” (this is necessary to ensure
-our changes are applied for both debug and release builds). Open up the
-“general” section under “C/C++”, and configure the “include\” folder you created
-above as an “Additional Include Directory”. If you have more than one GLUT
-package which contains a “glut.h” file, it’s important to ensure that the
-freeglut include folder appears above all other GLUT include folders.
+Given a source file “test.c”, which you want to compile to an application
+“test.exe” dynamically linking to the DLL, you can compile and link it with the
+following commands (replacing the include and lib paths with the ones you
+created above if necessary):
 
-Now open up the “general” section under “Linker”, and configure the “lib\”
-folder you created above as an “Additional Library Directory”. A freeglut
-application depends on the import libraries “freeglut.lib” and “opengl32.lib”,
-which can be configured under the “Input” section. However, it shouldn’t be
-necessary to explicitly state these dependencies, since the freeglut headers
-handle this for you. Now open the “Advanced” section, and enter “mainCRTStartup”
-as the “Entry Point” for your application. This is necessary because GLUT
-applications use “main” as the application entry point, not “WinMain”—without it
-you’ll get an undefined reference when you try to link your application.
-
-That’s all of your project properties configured, so you can now add source
-files to your project and build the application. If you want your application to
-be compatible with GLUT, you should “#include <GL/glut.h>”. If you want to use
-freeglut specific extensions, you should “#include <GL/freeglut.h>” instead.
+  gcc -c -o test.o test.c -I"C:\Program Files\Common Files\MinGW\freeglut\include"
+  gcc -o test.exe test.o -L"C:\Program Files\Common Files\MinGW\freeglut\lib" -lfreeglut -lopengl32 -Wl,--subsystem,windows
 
 Don’t forget to either include the freeglut DLL when distributing applications,
 or provide your users with some method of obtaining it if they don’t already
@@ -56,11 +41,43 @@ have it!
 Compiling 64 bit Applications
 
 Building 64 bit applications is almost identical to building 32 bit applications.
-When you use the configuration manager to add the x64 platform, it’s easiest to
-copy the settings from the Win32 platform. If you do so, it’s then only necessary
-to change the “Additional Library Directories” configuration so that it
-references the directory containing the 64 bit import library rather
-than the 32 bit one.
+The only difference is that you should change the library path on the command
+line to point to the x64 directory:
+
+  gcc -c -o test.o test.c -I"C:\Program Files\Common Files\MinGW\freeglut\include"
+  gcc -o test.exe test.o -L"C:\Program Files\Common Files\MinGW\freeglut\lib\x64" -lfreeglut -lopengl32 -Wl,--subsystem,windows
+
+
+Static Linking
+
+To statically link the freeglut library into your application, it’s necessary to
+define “FREEGLUT_STATIC” when compiling the object files. It’s also necessary to
+link the static version of the freeglut library, along with the GDI and Windows
+multimedia libraries which freeglut depends upon:
+
+  gcc -c -o test.o test.c -D FREEGLUT_STATIC -I"C:\Program Files\Common Files\MinGW\freeglut\include"
+  gcc -o test.exe test.o -L"C:\Program Files\Common Files\MinGW\freeglut\lib" -lfreeglut_static -lopengl32 -lwinmm -lgdi32 -Wl,--subsystem,windows
+
+The “-Wl,--subsystem,windows” is needed in each case so that the application
+builds as a Windows GUI application rather than a console application. If you
+are using GLU functions you should also include “-lglu32” on the command line.
+
+When statically linking a 64 bit build, you should change the library path as
+detailed under the “Compiling 64 bit Applications” section.
+
+
+Full Tutorial
+
+Please visit http://www.transmissionzero.co.uk/computing/using-glut-with-mingw/
+for a complete guide on using GLUT and freeglut with MinGW.
+
+
+Cross-Compilation
+
+I’ve not covered the setup of freeglut for use in cross-compilation, i.e. when
+building Windows freeglut applications using a Linux system. Setting freeglut up
+with MinGW on other operating systems can be done following the instructions
+above, except that the paths will be different.
 
 
 Problems?
@@ -72,35 +89,30 @@ missing a step or not doing it correctly, for example trying to build a 32 bit
 app against the 64 bit import library. If you have followed all of the steps
 correctly but your application still fails to build, try building a very simple
 but functional program (the example at
-http://www.transmissionzero.co.uk/computing/using-glut-with-mingw/ works fine
-with MSVC). A lot of people try to build very complex applications after
-installing these packages, and often the error is with the application code or
-other library dependencies rather than freeglut.
+http://www.transmissionzero.co.uk/computing/using-glut-with-mingw/ is ideal). A
+lot of people try to build very complex applications after installing these
+packages, and often the error is with the application code or other library
+dependencies rather than freeglut.
 
 If you still can’t get it working after trying to compile a simple application,
 then please get in touch via http://www.transmissionzero.co.uk/contact/,
 providing as much detail as you can. Please don’t complain to the freeglut guys
 unless you’re sure it’s a freeglut bug, and have reproduced the issue after
-compiling freeglut from the latest SVN version—if that’s still the case, I’m
-sure they would appreciate a bug report or a patch.
+compiling freeglut from the latest SVN version—if that’s still the case, I’m sure
+they would appreciate a bug report or a patch.
 
 
 Changelog
 
-2015–07–22: Release 3.0.0-2.mp
+2015-03-15: Release 3.0.0-1.mp
 
-  • Modified the freeglut_std.h file so that it doesn’t try to link against the
-    freeglutd.lib import library.
-
-2015–03–15: Release 3.0.0-1.mp
-
-  • First 3.0.0 MSVC release. I’ve built the package using Visual Studio 2013,
-    and the only change I’ve made is to the DLL version resource—I’ve changed
-    the description so that my MinGW and MSVC builds are distinguishable from
-    each other (and other builds) using Windows Explorer.
+  • First 3.0.0 MinGW release. I’ve built the package using MinGW, and the only
+    change I’ve made is to the DLL version resource—I’ve changed the description
+    so that my MinGW and MSVC builds are distinguishable from each other (and
+    other builds) using Windows Explorer.
 
 
 Transmission Zero
-2015–07–22
+2015-03-15
 
 http://www.transmissionzero.co.uk/
