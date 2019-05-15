@@ -11,7 +11,11 @@ class instrument{
         static double coords;
         const float PI = 3.141592653589f;
         void tick(){
+<<<<<<< HEAD
             /*if(d2){
+=======
+            if(d2){
+>>>>>>> origin/master
                 glBegin(GL_POLYGON);
                 for(int i = 0; i < verts; i++){
                     float angle = i/(float)verts * 2.f * PI;
@@ -20,7 +24,11 @@ class instrument{
                 glEnd();
             }else{
 
+<<<<<<< HEAD
             }*/
+=======
+            }
+>>>>>>> origin/master
         }
 
         void render(){

@@ -34,8 +34,12 @@ TODO:
 #include <winioctl.h>
 #include <unistd.h>
 #include <fcntl.h> //open
+<<<<<<< HEAD
 #include <map>
 #include <string>
+=======
+
+>>>>>>> origin/master
 
 #include <stdio.h>
 
@@ -151,6 +155,7 @@ static void idle(void)
 
 
 
+
 const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
 const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -160,6 +165,7 @@ const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
 const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
 const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat high_shininess[] = { 100.0f };
+<<<<<<< HEAD
 std::vector<instrument> instruments;
 
 void render()
@@ -172,11 +178,18 @@ void displayMain(void)
     const double a = timeScale*90.0;
 
 }
+=======
+>>>>>>> origin/master
 static void WBInit(int argc,char **argv, int argac,char **argav){
     //int argc;char **argv;
     //int argac;char **argav;
     glutInit(&argc, argv);
     alutInit(&argac, argav);
+<<<<<<< HEAD
+=======
+    glutInitWindowSize(1080, 960);
+    glutInitWindowPosition(10,10);
+>>>>>>> origin/master
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
 
@@ -206,6 +219,7 @@ static void WBInit(int argc,char **argv, int argac,char **argav){
     glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
     glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
+<<<<<<< HEAD
     glutInitWindowSize(1080,900);
     glutInitWindowPosition(10,10);
     glutCreateWindow("WaveBricks Main Window");
@@ -228,6 +242,50 @@ void initMainBoard(void){
     glutReshapeFunc(resize);
     glutDisplayFunc(displayBoard);
     glutIdleFunc(idle);
+=======
+    glutInitWindowSize(700, 1080);
+    glutInitWindowPosition(10,10);
+    glutCreateWindow("WaveBricks Main Window");
+}
+
+
+void initMainBoard(void){
+    glutInitWindowSize(1080, 960);
+    glutInitWindowPosition(10,10);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+
+    glutCreateWindow("WaveBricks Manager");
+
+    glutReshapeFunc(resize);
+    glutDisplayFunc(display);
+    glutIdleFunc(idle);
+
+    glClearColor(1,1,1,1);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    glEnable(GL_LIGHT0);
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+
+    glutInitWindowSize(700, 320);
+    glutInitWindowPosition(10,10);
+    glutCreateWindow("WaveBricks Instrument Manager");
+>>>>>>> origin/master
 }
 
 int winSelect=0;
@@ -303,11 +361,19 @@ int main(int argc, char **argv)
 {
     cout << "           WaveBricks v 1.0\n      copyright 2018 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
     WBInit(NULL,NULL,NULL,NULL);
+<<<<<<< HEAD
     initMainBoard();///////////sldjadajsdjjsdaldjsjddjlwdjljw;
     cout << "done.\nbegin init loop.";
     glutMainLoop();
 
     /*while (!stop){
+=======
+    initMainBoard();
+    cout << "done.\nbegin init loop.";
+
+
+    while (!stop){
+>>>>>>> origin/master
         //HWND hwnd=GetForegroundWindow();
         //void glutPassiveMotionFunc(void *updateMouse);
         for(int i=0; i <=instCount;i++){
@@ -317,6 +383,10 @@ int main(int argc, char **argv)
             instruments[i].render();
             //glutMainLoopEvent();
         }
+<<<<<<< HEAD
     }*/
+=======
+    }
+>>>>>>> origin/master
     return EXIT_SUCCESS;
 }

@@ -65,7 +65,11 @@
 
 1485631403 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
+<<<<<<< HEAD
 1538517368 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+=======
+1537046108 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+>>>>>>> origin/master
 	<GLUT/glut.h>
 	"GLUI/glui.h"
 	"al.h"
@@ -187,7 +191,11 @@
 	<vfw.h>
 	<tchar.h>
 
+<<<<<<< HEAD
 1538517267 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
+=======
+1537195320 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
+>>>>>>> origin/master
 	<windows.h>
 	<stdlib.h>
 	<vector>
