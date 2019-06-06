@@ -652,15 +652,15 @@ class instrument{
                 }
                 for (int i=0; i<voices_spinner;i++){
                         //TODO: set voice values all to 1 unless being played, wherat custom values proclaimed
-                    instrumentPoly[i][0]=((xpos_spinner*(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
-                                              scale_spinner*xmod_spinner*cos((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
+                                              scale_spinner*xmod_spinner*sin((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
-                    instrumentPoly[i][1]=((ypos_spinner*(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
+                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
                                               scale_spinner*ymod_spinner*cos((i/voices_spinner)*ymod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
-                    instrumentPoly[i][2]=(zpos_spinner * (zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner));
+                    instrumentPoly[i][2]=(zpos_spinner + (zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner));
 
 
 
@@ -690,15 +690,15 @@ class instrument{
                     }
                 }
                 for (int i=0; i<voices_spinner;i++){
-                    instrumentPoly[i][0]=((xpos_spinner*(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
-                                              scale_spinner*xmod_spinner*cos((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
+                                              scale_spinner*xmod_spinner*sin((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
-                    instrumentPoly[i][1]=((ypos_spinner*(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*ymod_spinner*cos((i/voices_spinner)*ymod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*ymod_spinner*cos((i/voices_spinner)*ymod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))
                                             *(pitchscale_spinner*voicespitch.at(i))*(ampscale_spinner*voicesamp[i])));
-                    instrumentPoly[i][2]=((zpos_spinner*(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*zmod_spinner*sin((i/voices_spinner)+voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][2]=((zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*zmod_spinner*sin((i/voices_spinner)+voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))
                                             *(pitchscale_spinner*voicespitch.at(i))*(ampscale_spinner*voicesamp[i]));
@@ -728,15 +728,15 @@ class instrument{
                 }
                 for (int i=0; i<voices_spinner;i++){
                         //TODO: set voice values all to 1 unless being played, wherat custom values proclaimed
-                    instrumentPoly[i][0]=((xpos_spinner*(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
-                                              scale_spinner*xmod_spinner*cos((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
+                                              scale_spinner*xmod_spinner*sin((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
-                    instrumentPoly[i][1]=((ypos_spinner*(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
+                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
                                               scale_spinner*ymod_spinner*cos((i/voices_spinner)*ymod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
-                    instrumentPoly[i][2]=(zpos_spinner * (zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner));
+                    instrumentPoly[i][2]=(zpos_spinner + (zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner));
 
 
 
@@ -765,15 +765,15 @@ class instrument{
                     }
                 }
                 for (int i=0; i<voices_spinner;i++){
-                    instrumentPoly[i][0]=((xpos_spinner*(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
-                                              scale_spinner*xmod_spinner*cos((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) +
+                                              scale_spinner*xmod_spinner*sin((i/voices_spinner)*xmod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
-                    instrumentPoly[i][1]=((ypos_spinner*(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*ymod_spinner*cos((i/voices_spinner)*ymod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*ymod_spinner*cos((i/voices_spinner)*ymod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))
                                             *(pitchscale_spinner*voicespitch.at(i))*(ampscale_spinner*voicesamp[i])));
-                    instrumentPoly[i][2]=((zpos_spinner*(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*zmod_spinner*sin((i/voices_spinner)+voicespitch.at(i)*pitchrot_spinner
+                    instrumentPoly[i][2]=((zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) + scale_spinner*zmod_spinner*sin((i/voices_spinner)+voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))
                                             *(pitchscale_spinner*voicespitch.at(i))*(ampscale_spinner*voicesamp[i]));

@@ -439,6 +439,17 @@ const GLfloat high_shininess[] = { 100.0f };
 
 ALuint source, buffer;
 
+static void glClearError()
+{
+    while(glGetError()!=GL_NO_ERROR);
+}
+static void glCheckError()
+{
+    while (GLenum error= glGetError()){
+        std::cout <<"\nOpenGL Error:"<<error;
+    }
+}
+
 struct ShaderProgramSource
 {
     std::string VertexSource;
@@ -530,11 +541,14 @@ void display(void)
         float colors[instruments[it].voices_spinner*4];
         std::string vertexShader;
         std::string fragmentShader;
-        unsigned int indices[instruments[it].voices_spinner^2];
+        unsigned int indices[instruments[it].voices_spinner*2];
+        for (int i=0;i<instruments[it].voices_spinner;i++){
+            indices[i]=i;
+        }
+        for (int i=instruments[it].voices_spinner-1;i>-1;i--){
+            indices[instruments[it].voices_spinner+i]=i;
+        }
         for(int i=0; i<instruments[it].voices_spinner; i++){
-            for(int iy=0;iy<instruments[it].voices_spinner;iy++){
-                indices[i*iy]=i*iy;
-            }
 
             verts[3*i]=instruments[it].instrumentPoly[i][0];
             cout<<"\n"<<verts[3*i]<<",";
@@ -551,9 +565,9 @@ void display(void)
             colors[4*i+3]=1.0f;
 
             unsigned int buffer;
-            glGenBuffers(it, &buffer);
+            glGenBuffers(1, &buffer);
             glBindBuffer(GL_ARRAY_BUFFER,buffer);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(verts),verts, GL_DYNAMIC_DRAW);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(verts),verts, GL_STATIC_DRAW);
             glDrawArrays(GL_TRIANGLES, 0, instruments[it].voices_spinner);
 
 
@@ -561,11 +575,11 @@ void display(void)
             glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(float)*3,0);
 
             unsigned int ibo;
-            glGenBuffers(it, &ibo);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,buffer);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices, GL_DYNAMIC_DRAW);
-            glDrawArrays(GL_TRIANGLES, 0, instruments[it].voices_spinner);
-
+            glGenBuffers(1, &ibo);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices, GL_STATIC_DRAW);
+            glDrawElements(GL_TRIANGLES, instruments[it].voices_spinner*2,GL_UNSIGNED_INT, nullptr);
+            //glCheckError();
             ShaderProgramSource source = ParseShader("shade.shader");
             unsigned int shader= CreateShader(source.VertexSource, source.FragmentSource);
             glUseProgram(shader);
@@ -573,8 +587,6 @@ void display(void)
 
 
     }
-    //glFinish();
-    glutSwapBuffers();
 
 }
 static void WBInit(){
