@@ -51,25 +51,57 @@
 
 1485627589 c:\weed op\weed-op\weed op\include\entities.h
 
-1536013542 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
+1559762136 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<cmath>
 	<vector>
 	<windows.h>
 	<stdlib.h>
 	<fstream>
+	<iostream>
 	<GLUT/glut.h>
 	"GLUI/glui.h"
+	<GL/freeglut.h>
 	<GL/glut.h>
-	"GL/glui.h"
+	<GL/glui.h>
+	<GL/gl.h>
+	<GL/glu.h>
 	"entities.h"
 
 1485631403 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
-<<<<<<< HEAD
-1538517368 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
-=======
-1537046108 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
->>>>>>> origin/master
+1495245212 D
+
+1559779690 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+	<windows.h>
+	<GLUT/glut.h>
+	"GLUI/glui.h"
+	"al.h"
+	"alc.h"
+	"alut.h"
+	<GL/glew.h>
+	<GL/glui.h>
+	<GL/freeglut.h>
+	<GLFW/glfw3.h>
+	"al.h"
+	"alc.h"
+	"alut.h"
+	<cmath>
+	<vector>
+	<stdlib.h>
+	<iostream>
+	<fstream>
+	"file.cpp"
+	<winioctl.h>
+	<unistd.h>
+	<fcntl.h>
+	<thread>
+	<map>
+	<string>
+	<sstream>
+	<stdio.h>
+	"entities.h"
+
+1537195320 gin/master
 	<GLUT/glut.h>
 	"GLUI/glui.h"
 	"al.h"
@@ -96,8 +128,11 @@
 	"synths.h"
 	"synths.cpp"
 	"entities.cpp"
+	<windows.h>
+	<stdlib.h>
+	<vector>
 
-1536013542 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
+1558484522 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<cmath>
 	<vector>
 	<windows.h>
@@ -145,7 +180,7 @@
 
 1494794510 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\soundcard.h
 
-1403793918 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\alut.h
+1559263557 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\alut.h
 	<alc.h>
 	<al.h>
 	<OpenAL/alc.h>
@@ -191,16 +226,32 @@
 	<vfw.h>
 	<tchar.h>
 
-<<<<<<< HEAD
-1538517267 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
-=======
-1537195320 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
->>>>>>> origin/master
+1559768902 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
 	<windows.h>
 	<stdlib.h>
 	<vector>
+	<algorithm>
+	<GL/freeglut.h>
+	<GL/glut.h>
+	<GL/glui.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	"al.h"
+	"alc.h"
+	"alut.h"
+	"stdio.h"
+	"math.h"
+	<string>
+	"string"
+	<iostream>
+	<vector>
+	<tuple>
+	<utility>
+	<stdio.h>
+	<assert.h>
 
-1536013731 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\synths.h
+1558555247 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\synths.h
 	<windows.h>
 	<stdlib.h>
 	<vector>
@@ -216,7 +267,7 @@
 	"al.h"
 	"alc.h"
 
-1536013676 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\synths.cpp
+1558704885 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\synths.cpp
 	<windows.h>
 	<stdlib.h>
 	<vector>
@@ -226,11 +277,18 @@
 	"GL/glui.h"
 	"synths.h"
 
-1496935107 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1558486466 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<GLUT/glut.h>
 	"GLUI/glui.h"
+	"al.h"
+	"alc.h"
+	"alut.h"
 	<GL/glut.h>
+	<synths.h>
 	"GL/glui.h"
+	"al.h"
+	"alc.h"
+	"alut.h"
 	<cmath>
 	<vector>
 	<windows.h>
@@ -241,16 +299,13 @@
 	<winioctl.h>
 	<unistd.h>
 	<fcntl.h>
+	<map>
+	<string>
 	<stdio.h>
-	"al.h"
-	"alc.h"
-	"alut.h"
-	"entities.h"
-	"synths.h"
-	<audio/wave.h>
-	"alut.h"
+	"synths.cpp"
+	"entities.cpp"
 
-1536013731 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\synths.h
+1558555247 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\synths.h
 	<windows.h>
 	<stdlib.h>
 	<vector>
@@ -258,7 +313,7 @@
 	<GL/glut.h>
 	<audio/wave.h>
 
-1536013676 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\synths.cpp
+1558481772 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\synths.cpp
 	<windows.h>
 	<stdlib.h>
 	<vector>
@@ -281,4 +336,261 @@
 	<GL/gl.h>
 	<GL/glu.h>
 	<stdlib.h>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/FileInputStream.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/MemoryInputStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1539639088 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\config.hpp
+	"TargetConditionals.h"
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1539639088 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\fileinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdio>
+	<string>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\memoryinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Export.hpp>
+	<cstdlib>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<iterator>
+	<locale>
+	<string>
+	<SFML/System/String.inl>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\utf.inl
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\string.inl
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\thread.inl
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\threadlocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\threadlocalptr.inl
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\vector2.inl
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\system\vector3.inl
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<algorithm>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundfilefactory.inl
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1525815618 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\sfml-2.5.1\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1559700443 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\tess.c
+
+1501503939 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glew-2.1.0\src\glew.c
+	<GL/glew.h>
+	<GL/osmesa.h>
+	<GL/eglew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<stddef.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1501503939 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glew.c
+	<GL/glew.h>
+	<GL/osmesa.h>
+	<GL/eglew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<stddef.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
 

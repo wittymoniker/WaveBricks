@@ -1,15 +1,5 @@
-/*
-WEED OP ENGINE - WEED GROWING VIDEO GAME
 
-TODO:
-    BEGIN BUILDING ENGINE, LEARNING ABOUT OUR LIBRARIES:
-    -OPENAL
-    -SOUNDPlayer
-    -ImgStream(useless now?):
-    -AviFile
-    -entities.cpp needs work - will house our synth functions which controls shapes and sounds, and interconnects them generally
- */
-
+#include <windows.h>
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #include "GLUI/glui.h"
@@ -17,16 +7,20 @@ TODO:
 #include "alc.h"
 #include "alut.h"
 #else
-#include <GL/glut.h>
-#include <synths.h>
-#include "GL/glui.h"
+//#pragma comment(lib, "glut32.lib")
+#include <GL/glew.h>
+#include<GL/glui.h>
+#include<GL/freeglut.h>
+#include<GLFW/glfw3.h>
+//
+
 #include "al.h"
 #include "alc.h"
 #include "alut.h"
 #endif
 #include <cmath>
 #include <vector>
-#include <windows.h>
+
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
@@ -34,26 +28,57 @@ TODO:
 #include <winioctl.h>
 #include <unistd.h>
 #include <fcntl.h> //open
-<<<<<<< HEAD
+
+#include<thread>
+
 #include <map>
 #include <string>
-=======
-
->>>>>>> origin/master
+#include <sstream>
 
 #include <stdio.h>
 
 #include "entities.h"
-#include "synths.h"
 
-#include "synths.cpp"
-#include "entities.cpp"
+//#include "synths.cpp"
+//#include "entities.cpp"
 using namespace std;
 
 
 //static ALuint audios[];
-static ALuint soundstream;
-static ALuint notestream;
+
+
+static std::vector<instrument> instruments;
+
+
+static int playbutton=0;
+static int pausebutton=1;
+static int stopbutton=2;
+static int addinstbutton=3;
+static float tracking=0.0;
+static float tempo=160.0;
+static int savebutton=6;
+static int loadbutton=7;
+
+void display (void);
+void reshape (int w, int h);
+void mouse (int button, int state, int x, int y);
+void motion (int x, int y);
+void pmotion (int x, int y);
+void keyboard (unsigned char key, int x, int y);
+void special (int key, int x, int y);
+void entry (int state);
+int window_x=400;
+int window_y=100;
+int window_width = 600;
+int window_height = 300;
+char *mainboard_title = "WaveBricks Manager";
+int full_screen = 0;
+GLUI * mainboard_window;
+GLint mainboard_pane;
+GLFWwindow* wavebricks_window;
+
+
+
 
 static void list_audio_devices(const ALCchar *devices)
 {
@@ -103,6 +128,67 @@ static inline ALenum to_al_format(short channels, short samples)
 bool left;
 bool right;
 float mX,mY;
+void mouse (int button, int state, int x, int y)
+{
+	//  Notify that this is a GLUT Callback
+	printf ("GLUT: ");
+
+	switch (button)
+	{
+		//  Left Button Clicked
+		case GLUT_LEFT_BUTTON:
+
+			switch (state)
+			{
+				//  Pressed
+				case GLUT_DOWN:
+					printf ("Mouse Left Button Pressed (Down)...\n");
+					break;
+				//  Released
+				case GLUT_UP:
+					printf ("Mouse Left Button Released (Up)...\n");
+					break;
+			}
+
+			break;
+
+		//  Middle Button clicked
+		case GLUT_MIDDLE_BUTTON:
+
+			switch (state)
+			{
+				//  Pressed
+				case GLUT_DOWN:
+					printf ("Mouse Middle Button Pressed (Down)...\n");
+					break;
+				//  Released
+				case GLUT_UP:
+					printf ("Mouse Middle Button Released (Up)...\n");
+					break;
+			}
+
+			break;
+
+		//  Right Button Clicked
+		case GLUT_RIGHT_BUTTON:
+
+			switch (state)
+			{
+				//  Pressed
+				case GLUT_DOWN:
+					printf ("Mouse Right Button Pressed (Down)...\n");
+					break;
+				//  Released
+				case GLUT_UP:
+					printf ("Mouse Right Button Released (Up)...\n");
+					break;
+			}
+
+			break;
+
+	}
+}
+
 static void updateMouse(int x, int y){
     bool right=0;
     bool left=0;
@@ -114,13 +200,202 @@ static void updateMouse(int x, int y){
         right=true;
     }
 }
+void motion (int x, int y)
+{
+	//  Notify that this is a GLUT Callback
+	printf ("GLUT: ");
+
+	//  Print the mouse drag position
+	printf ("Mouse Drag Position: %d, %d.\n", x, y);
+}
+
+void pmotion (int x, int y)
+{
+	//  Notify that this is a GLUT Callback
+	//printf ("GLUT: ");
+
+	//  Print mouse move positopn
+	//printf ("Mouse Move Position: %d, %d.\n", x, y);
+}
+
+
+void keyboard (unsigned char key, int x, int y)
+{
+	//  Notify that this is a GLUT Callback
+	printf ("GLUT: ");
+
+	//  Print what key the user is hitting
+	printf ("User is hitting the '%c' key.\n", key);
+	printf ("ASCII code is %d.\n", key);
+
+	switch (key)
+	{
+		//  User hits A key
+		case 'p':
+
+			break;
+
+		//  User hits Shift + A key
+		case 'P':
+
+			break;
+
+		//  User hits Enter
+		case 's':
+			printf ("User is hitting the Return key.\n");
+			break;
+
+		//  User hits Space
+		case ' ':
+			printf ("User is hitting the Space key.\n");
+			break;
+
+		//  User hits back space
+		case 8:
+			printf ("User is hitting the Back Space key.\n");
+			break;
+	}
+
+	glutPostRedisplay ();
+}
+void entry (int state)
+{
+	//  Notify that this is a GLUT Callback
+	printf ("GLUT: ");
+
+	//  Notify theat we entered the window
+	if (state == GLUT_ENTERED)
+		printf ("Mouse entered GLUT window...\n");
+	//  Notify that we left the window
+	else if (state == GLUT_LEFT)
+		printf ("Mouse left GLUT window...\n");
+}
+static void idle(void)
+{
+	glfwMakeContextCurrent(wavebricks_window);
+	//glutPostRedisplay ();
+}
+
+void centerOnScreen ()
+{
+	window_x = (glutGet (GLUT_SCREEN_WIDTH) - window_width)/2;
+	window_y = (glutGet (GLUT_SCREEN_HEIGHT) - window_height)/2;
+}
+enum
+{
+	PLAYBUTTON,
+	PAUSEBUTTON,
+	STOPBUTTON,
+	TRACKING_SPINNER,
+	TEMPO_SPINNER,
+	SAVEBUTTON,
+	LOADBUTTON,
+	ADDINSTBUTTON
+};
+
+void assembleInst()
+{
+    instrument newInst;
+    //instruments.resize(instruments.size()+1);
+    instruments.push_back(newInst);
+    instruments[instruments.size()-1].assemble();
+    //instruments[instruments.size()-1].synth_panel->set_main_gfx_window( wavebricks_window );
+}
+
+void save(){
+
+}
+void load(){
+    std::string loadfile="";
+    cout<<"\nfilename: ";
+    cin>>loadfile;
+}
+void trackPlay(){
+    //tracking =
+    ALCdevice *dev = NULL;
+    ALCcontext *ctx = NULL;
+
+    const char *defname = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+    std::cout << "Default device: " << defname << std::endl;
+
+    dev = alcOpenDevice(defname);
+    ctx = alcCreateContext(dev, NULL);
+    alcMakeContextCurrent(ctx);
+    for(int i=0;i<instruments.size();i++){
+        instruments[i].currentStep = tracking;
+        instruments[i].assembleSongData();
+        alBufferData(instruments[i].soundbuffer, AL_FORMAT_MONO16, &instruments[i].samples, sizeof(instruments[i].samples), 44100);
+        instruments[i].soundsource = i;
+        alGenSources(i, &instruments[i].soundsource);
+        alSourcei(instruments[i].soundsource, AL_BUFFER, instruments[i].soundbuffer);
+    }
+    for(int i=0;i<instruments.size();i++){
+        alSourcePlay(instruments[i].soundsource);
+
+    }
+
+
+}
+void trackPause(){
+    //tracking =
+    for(int i=0;i<instruments.size();i++){
+        alSourcePause(instruments[i].soundsource);
+    }
+
+
+}
+static void mainboard_callback (int control_id)
+{
+	//  Notify that this is a GLUI Callback
+	printf ("GLUI: ");
+
+	//  Behave based on control ID
+	switch (control_id)
+	{
+		//  Color Listbox item changed
+
+		case ADDINSTBUTTON:
+
+			printf ("Added Instrument to panel.\n");
+
+			assembleInst();
+
+		break;
+		case PLAYBUTTON:
+
+			printf ("Play.\n");
+
+			trackPlay();
+
+		break;
+		case PAUSEBUTTON:
+
+			printf ("Pause.\n");
+
+			trackPause();
+
+		break;
+        case SAVEBUTTON:
+
+			printf ("Save/Export.\n");
+
+			save();
+
+		break;
+		case LOADBUTTON:
+
+			printf ("Load Song.\n");
+
+			load();
+
+		break;
+
+	}
+}
 
 bool selector;//
-string activeWind;//
-bool play;//
+string activeWind;/////
 float seek;//
-float tempo;//
-
 static void key(unsigned char key, int x, int y)
 {
     //TODO: refer switches of mouse to trigger and change value from here.
@@ -134,7 +409,7 @@ static void key(unsigned char key, int x, int y)
 
 }
 
-static void resize(int width, int height)
+static void Resize(int width, int height)
 {
     const float ar = (float) width / (float) height;
 
@@ -145,14 +420,8 @@ static void resize(int width, int height)
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity() ;
+
 }
-
-static void idle(void)
-{
-    glutPostRedisplay();
-}
-
-
 
 
 
@@ -165,228 +434,249 @@ const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
 const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
 const GLfloat mat_specular[]   = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat high_shininess[] = { 100.0f };
-<<<<<<< HEAD
-std::vector<instrument> instruments;
 
-void render()
+
+
+ALuint source, buffer;
+
+struct ShaderProgramSource
 {
-    for (auto instr : instruments) instr.render();
+    std::string VertexSource;
+    std::string FragmentSource;
+};
+
+static ShaderProgramSource ParseShader(const std::string& filepath){
+    std::ifstream stream(filepath);
+
+    enum class ShaderType{
+        NONE=-1,VERTEX=0,FRAGMENT=1
+    };
+
+    std::string line;
+
+    std::stringstream ss[2];
+
+    ShaderType type = ShaderType::NONE;
+    while(getline(stream, line)){
+        if(line.find("#shader")!=std::string::npos){
+            if(line.find("vertex")!= std::string::npos){
+                type= ShaderType::VERTEX;
+            }else if (line.find("fragment")!= std::string::npos){
+                type=ShaderType::FRAGMENT;
+            }
+        }else{
+            ss[(int) type] << line << '\n';
+        }
+    }
+
+    return{ ss[0].str(), ss[1].str()};
 }
-void displayMain(void)
-{
-    const double timeScale = glutGet(GLUT_ELAPSED_TIME) / 420.00;
-    const double a = timeScale*90.0;
+static unsigned int CompileShader(unsigned int type,const std::string& source){
+    unsigned int id=glCreateShader(type);
+    const char* src=source.c_str();
+    glShaderSource(id, 1,&src,nullptr);
+    glCompileShader(id);
+    int result;
+    glGetShaderiv(id, GL_COMPILE_STATUS,&result );
+    if(result==GL_FALSE){
+        int length;
+        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+        glDeleteShader(id);
+        return 0;
+    }
+
+    return id;
+}
+
+static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader){
+    unsigned int program= glCreateProgram();
+    unsigned int vs=CompileShader(GL_VERTEX_SHADER,vertexShader);
+    unsigned int fs=CompileShader(GL_FRAGMENT_SHADER,fragmentShader);
+
+    glAttachShader(program,vs);
+    glAttachShader(program,fs);
+    glLinkProgram(program);
+    glValidateProgram(program);
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+
+    return program;
 
 }
-=======
->>>>>>> origin/master
-static void WBInit(int argc,char **argv, int argac,char **argav){
+
+
+
+void display(void)
+{
+    //glfwMakeContextCurrent(wavebricks_window);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Set background color to black and opaque
+    glLoadIdentity();
+    //glTranslatef(1.5f, 0.0f, -7.0f);
+    glClear(GL_COLOR_BUFFER_BIT );
+    glLoadIdentity();//
+
+    for (int it =0; it<instruments.size();it++){
+
+        alGetSourcef(instruments[it].soundsource, AL_SEC_OFFSET, &tracking);
+        instruments[it].currentStep=tracking*(60/tempo);
+        instruments[it].currentStep=tracking;
+        instruments[it].tempo=tempo;
+        instruments[it].render();
+
+
+
+
+        float verts[instruments[it].voices_spinner*3];
+        float colors[instruments[it].voices_spinner*4];
+        std::string vertexShader;
+        std::string fragmentShader;
+        unsigned int indices[instruments[it].voices_spinner^2];
+        for(int i=0; i<instruments[it].voices_spinner; i++){
+            for(int iy=0;iy<instruments[it].voices_spinner;iy++){
+                indices[i*iy]=i*iy;
+            }
+
+            verts[3*i]=instruments[it].instrumentPoly[i][0];
+            cout<<"\n"<<verts[3*i]<<",";
+            verts[3*i+1]=instruments[it].instrumentPoly[i][1];
+            cout<<verts[3*i+1]<<",";
+            verts[3*i+2]=instruments[it].instrumentPoly[i][2];
+            cout<<verts[3*i+2]<<":";
+            colors[4*i]=-instruments[it].instrumentPoly[i][3];
+            cout<<colors[3*i]<<",";
+            colors[4*i+1]=-instruments[it].instrumentPoly[i][4];
+            cout<<colors[3*i+1]<<",";
+            colors[4*i+2]=-instruments[it].instrumentPoly[i][5];
+            cout<<colors[3*i+2]<<";\n";
+            colors[4*i+3]=1.0f;
+
+            unsigned int buffer;
+            glGenBuffers(it, &buffer);
+            glBindBuffer(GL_ARRAY_BUFFER,buffer);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(verts),verts, GL_DYNAMIC_DRAW);
+            glDrawArrays(GL_TRIANGLES, 0, instruments[it].voices_spinner);
+
+
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(float)*3,0);
+
+            unsigned int ibo;
+            glGenBuffers(it, &ibo);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,buffer);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices, GL_DYNAMIC_DRAW);
+            glDrawArrays(GL_TRIANGLES, 0, instruments[it].voices_spinner);
+
+            ShaderProgramSource source = ParseShader("shade.shader");
+            unsigned int shader= CreateShader(source.VertexSource, source.FragmentSource);
+            glUseProgram(shader);
+        }
+
+
+    }
+    //glFinish();
+    glutSwapBuffers();
+
+}
+static void WBInit(){
     //int argc;char **argv;
     //int argac;char **argav;
-    glutInit(&argc, argv);
-    alutInit(&argac, argav);
-<<<<<<< HEAD
-=======
-    glutInitWindowSize(1080, 960);
-    glutInitWindowPosition(10,10);
->>>>>>> origin/master
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
+    wavebricks_window = glfwCreateWindow(1024,768,"WaveBricks Main Window", NULL, NULL);
 
-    glutReshapeFunc(resize);
-    glutDisplayFunc(displayMain);
-    glutIdleFunc(idle);
+    glfwMakeContextCurrent(wavebricks_window);
 
-    glClearColor(1,1,1,1);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-
-<<<<<<< HEAD
-    glutInitWindowSize(1080,900);
-    glutInitWindowPosition(10,10);
-    glutCreateWindow("WaveBricks Main Window");
-    glutDisplayFunc(render);
+    glewInit();
 }
 
-void displayBoard(void)
+void centerOnScreen ();
+void drawObject ();
+void printMatrixf (float *matrix);
+
+void printMatrixf (float *matrix)
 {
-    const double timeScale = glutGet(GLUT_ELAPSED_TIME) / 420.00;
-    const double a = timeScale*90.0;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			printf ("%f%\t", matrix[i*4 + j]);
+		}
 
-}
-void initMainBoard(void){
-
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    glutInitWindowSize(700, 320);
-    glutInitWindowPosition(10,10);
-    glutCreateWindow("WaveBricks Manager");
-
-    glutReshapeFunc(resize);
-    glutDisplayFunc(displayBoard);
-    glutIdleFunc(idle);
-=======
-    glutInitWindowSize(700, 1080);
-    glutInitWindowPosition(10,10);
-    glutCreateWindow("WaveBricks Main Window");
+		printf ("\n");
+	}
 }
 
+GLUI_Master_Object GLUIMaster;
+void initMainBoard ()
+{
+    glutInitWindowSize(250,275);
+    mainboard_pane = glutCreateWindow("Wavebricks Manager");
+    glutDisplayFunc(idle);
+    GLUI_Master.set_glutIdleFunc (idle);
+    GLUI_Master.set_glutMouseFunc(mouse);
+    GLUI_Master.set_glutDisplayFunc(display);
+	mainboard_window = GLUI_Master.create_glui_subwindow (mainboard_pane);
 
-void initMainBoard(void){
-    glutInitWindowSize(1080, 960);
-    glutInitWindowPosition(10,10);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	GLUI_Panel *pm_panel = mainboard_window->add_panel ("Performance Manager");
 
-    glutCreateWindow("WaveBricks Manager");
+	mainboard_window->add_button_to_panel(pm_panel, "Play",PLAYBUTTON, mainboard_callback );
+	mainboard_window->add_button_to_panel(pm_panel, "Pause",PAUSEBUTTON, mainboard_callback );
+	mainboard_window->add_button_to_panel(pm_panel, "Add Instrument",ADDINSTBUTTON, mainboard_callback );
+	mainboard_window->add_spinner_to_panel(pm_panel, "Tracking", GLUI_SPINNER_FLOAT, &tracking, TRACKING_SPINNER, mainboard_callback);
+	mainboard_window->add_spinner_to_panel(pm_panel, "Tempo", GLUI_SPINNER_FLOAT, &tempo, TEMPO_SPINNER, mainboard_callback );
+	mainboard_window->add_button_to_panel(pm_panel, "Save", SAVEBUTTON, mainboard_callback );
+	mainboard_window->add_button_to_panel(pm_panel, "Load", LOADBUTTON, mainboard_callback );
 
-    glutReshapeFunc(resize);
-    glutDisplayFunc(display);
-    glutIdleFunc(idle);
-
-    glClearColor(1,1,1,1);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-
-    glutInitWindowSize(700, 320);
-    glutInitWindowPosition(10,10);
-    glutCreateWindow("WaveBricks Instrument Manager");
->>>>>>> origin/master
+    //glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
+    mainboard_window->set_main_gfx_window( mainboard_pane );
+    GLUI_Master.set_glutIdleFunc( NULL );
+    GLUI_Master.set_glutMouseFunc(mouse);
 }
+
+
+
 
 int winSelect=0;
-static void addInst(int argc, char *argv[], int indexInst){
-    //glutInit(&argc, argv);
-    //alutInit(&argc, argv);
-    glutInitWindowSize(400, 960);
-    glutInitWindowPosition(10,10);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 
-    glutCreateWindow("WaveBricks Instrument " + char(indexInst));
 
-    glClearColor(1,1,1,1);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-
-    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-}
-/* Program entry point */
 int instCount = 0;
 char wnd_title[256];
-bool recording = false;
-bool stop = false;
 
 ALuint songbuffer;
 
 string winTit;
 
 
-GLUI *glui;
-GLUI_Rollout		*object_rollout;
-GLUI_RadioGroup		*object_type_radio;
-GLUI_Rotation		*object_rotation;
-GLUI_Translation	*object_xz_trans;
-GLUI_Translation	*object_y_trans;
-
-GLUI_Rollout		*anim_rollout;
-GLUI_Button			*action_button;
-
-GLUI_Checkbox *draw_floor_check;
-GLUI_Checkbox *draw_object_check;
-
-// This  checkbox utilizes the callback
-GLUI_Checkbox *use_depth_buffer;
-void updateUI(){
-    HWND hwnd=GetForegroundWindow();
-    for (int i =0; i<=instCount; i++){
-        winTit = GetWindowText(hwnd,wnd_title,sizeof(wnd_title));
-        if("Wavebricks Instrument " + i==winTit){
-            winSelect=i;
-        }
-        winTit="";
-    }
-}
-std::vector<synthpanel> sounds;
 int main(int argc, char **argv)
 {
-    cout << "           WaveBricks v 1.0\n      copyright 2018 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
-    WBInit(NULL,NULL,NULL,NULL);
-<<<<<<< HEAD
-    initMainBoard();///////////sldjadajsdjjsdaldjsjddjlwdjljw;
-    cout << "done.\nbegin init loop.";
-    glutMainLoop();
+    cout << "           WaveBricks v 1.0\n      copyright 2019 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
+    glutInit(&argc, argv);
+    alutInit(&argc, argv);
+    glfwInit();
+//    glewInit();
 
-    /*while (!stop){
-=======
+    WBInit();
+
     initMainBoard();
-    cout << "done.\nbegin init loop.";
+//
+    ///////////sldjadajsdjjsdaldjsjddjlwdjljw;
 
 
-    while (!stop){
->>>>>>> origin/master
-        //HWND hwnd=GetForegroundWindow();
-        //void glutPassiveMotionFunc(void *updateMouse);
-        for(int i=0; i <=instCount;i++){
-            instruments[i].tick();
-        }
-        for (int i=0; i<=instCount;i++){
-            instruments[i].render();
-            //glutMainLoopEvent();
-        }
-<<<<<<< HEAD
-    }*/
-=======
+    glfwMakeContextCurrent(wavebricks_window);
+    while(!glfwWindowShouldClose(wavebricks_window)){
+        glutSetWindow(mainboard_pane);
+        glutMainLoopEvent();
+
+        glfwMakeContextCurrent(wavebricks_window);
+        glClear(GL_COLOR_BUFFER_BIT);
+        display();
+        glfwSwapBuffers(wavebricks_window);
+        glfwPollEvents();
+
     }
->>>>>>> origin/master
+
+    glfwTerminate();
+
+
+
     return EXIT_SUCCESS;
 }

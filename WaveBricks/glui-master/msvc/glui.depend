@@ -1,0 +1,365 @@
+# depslib dependency file v1.0
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\algebra3.cpp
+	"algebra3.h"
+	"glui_internal.h"
+	<cmath>
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\glui-master\algebra3.h
+	<cmath>
+	<cstdio>
+	<cstdlib>
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_internal.h
+	<cstdio>
+	<cmath>
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\arcball.cpp
+	"arcball.h"
+	<cstdio>
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\glui-master\arcball.h
+	"glui_internal.h"
+	"algebra3.h"
+	"quaternion.h"
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\glui-master\quaternion.h
+	"algebra3.h"
+	<cstdio>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui.cpp
+	"glui_internal_control.h"
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_internal_control.h
+	"GL/glui.h"
+	"glui_internal.h"
+
+1494530534 c:\users\noah\documents\wavebricks\wavebricks\glui-master\include\gl\glui.h
+	<cstdlib>
+	<GL/freeglut.h>
+	<GL/openglut.h>
+	<GLUT/glut.h>
+	"glut.h"
+	"freeglut.h"
+	<cstdio>
+	<cstring>
+	<string>
+	<vector>
+
+1485627323 c:\users\noah\documents\wavebricks\wavebricks\glui-master\include\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1485627323 c:\users\noah\documents\wavebricks\wavebricks\glui-master\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1485627323 c:\users\noah\documents\wavebricks\wavebricks\glui-master\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1485627323 c:\users\noah\documents\wavebricks\wavebricks\glui-master\include\gl\glut.h
+	"freeglut_std.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_add_controls.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_bitmap_img_data.cpp
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_bitmaps.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_button.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_checkbox.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_column.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_commandline.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_control.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_edittext.cpp
+	"glui_internal_control.h"
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_filebrowser.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	<sys/types.h>
+	<dirent.h>
+	<unistd.h>
+	<windows.h>
+	<sys/stat.h>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_list.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<sys/timeb.h>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_listbox.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_mouse_iaction.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_node.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_panel.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_radio.cpp
+	"glui_internal_control.h"
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_rollout.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_rotation.cpp
+	"GL/glui.h"
+	"arcball.h"
+	"algebra3.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_scrollbar.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_separator.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_spinner.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_statictext.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_string.cpp
+	"GL/glui.h"
+	<stdarg.h>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_textbox.cpp
+	"glui_internal_control.h"
+	<cmath>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_translation.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	"algebra3.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_tree.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_treepanel.cpp
+	"GL/glui.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\glui_window.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\glui-master\quaternion.cpp
+	"quaternion.h"
+	<cmath>
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\algebra3.cpp
+	"algebra3.h"
+	"glui_internal.h"
+	<cmath>
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\algebra3.h
+	<cmath>
+	<cstdio>
+	<cstdlib>
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_internal.h
+	<cstdio>
+	<cmath>
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\arcball.cpp
+	"arcball.h"
+	<cstdio>
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\arcball.h
+	"glui_internal.h"
+	"algebra3.h"
+	"quaternion.h"
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\quaternion.h
+	"algebra3.h"
+	<cstdio>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui.cpp
+	"glui_internal_control.h"
+
+1481611640 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_internal_control.h
+	"GL/glui.h"
+	"glui_internal.h"
+
+1494530536 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\include\gl\glui.h
+	<cstdlib>
+	<GL/freeglut.h>
+	<GL/openglut.h>
+	<GLUT/glut.h>
+	"glut.h"
+	"freeglut.h"
+	<cstdio>
+	<cstring>
+	<string>
+	<vector>
+
+1485627324 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\include\gl\freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1485627324 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1485627324 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1485627324 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\include\gl\glut.h
+	"freeglut_std.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_add_controls.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_bitmap_img_data.cpp
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_bitmaps.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_button.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_checkbox.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_column.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_commandline.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_control.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_edittext.cpp
+	"glui_internal_control.h"
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_filebrowser.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	<sys/types.h>
+	<dirent.h>
+	<unistd.h>
+	<windows.h>
+	<sys/stat.h>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_list.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<sys/timeb.h>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_listbox.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_mouse_iaction.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_node.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_panel.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_radio.cpp
+	"glui_internal_control.h"
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_rollout.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_rotation.cpp
+	"GL/glui.h"
+	"arcball.h"
+	"algebra3.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_scrollbar.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_separator.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_spinner.cpp
+	"glui_internal_control.h"
+	<cmath>
+	<cassert>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_statictext.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_string.cpp
+	"GL/glui.h"
+	<stdarg.h>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_textbox.cpp
+	"glui_internal_control.h"
+	<cmath>
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_translation.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+	"algebra3.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_tree.cpp
+	"glui_internal_control.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_treepanel.cpp
+	"GL/glui.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\glui_window.cpp
+	"GL/glui.h"
+	"glui_internal.h"
+
+1481611640 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\glui-master\quaternion.cpp
+	"quaternion.h"
+	<cmath>
+	"glui_internal.h"
+

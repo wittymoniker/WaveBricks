@@ -16,6 +16,16 @@
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
+				<Linker>
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglui32.a" />
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/alut.lib" />
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/freeglut.lib" />
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/glut32.lib" />
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libgdi32.a" />
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglew32.a" />
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglfw3.a" />
+					<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/OpenAL32.lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/WaveBricks" prefix_auto="1" extension_auto="1" />
@@ -34,24 +44,32 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
+			<Add option="-DSFML_STATIC" />
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/include" />
+			<Add directory="SFML-2.5.1/include" />
 		</Compiler>
 		<Linker>
-			<Add library="opengl32" />
+			<Add option="-lfreeglut -lglu32 -lopengl32" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglui32.a" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/freeglut.lib" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/alut.lib" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/OpenAL32.lib" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/glut32.lib" />
+			<Add library="glut32" />
 			<Add library="glu32" />
-			<Add library="winmm" />
-			<Add library="gdi32" />
+			<Add library="opengl32" />
+			<Add library="sfml-graphics" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglew32.a" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglu32.a" />
+			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libopengl32.a" />
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/lib" />
+			<Add directory="SFML-2.5.1/lib" />
 		</Linker>
-		<Unit filename="AviFile.cpp" />
-		<Unit filename="AviFile.h" />
 		<Unit filename="Bitmap.h">
 			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="ImgStream.cpp" />
-		<Unit filename="ImgStream.h" />
-		<Unit filename="ImgStream.rc">
-			<Option compilerVar="WINDRES" />
 		</Unit>
 		<Unit filename="Resource.h" />
 		<Unit filename="al.h" />
@@ -60,11 +78,13 @@
 		<Unit filename="entities.cpp" />
 		<Unit filename="entities.h" />
 		<Unit filename="file.cpp" />
+		<Unit filename="glew-2.1.0/src/glew.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="new.h" />
+		<Unit filename="shade.shader" />
 		<Unit filename="soundcard.h" />
-		<Unit filename="synths.cpp" />
-		<Unit filename="synths.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

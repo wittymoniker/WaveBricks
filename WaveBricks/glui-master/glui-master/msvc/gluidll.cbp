@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="_gluidll library" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug GLUIDLL Win32">
+				<Option output="bin/glui32dlld" prefix_auto="1" extension_auto="1" />
+				<Option object_output="DebugDLL" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-D_USRDLL" />
+					<Add option="-DGLUI_BUILDING_LIB" />
+					<Add option="-DGLUIDLL" />
+					<Add option="-W" />
+					<Add option="-g" />
+					<Add option="-O0" />
+					<Add option="-frtti" />
+					<Add directory="../include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../include" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release GLUIDLL Win32">
+				<Option output="bin/glui32dll" prefix_auto="1" extension_auto="1" />
+				<Option object_output="ReleaseDLL" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_WINDOWS" />
+					<Add option="-D_USRDLL" />
+					<Add option="-DGLUI_BUILDING_LIB" />
+					<Add option="-DGLUIDLL" />
+					<Add option="-W" />
+					<Add option="-frtti" />
+					<Add directory="../include" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../include" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="../algebra3.cpp" />
+		<Unit filename="../algebra3.h" />
+		<Unit filename="../arcball.cpp" />
+		<Unit filename="../arcball.h" />
+		<Unit filename="../glui.cpp" />
+		<Unit filename="../glui_add_controls.cpp" />
+		<Unit filename="../glui_bitmap_img_data.cpp" />
+		<Unit filename="../glui_bitmaps.cpp" />
+		<Unit filename="../glui_button.cpp" />
+		<Unit filename="../glui_checkbox.cpp" />
+		<Unit filename="../glui_column.cpp" />
+		<Unit filename="../glui_commandline.cpp" />
+		<Unit filename="../glui_control.cpp" />
+		<Unit filename="../glui_edittext.cpp" />
+		<Unit filename="../glui_filebrowser.cpp" />
+		<Unit filename="../glui_internal.h" />
+		<Unit filename="../glui_internal_control.h" />
+		<Unit filename="../glui_list.cpp" />
+		<Unit filename="../glui_listbox.cpp" />
+		<Unit filename="../glui_mouse_iaction.cpp" />
+		<Unit filename="../glui_node.cpp" />
+		<Unit filename="../glui_panel.cpp" />
+		<Unit filename="../glui_radio.cpp" />
+		<Unit filename="../glui_rollout.cpp" />
+		<Unit filename="../glui_rotation.cpp" />
+		<Unit filename="../glui_scrollbar.cpp" />
+		<Unit filename="../glui_separator.cpp" />
+		<Unit filename="../glui_spinner.cpp" />
+		<Unit filename="../glui_statictext.cpp" />
+		<Unit filename="../glui_string.cpp" />
+		<Unit filename="../glui_textbox.cpp" />
+		<Unit filename="../glui_translation.cpp" />
+		<Unit filename="../glui_tree.cpp" />
+		<Unit filename="../glui_treepanel.cpp" />
+		<Unit filename="../glui_window.cpp" />
+		<Unit filename="../include/GL/glui.h" />
+		<Unit filename="../quaternion.cpp" />
+		<Unit filename="../quaternion.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
