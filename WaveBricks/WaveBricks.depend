@@ -71,7 +71,7 @@
 
 1495245212 D
 
-1559787543 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1559958977 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<windows.h>
 	<GLUT/glut.h>
 	"GLUI/glui.h"
@@ -99,6 +99,12 @@
 	<string>
 	<sstream>
 	<stdio.h>
+	"renderer.h"
+	"vertexbuffer.h"
+	"indexbuffer.h"
+	"vertexarray.h"
+	"vertexbufferlayout.h"
+	"shader.h"
 	"entities.h"
 
 1537195320 gin/master
@@ -226,7 +232,7 @@
 	<vfw.h>
 	<tchar.h>
 
-1559788559 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
+1559866399 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
 	<windows.h>
 	<stdlib.h>
 	<vector>
@@ -593,4 +599,60 @@
 	<AvailabilityMacros.h>
 	<dlfcn.h>
 	<mach-o/dyld.h>
+
+1559913430 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\renderer.cpp
+	<iostream>
+	<GL/glew.h>
+	"renderer.h"
+
+1559912640 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\renderer.h
+	<iostream>
+	<GL/glew.h>
+
+1559915197 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\indexbuffer.cpp
+	"indexbuffer.h"
+	"renderer.h"
+
+1559915197 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\indexbuffer.h
+
+1559915228 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbuffer.cpp
+	"vertexbuffer.h"
+	"renderer.h"
+	<GL/glew.h>
+
+1559915197 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbuffer.h
+
+1559944227 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexarray.h
+	<GL/glew.h>
+	"vertexbuffer.h"
+	"vertexbufferlayout.h"
+
+1559945928 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbufferlayout.h
+	<vector>
+	<GL/glew.h>
+	<iostream>
+	<string>
+	<typeinfo>
+
+1559945291 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexarray.cpp
+	"vertexarray.h"
+
+1559958720 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\shader.h
+	<string>
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdio.h>
+	<unordered_map>
+
+1559958612 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\shader.cpp
+	"shader.h"
+	"vertexbuffer.h"
+	"indexbuffer.h"
+	"vertexarray.h"
+	"renderer.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdio.h>
 

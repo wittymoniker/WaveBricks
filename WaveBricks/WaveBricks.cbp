@@ -75,16 +75,26 @@
 		<Unit filename="al.h" />
 		<Unit filename="alc.h" />
 		<Unit filename="alut.h" />
-		<Unit filename="entities.cpp" />
 		<Unit filename="entities.h" />
 		<Unit filename="file.cpp" />
-		<Unit filename="glew-2.1.0/src/glew.c">
+		<Unit filename="glew.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="indexbuffer.cpp" />
+		<Unit filename="indexbuffer.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="new.h" />
+		<Unit filename="renderer.cpp" />
+		<Unit filename="renderer.h" />
 		<Unit filename="shade.shader" />
+		<Unit filename="shader.cpp" />
+		<Unit filename="shader.h" />
 		<Unit filename="soundcard.h" />
+		<Unit filename="vertexarray.cpp" />
+		<Unit filename="vertexarray.h" />
+		<Unit filename="vertexbuffer.cpp" />
+		<Unit filename="vertexbuffer.h" />
+		<Unit filename="vertexbufferlayout.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

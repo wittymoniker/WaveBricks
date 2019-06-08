@@ -14,8 +14,9 @@ void main()
 
 layout(location=0) out vec4 color;
 
+uniform vec4 u_Color;
+
 void main()
 {
-    for (int i = 0; i<sizeof(colors)/sizeof(float);i++)
-        color.push_back(colors[i]);
+    color = u_Color;
 };

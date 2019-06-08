@@ -36,7 +36,12 @@
 #include <sstream>
 
 #include <stdio.h>
-
+#include "renderer.h"
+#include "vertexbuffer.h"
+#include "indexbuffer.h"
+#include "vertexarray.h"
+#include "vertexbufferlayout.h"
+#include "shader.h"
 #include "entities.h"
 
 //#include "synths.cpp"
@@ -439,81 +444,10 @@ const GLfloat high_shininess[] = { 100.0f };
 
 ALuint source, buffer;
 
-static void glClearError()
-{
-    while(glGetError()!=GL_NO_ERROR);
-}
-static void glCheckError()
-{
-    while (GLenum error= glGetError()){
-        std::cout <<"\nOpenGL Error:"<<error;
-    }
-}
 
-struct ShaderProgramSource
-{
-    std::string VertexSource;
-    std::string FragmentSource;
-};
 
-static ShaderProgramSource ParseShader(const std::string& filepath){
-    std::ifstream stream(filepath);
 
-    enum class ShaderType{
-        NONE=-1,VERTEX=0,FRAGMENT=1
-    };
 
-    std::string line;
-
-    std::stringstream ss[2];
-
-    ShaderType type = ShaderType::NONE;
-    while(getline(stream, line)){
-        if(line.find("#shader")!=std::string::npos){
-            if(line.find("vertex")!= std::string::npos){
-                type= ShaderType::VERTEX;
-            }else if (line.find("fragment")!= std::string::npos){
-                type=ShaderType::FRAGMENT;
-            }
-        }else{
-            ss[(int) type] << line << '\n';
-        }
-    }
-
-    return{ ss[0].str(), ss[1].str()};
-}
-static unsigned int CompileShader(unsigned int type,const std::string& source){
-    unsigned int id=glCreateShader(type);
-    const char* src=source.c_str();
-    glShaderSource(id, 1,&src,nullptr);
-    glCompileShader(id);
-    int result;
-    glGetShaderiv(id, GL_COMPILE_STATUS,&result );
-    if(result==GL_FALSE){
-        int length;
-        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-        glDeleteShader(id);
-        return 0;
-    }
-
-    return id;
-}
-
-static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader){
-    unsigned int program= glCreateProgram();
-    unsigned int vs=CompileShader(GL_VERTEX_SHADER,vertexShader);
-    unsigned int fs=CompileShader(GL_FRAGMENT_SHADER,fragmentShader);
-
-    glAttachShader(program,vs);
-    glAttachShader(program,fs);
-    glLinkProgram(program);
-    glValidateProgram(program);
-    glDeleteShader(vs);
-    glDeleteShader(fs);
-
-    return program;
-
-}
 
 
 
@@ -564,31 +498,43 @@ void display(void)
             cout<<colors[3*i+2]<<";\n";
             colors[4*i+3]=1.0f;
 
-            unsigned int buffer;
-            glGenBuffers(1, &buffer);
-            glBindBuffer(GL_ARRAY_BUFFER,buffer);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(verts),verts, GL_STATIC_DRAW);
-            glDrawArrays(GL_TRIANGLES, 0, instruments[it].voices_spinner);
-
-
-            glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(float)*3,0);
-
-            unsigned int ibo;
-            glGenBuffers(1, &ibo);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices, GL_STATIC_DRAW);
-            glDrawElements(GL_TRIANGLES, instruments[it].voices_spinner*2,GL_UNSIGNED_INT, nullptr);
-            //glCheckError();
-            ShaderProgramSource source = ParseShader("shade.shader");
-            unsigned int shader= CreateShader(source.VertexSource, source.FragmentSource);
-            glUseProgram(shader);
         }
+
+
+        VertexArray va;
+        VertexBuffer vb(verts, instruments[it].voices_spinner*3*sizeof(float));
+
+
+        VertexBufferLayout layout;
+        layout.Push<float>(3);
+        va.AddBuffer(vb, layout);
+
+        IndexBuffer ib(indices,instruments[it].voices_spinner * 2 * sizeof(float));
+
+
+        Shader shader("shade.shader");
+        shader.Bind();
+        shader.SetUniform4f("u_Color",0.8f,0.3f,0.8f,1.0f);
+        glDrawElements(GL_TRIANGLES, instruments[it].voices_spinner*2*sizeof(float)*3,GL_UNSIGNED_INT, nullptr);
+
+        va.Unbind();
+        vb.Unbind();
+        ib.Unbind();
+        shader.Unbind();
+
+        float r = 0.0f;
+        float increment=0.05f;
+
+        vb.Bind();
+        ib.Bind();
+        va.Bind();
 
 
     }
 
+
 }
+
 static void WBInit(){
     //int argc;char **argv;
     //int argac;char **argav;
@@ -665,7 +611,9 @@ int main(int argc, char **argv)
     alutInit(&argc, argv);
     glfwInit();
 //    glewInit();
-
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     WBInit();
 
     initMainBoard();
@@ -685,8 +633,6 @@ int main(int argc, char **argv)
         glfwPollEvents();
 
     }
-
-    glfwTerminate();
 
 
 
