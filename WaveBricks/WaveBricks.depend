@@ -71,7 +71,7 @@
 
 1495245212 D
 
-1559958977 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1560097432 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<windows.h>
 	<GLUT/glut.h>
 	"GLUI/glui.h"
@@ -82,6 +82,7 @@
 	<GL/glui.h>
 	<GL/freeglut.h>
 	<GLFW/glfw3.h>
+	<glm/glm.hpp>
 	"al.h"
 	"alc.h"
 	"alut.h"
@@ -232,7 +233,7 @@
 	<vfw.h>
 	<tchar.h>
 
-1559866399 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
+1560100271 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
 	<windows.h>
 	<stdlib.h>
 	<vector>
@@ -600,44 +601,50 @@
 	<dlfcn.h>
 	<mach-o/dyld.h>
 
-1559913430 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\renderer.cpp
-	<iostream>
-	<GL/glew.h>
+1560096565 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\renderer.cpp
 	"renderer.h"
+	"vertexarray.h"
+	"indexbuffer.h"
+	"shader.h"
 
-1559912640 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\renderer.h
+1560096581 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\renderer.h
 	<iostream>
 	<GL/glew.h>
+	"vertexarray.h"
+	"indexbuffer.h"
+	"shader.h"
 
 1559915197 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\indexbuffer.cpp
 	"indexbuffer.h"
 	"renderer.h"
 
-1559915197 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\indexbuffer.h
+1560011576 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\indexbuffer.h
 
 1559915228 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbuffer.cpp
 	"vertexbuffer.h"
 	"renderer.h"
 	<GL/glew.h>
 
-1559915197 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbuffer.h
+1560011072 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbuffer.h
 
-1559944227 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexarray.h
+1560010967 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexarray.h
 	<GL/glew.h>
 	"vertexbuffer.h"
-	"vertexbufferlayout.h"
 
-1559945928 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbufferlayout.h
+1560011397 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexbufferlayout.h
 	<vector>
 	<GL/glew.h>
 	<iostream>
 	<string>
 	<typeinfo>
+	"renderer.h"
 
-1559945291 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexarray.cpp
+1560010967 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\vertexarray.cpp
 	"vertexarray.h"
+	"vertexbufferlayout.h"
+	"renderer.h"
 
-1559958720 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\shader.h
+1560011676 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\shader.h
 	<string>
 	<iostream>
 	<fstream>

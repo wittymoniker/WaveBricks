@@ -1,5 +1,6 @@
 #include "vertexarray.h"
-
+#include "vertexbufferlayout.h"
+#include "renderer.h"
 VertexArray::VertexArray(){
     glGenVertexArrays(1,&m_RendererID);
     glBindVertexArray(m_RendererID);

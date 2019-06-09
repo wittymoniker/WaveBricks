@@ -1,19 +1,20 @@
-#include <iostream>
-#include<GL/glew.h>
 #include "renderer.h"
-#define ASSERT(x) if(!(x)) raise(SIGINT);
-#define GLCall(x) GLClearError();\
-    x;\
-    ASSERT(GLLogCall(#x, __FILE__, __LINE__))
-void GLClearError()
-{
-    while(glGetError()!=GL_NO_ERROR);
+#include "vertexarray.h"
+#include "indexbuffer.h"
+#include "shader.h"
+
+void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const{
+
+
+    shader.Bind();
+    va.Bind();
+    ib.Bind();
+
+    glDrawElements(GL_TRIANGLES, ib.getCount(),GL_UNSIGNED_INT, nullptr);
+
 }
-bool GLLogCall(const char* Function, const char* file, int line)
-{
-    while (GLenum error= glGetError()){
-        std::cout <<"\nOpenGL Error:"<<error<<Function<<file<<line;
-        return false;
-    }
-    return true;
+void Renderer::Clear()const{
+    glClear(GL_COLOR_BUFFER_BIT );
 }
+
+

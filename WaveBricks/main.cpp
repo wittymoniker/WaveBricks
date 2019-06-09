@@ -12,6 +12,7 @@
 #include<GL/glui.h>
 #include<GL/freeglut.h>
 #include<GLFW/glfw3.h>
+#include <glm/glm.hpp>
 //
 
 #include "al.h"
@@ -36,12 +37,14 @@
 #include <sstream>
 
 #include <stdio.h>
+
 #include "renderer.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
 #include "vertexarray.h"
 #include "vertexbufferlayout.h"
 #include "shader.h"
+
 #include "entities.h"
 
 //#include "synths.cpp"
@@ -277,7 +280,6 @@ void entry (int state)
 }
 static void idle(void)
 {
-	glfwMakeContextCurrent(wavebricks_window);
 	//glutPostRedisplay ();
 }
 
@@ -453,13 +455,8 @@ ALuint source, buffer;
 
 void display(void)
 {
-    //glfwMakeContextCurrent(wavebricks_window);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Set background color to black and opaque
-    glLoadIdentity();
+    //glfwMakeContextCurrent(wavebricks_window);    glLoadIdentity();
     //glTranslatef(1.5f, 0.0f, -7.0f);
-    glClear(GL_COLOR_BUFFER_BIT );
-    glLoadIdentity();//
-
     for (int it =0; it<instruments.size();it++){
 
         alGetSourcef(instruments[it].soundsource, AL_SEC_OFFSET, &tracking);
@@ -475,12 +472,15 @@ void display(void)
         float colors[instruments[it].voices_spinner*4];
         std::string vertexShader;
         std::string fragmentShader;
-        unsigned int indices[instruments[it].voices_spinner*2];
+        unsigned int indices[instruments[it].voices_spinner*3];
         for (int i=0;i<instruments[it].voices_spinner;i++){
             indices[i]=i;
         }
-        for (int i=instruments[it].voices_spinner-1;i>-1;i--){
-            indices[instruments[it].voices_spinner+i]=i;
+        for (int i=instruments[it].voices_spinner-1;i>=0;i--){
+            indices[instruments[it].voices_spinner+i]=instruments[it].voices_spinner-1-i;
+        }
+        for (int i=instruments[it].voices_spinner-1;i>=0;i--){
+            indices[instruments[it].voices_spinner*2+i]=i;
         }
         for(int i=0; i<instruments[it].voices_spinner; i++){
 
@@ -499,35 +499,31 @@ void display(void)
             colors[4*i+3]=1.0f;
 
         }
-
-
+        Renderer renderer;
+        renderer.Clear();
         VertexArray va;
-        VertexBuffer vb(verts, instruments[it].voices_spinner*3*sizeof(float));
+        VertexBuffer vb(verts, instruments[it].voices_spinner*3*4);
 
-
+        Shader shader("shade.shader");
         VertexBufferLayout layout;
         layout.Push<float>(3);
         va.AddBuffer(vb, layout);
-
-        IndexBuffer ib(indices,instruments[it].voices_spinner * 2 * sizeof(float));
-
-
-        Shader shader("shade.shader");
-        shader.Bind();
         shader.SetUniform4f("u_Color",0.8f,0.3f,0.8f,1.0f);
-        glDrawElements(GL_TRIANGLES, instruments[it].voices_spinner*2*sizeof(float)*3,GL_UNSIGNED_INT, nullptr);
+        IndexBuffer ib(indices,instruments[it].voices_spinner * 3 * 4);
 
-        va.Unbind();
-        vb.Unbind();
-        ib.Unbind();
-        shader.Unbind();
+
+        renderer.Draw(va, ib, shader);
+
+
 
         float r = 0.0f;
         float increment=0.05f;
 
-        vb.Bind();
-        ib.Bind();
-        va.Bind();
+
+        /*va.Unbind();
+        vb.Unbind();
+        ib.Unbind();
+        shader.Unbind();*/
 
 
     }
@@ -624,6 +620,7 @@ int main(int argc, char **argv)
     glfwMakeContextCurrent(wavebricks_window);
     while(!glfwWindowShouldClose(wavebricks_window)){
         glutSetWindow(mainboard_pane);
+
         glutMainLoopEvent();
 
         glfwMakeContextCurrent(wavebricks_window);
