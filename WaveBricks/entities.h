@@ -706,7 +706,7 @@ class instrument{
                                             *(pitchscale_spinner*voicespitch.at(i))*(ampscale_spinner*voicesamp[i])));
                     instrumentPoly[i][2]=((zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)+
                                            zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) *
-                                              scale_spinner*zmod_spinner*cos((i/voices_spinner)*zmod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                                              scale_spinner*zmod_spinner*tan((i/voices_spinner)*zmod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
 
@@ -789,7 +789,7 @@ class instrument{
                                             *(pitchscale_spinner*voicespitch.at(i))*(ampscale_spinner*voicesamp[i])));
                     instrumentPoly[i][2]=((zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)+
                                            zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner) *
-                                              scale_spinner*zmod_spinner*cos((i/voices_spinner)*zmod_spinner*(voicespitch.at(i)*pitchrot_spinner
+                                              scale_spinner*zmod_spinner*tan((i/voices_spinner)*zmod_spinner*(voicespitch.at(i)*pitchrot_spinner
                                            +voicesamp.at(i)*amprot_spinner+
                                            voicesphase.at(i)*phaserot_spinner))));
 
@@ -831,7 +831,7 @@ class instrument{
             //data=data;
             for(float i = step*(44100*(60/tempo));i<sizeSS;(i)++){
                 //cout<<"\nattempting transfer at "<<i;
-                data[(short)i] += (ampadj*(((sin(((freq*2.0*M_PI)/44100*i)*phase+((freq*2.0*M_PI)/44100*i)*(fm*sin((fmfreq*2.0*M_PI)/44100*i))))
+                data[(int)i] += (ampadj*(((sin(((freq*2.0*M_PI)/44100*i)*phase+((freq*2.0*M_PI)/44100*i)*(fm*sin((fmfreq*2.0*M_PI)/44100*i))))
                                             +(sin(((freq*2.0*M_PI)/44100*i)+((freq*2.0*M_PI)/44100*i)*(fm*sin((fmfreq*2.0*M_PI)/44100*i))))
                                             *(sin((amfreq*2.0*M_PI)/44100*i)*am))));
             }
@@ -876,6 +876,7 @@ class instrument{
 
 
         static void glui_callback (int control_id){
+
         }
 
         void initVals(){
@@ -896,7 +897,7 @@ class instrument{
 
 
 
-            heuristic_listbox=1;
+            heuristic_listbox=2;
             voices_spinner=6;
             pitchscale_spinner=0.5;
             pitchcolor_spinner=0.5;

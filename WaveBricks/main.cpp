@@ -483,7 +483,6 @@ void display(void)
             indices[instruments[it].voices_spinner*2+i]=i;
         }
         for(int i=0; i<instruments[it].voices_spinner; i++){
-
             verts[3*i]=instruments[it].instrumentPoly[i][0];
             cout<<"\n"<<verts[3*i]<<",";
             verts[3*i+1]=instruments[it].instrumentPoly[i][1];
@@ -491,11 +490,11 @@ void display(void)
             verts[3*i+2]=instruments[it].instrumentPoly[i][2];
             cout<<verts[3*i+2]<<":";
             colors[4*i]=-instruments[it].instrumentPoly[i][3];
-            cout<<colors[3*i]<<",";
+            cout<<colors[4*i]<<",";
             colors[4*i+1]=-instruments[it].instrumentPoly[i][4];
-            cout<<colors[3*i+1]<<",";
+            cout<<colors[4*i+1]<<",";
             colors[4*i+2]=-instruments[it].instrumentPoly[i][5];
-            cout<<colors[3*i+2]<<";\n";
+            cout<<colors[4*i+2]<<";\n";
             colors[4*i+3]=1.0f;
 
         }
@@ -505,41 +504,58 @@ void display(void)
         VertexBuffer vb(verts, instruments[it].voices_spinner*3*4);
 
         Shader shader("shade.shader");
+
         VertexBufferLayout layout;
         layout.Push<float>(3);
         va.AddBuffer(vb, layout);
+        IndexBuffer ib(indices,instruments[it].voices_spinner * 3*4);
+        shader.Bind();
+        va.Bind();
+        ib.Bind();
+
         shader.SetUniform4f("u_Color",0.8f,0.3f,0.8f,1.0f);
-        IndexBuffer ib(indices,instruments[it].voices_spinner * 3 * 4);
 
 
         renderer.Draw(va, ib, shader);
-
-
-
         float r = 0.0f;
         float increment=0.05f;
-
-
         /*va.Unbind();
         vb.Unbind();
         ib.Unbind();
         shader.Unbind();*/
-
-
     }
 
 
 }
+void debugCB( GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *msg, const void *data )
+{
+    cout << "debug call: " << msg << endl;
+}
+
 
 static void WBInit(){
     //int argc;char **argv;
     //int argac;char **argav;
 
+    glfwWindowHint( GLFW_OPENGL_DEBUG_CONTEXT, true );
     wavebricks_window = glfwCreateWindow(1024,768,"WaveBricks Main Window", NULL, NULL);
 
     glfwMakeContextCurrent(wavebricks_window);
 
     glewInit();
+
+    if (GL_KHR_debug) {
+        cout << "KHR_debug supported" << endl;
+
+        GLint v;
+        glGetIntegerv( GL_CONTEXT_FLAGS, &v );
+        if (v & GL_CONTEXT_FLAG_DEBUG_BIT) {
+            cout << "OpenGL debug context present" << endl;
+            //glDebugMessageCallback( debugCB, NULL );
+        }
+    }
+
+
 }
 
 void centerOnScreen ();

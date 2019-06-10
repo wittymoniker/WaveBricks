@@ -7,8 +7,8 @@
 #include "renderer.h"
 struct VertexBufferElement
 {
-    unsigned int Count;
     unsigned int type;
+    unsigned int Count;
     unsigned char normalized;
 
     static unsigned int GetSizeOfType(unsigned int type)
