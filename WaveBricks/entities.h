@@ -78,6 +78,7 @@ class instrument{
             ZPOS_SPINNER,
 
             VOICES_SPINNER,
+            PANNING_SPINNER,
             PHASEROT_SPINNER,
             PHASESCALE_SPINNER,
             PHASECOLOR_SPINNER,
@@ -161,6 +162,7 @@ class instrument{
         float fmint_spinner;
         float am_spinner;
         float amint_spinner;
+        float panning_spinner=0;
 
 
         string apm_script;
@@ -271,7 +273,7 @@ class instrument{
         void assemble(){
             //cout  << "assemble instrument" ;
             initVals();
-            glutInitWindowSize(600,768);
+            glutInitWindowSize(700,800);
             GLuint wavebricks_synth;
             wavebricks_synth = glutCreateWindow("Wavebricks Synth");
             glutDisplayFunc(idle);
@@ -289,6 +291,7 @@ class instrument{
             heuristic_listbox_panel->add_item (4, "FM WaveShape 3d");//wave interfered across shape as oscilloscope, clipped at boundaries, FM by changing scanning location, 3d.
 
 
+            GLUI_Spinner *panning_panel = synth_panel->add_spinner_to_panel(syn_panel, "Audio Panning(L/R)", GLUI_SPINNER_FLOAT, &panning_spinner, PANNING_SPINNER, glui_callback);
 
             GLUI_Spinner *xpos_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Shape Position X", GLUI_SPINNER_FLOAT, &xpos_spinner, XPOS_SPINNER, glui_callback);
             GLUI_Spinner *ypos_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Shape Position Y", GLUI_SPINNER_FLOAT, &ypos_spinner, YPOS_SPINNER, glui_callback);
