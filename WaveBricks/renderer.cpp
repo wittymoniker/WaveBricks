@@ -12,7 +12,7 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
     //ib.Bind();
 
 
-    glDrawElements(GL_TRIANGLES, ib.getCount(),GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_PATCHES, ib.getCount(),GL_UNSIGNED_INT, nullptr);
 
 }
 void Renderer::Clear()const{

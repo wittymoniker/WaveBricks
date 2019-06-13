@@ -498,6 +498,10 @@ void display(void)
             colors[4*i+3]=1.0f;
 
         }
+        GLint MaxPatchVertices = 0;
+        glGetIntegerv(GL_MAX_PATCH_VERTICES, &MaxPatchVertices);
+        printf("Max supported patch vertices %d\n", MaxPatchVertices);
+        glPatchParameteri(GL_PATCH_VERTICES, instruments[it].voices_spinner);
         Renderer renderer;
         renderer.Clear();
         VertexArray va;

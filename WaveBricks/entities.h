@@ -908,9 +908,9 @@ class instrument{
             phaserot_spinner=0.5;
             phasecolor_spinner=0.5;
             phasescale_spinner=0.5;
-            xpos_spinner=1.0;
-            ypos_spinner=1.0;
-            zpos_spinner=1.0;
+            xpos_spinner=0.0;
+            ypos_spinner=0.0;
+            zpos_spinner=0.0;
             scale_spinner=1.0;
             /*lpfiltercolor_spinner=0.5;
             hpfiltercolor_spinner=0.0;
@@ -933,7 +933,7 @@ class instrument{
 
 
             /*SCRIPTING
-
+            *** REMEMBER: DELETE YOUR VOICES AUTOMATION SCRIPTS EVERY TIME YOU RESIZE THE INSTRUMENT VOICE COUNT.
             VOICES:
             START WITH NO STEP NUMBER, COMMA SEPARATED AMP PITCH PHASE, REPEATED FOR EACH VOICE(12 DEFAULT). COLON SEPARATED,
             BEGIN WITH NEW STEP FOR WHICH VOICES WILL TRANSISTION INTO ALONG WITH THE 3*12 INITIALIZERS, SEPARATED BY COMMAS. CONTINUE.
