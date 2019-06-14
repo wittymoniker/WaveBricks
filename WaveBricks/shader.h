@@ -17,6 +17,7 @@ class Shader
 private:
 
     std::string m_Filepath;
+    std::string m_Filepath2;
     unsigned int m_RendererID;
 
 
@@ -24,7 +25,7 @@ private:
 
 public:
 
-    Shader(const std::string& filepath);
+    Shader(const std::string& filepath,const std::string& filepath2);
     ~Shader();
 
     void Bind() const;
@@ -33,9 +34,9 @@ public:
     void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
 
 private:
-    ShaderProgramSource ParseShader(const std::string& filepath);
+    ShaderProgramSource ParseShader(const std::string& filepath,const std::string& filepath2);
     unsigned int CompileShader(unsigned int type,const std::string& source);
-    unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
+    unsigned int CreateShader(const std::string& Shader1, const std::string& Shader2);
     unsigned int getUniformLocation(const std::string& name);
 
 

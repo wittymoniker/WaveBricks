@@ -89,6 +89,7 @@
 		<Unit filename="shade.shader" />
 		<Unit filename="shader.cpp" />
 		<Unit filename="shader.h" />
+		<Unit filename="shader2.shader" />
 		<Unit filename="soundcard.h" />
 		<Unit filename="vertexarray.cpp" />
 		<Unit filename="vertexarray.h" />

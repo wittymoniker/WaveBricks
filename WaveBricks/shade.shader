@@ -1,22 +1,20 @@
-#shader vertex
-#version 330 core
+#version 420
+#extension GL_ARB_separate_shader_objects : enable
+
+uniform vec3 initialUniform = vec3(1.0, 0.0, 0.0);
+layout(vertices = 128) uniform initialUniform out;
 
 
-layout(location=0) in vec3 position;
 
-void main()
-{
-    gl_Position=vec4(position,1.);
-};
+void main(){
 
-#shader fragment
-#version 330 core
+    gl_out[gl_InvocationID].gl_Position= gl_in[gl_InvocationID].gl_Position;// and then set tessellation levels
 
-layout(location=0) out vec4 color;
+}
+in gl_PerVertex {
+    vec4 gl_Position;
+    float gl_PointSize;
+    float gl_ClipDistance[]
+} gl_in[gl_PatchVerticesIn];
 
-uniform vec4 u_Color;
 
-void main()
-{
-    color = u_Color;
-};

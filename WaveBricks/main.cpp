@@ -498,28 +498,29 @@ void display(void)
             colors[4*i+3]=1.0f;
 
         }
-        GLint MaxPatchVertices = 0;
-        glGetIntegerv(GL_MAX_PATCH_VERTICES, &MaxPatchVertices);
-        printf("Max supported patch vertices %d\n", MaxPatchVertices);
-        glPatchParameteri(GL_PATCH_VERTICES, instruments[it].voices_spinner);
+
         Renderer renderer;
         renderer.Clear();
         VertexArray va;
         VertexBuffer vb(verts, instruments[it].voices_spinner*3*4);
 
-        Shader shader("shade.shader");
+        Shader shader("shade.shader", "shader2.shader");
 
         VertexBufferLayout layout;
         layout.Push<float>(3);
         va.AddBuffer(vb, layout);
         IndexBuffer ib(indices,instruments[it].voices_spinner * 3*4);
-        shader.Bind();
-        va.Bind();
-        ib.Bind();
+        //shader.Bind();
+
 
         shader.SetUniform4f("u_Color",0.8f,0.3f,0.8f,1.0f);
 
-
+        //va.Bind();
+        //ib.Bind();
+        //GLint MaxPatchVertices = 0;
+        //glGetIntegerv(GL_MAX_PATCH_VERTICES, &MaxPatchVertices);
+        //printf("Max supported patch vertices %d\n", MaxPatchVertices);
+        glPatchParameteri(GL_PATCH_VERTICES, instruments[it].voices_spinner*3);
         renderer.Draw(va, ib, shader);
         float r = 0.0f;
         float increment=0.05f;

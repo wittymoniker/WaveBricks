@@ -8,10 +8,10 @@
 #include <sstream>
 #include <stdio.h>
 
-Shader::Shader(const std::string& filepath)
-    :m_Filepath(filepath), m_RendererID(0)
+Shader::Shader(const std::string& filepath, const std::string& filepath2)
+    :m_Filepath(filepath), m_RendererID(0), m_Filepath2(filepath2)
 {
-    ShaderProgramSource source = ParseShader("shade.shader");
+    ShaderProgramSource source = ParseShader("shade.shader", "shader2.shader");
     m_RendererID= CreateShader(source.VertexSource, source.FragmentSource);
 }
 Shader::~Shader(){
@@ -20,8 +20,10 @@ Shader::~Shader(){
 
 
 
-ShaderProgramSource Shader::ParseShader(const std::string& filepath){
+ShaderProgramSource Shader::ParseShader(const std::string& filepath, const std::string& filepath2){
     std::ifstream stream(filepath);
+    std::ifstream stream2(filepath2);
+
 
     enum class ShaderType{
         NONE=-1,VERTEX=0,FRAGMENT=1
@@ -29,19 +31,14 @@ ShaderProgramSource Shader::ParseShader(const std::string& filepath){
 
     std::string line;
 
+    std::string line2;
+
     std::stringstream ss[2];
 
     ShaderType type = ShaderType::NONE;
-    while(getline(stream, line)){
-        if(line.find("#shader")!=std::string::npos){
-            if(line.find("vertex")!= std::string::npos){
-                type= ShaderType::VERTEX;
-            }else if (line.find("fragment")!= std::string::npos){
-                type=ShaderType::FRAGMENT;
-            }
-        }else{
-            ss[(int) type] << line << '\n';
-        }
+    while(getline(stream, line)&& getline(stream2, line2)){
+        ss[1] << line << '\n';
+        ss[2] << line2 << '\n';
     }
 
     return{ ss[0].str(), ss[1].str()};
