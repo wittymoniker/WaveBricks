@@ -317,7 +317,7 @@ class instrument{
 
             GLUI_Spinner *phaserot_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Phase Vertice Rotation Influence", GLUI_SPINNER_FLOAT, &phaserot_spinner, PHASEROT_SPINNER, glui_callback);
             GLUI_Spinner *phasecolor_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Phase Color Influence", GLUI_SPINNER_FLOAT, &phasecolor_spinner, PHASECOLOR_SPINNER, glui_callback);
-            GLUI_Spinner *phasescale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Phase Color Influence", GLUI_SPINNER_FLOAT, &phasescale_spinner, PHASESCALE_SPINNER, glui_callback);
+            GLUI_Spinner *phasescale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Phase Scale Influence", GLUI_SPINNER_FLOAT, &phasescale_spinner, PHASESCALE_SPINNER, glui_callback);
             GLUI_Spinner *ampcolor_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Amplitude Color Influence", GLUI_SPINNER_FLOAT, &ampcolor_spinner, AMPCOLOR_SPINNER, glui_callback);
             GLUI_Spinner *pitchcolor_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Pitch Color Influence", GLUI_SPINNER_FLOAT, &pitchcolor_spinner, PITCHCOLOR_SPINNER, glui_callback);
             GLUI_Spinner *ampscale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Amplitude Scale Influence", GLUI_SPINNER_FLOAT, &ampscale_spinner, AMPSCALE_SPINNER, glui_callback);
