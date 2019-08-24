@@ -80,7 +80,6 @@
 		<Unit filename="glew.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="indexbuffer.cpp" />
 		<Unit filename="indexbuffer.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="new.h" />

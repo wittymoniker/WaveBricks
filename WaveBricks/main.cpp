@@ -455,7 +455,10 @@ ALuint source, buffer;
 
 void display(void)
 {
-    //glfwMakeContextCurrent(wavebricks_window);    glLoadIdentity();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();//load identity matrix
+
+    glTranslatef(0.0f,0.0f,-7.0f);//move forward 4 units
     //glTranslatef(1.5f, 0.0f, -7.0f);
     for (int it =0; it<instruments.size();it++){
 
@@ -482,8 +485,13 @@ void display(void)
         for (int i=instruments[it].voices_spinner-1;i>=0;i--){
             indices[instruments[it].voices_spinner*2+i]=i;
         }
+        glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner);
+        glBegin(GL_PATCHES);
         for(int i=0; i<instruments[it].voices_spinner; i++){
-            verts[3*i]=instruments[it].instrumentPoly[i][0];
+
+            glColor3f(instruments[it].instrumentPoly[i][3],instruments[it].instrumentPoly[i][4],instruments[it].instrumentPoly[i][5]);
+            glVertex3d(instruments[it].instrumentPoly[i][0],instruments[it].instrumentPoly[i][1],instruments[it].instrumentPoly[i][2]);
+            /*verts[3*i]=instruments[it].instrumentPoly[i][0];
             cout<<"\n"<<verts[3*i]<<",";
             verts[3*i+1]=instruments[it].instrumentPoly[i][1];
             cout<<verts[3*i+1]<<",";
@@ -495,11 +503,12 @@ void display(void)
             cout<<colors[4*i+1]<<",";
             colors[4*i+2]=-instruments[it].instrumentPoly[i][5];
             cout<<colors[4*i+2]<<";\n";
-            colors[4*i+3]=1.0f;
+            colors[4*i+3]=1.0f;*/
 
         }
+        glEnd();
 
-        Renderer renderer;
+        /*Renderer renderer;
         renderer.Clear();
         VertexArray va;
         VertexBuffer vb(verts, instruments[it].voices_spinner*3*4);
@@ -524,10 +533,11 @@ void display(void)
         renderer.Draw(va, ib, shader);
         float r = 0.0f;
         float increment=0.05f;
-        /*va.Unbind();
+        va.Unbind();
         vb.Unbind();
         ib.Unbind();
-        shader.Unbind();*/
+        shader.Unbind();
+        */
     }
 
 
