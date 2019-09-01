@@ -644,7 +644,7 @@ class instrument{
                 for (int i=0; i<voices_spinner;i++){
                         for(int iy=0; iy<composition[currentStep][0].size();iy++){
                             voicesamp[i]+=composition[currentStep][0][iy];
-                            voicesamp[i] += voicesamp[i]*sin(currentStep*2.0*PI*am_spinner)*amint_spinner;
+                            voicesamp[i]+=voicesamp[i]*sin(currentStep*2.0*PI*am_spinner)*amint_spinner;
                         }
                 }
                 for (int i=0; i<voices_spinner;i++){
@@ -668,6 +668,25 @@ class instrument{
                     instrumentPoly[i][5]=(1.0/(b_spinner/(b_mod_spinner*(pitchcolor_spinner*voicespitch.at(i))*
                                                         (ampcolor_spinner*voicesamp.at(i))*(phasecolor_spinner*
                                                                                                     voicesphase.at(i)))));
+                    if(instrumentPoly[i][3]<0){
+                        instrumentPoly[i][3]=0-instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][3]>1){
+                        instrumentPoly[i][3]=1/instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][4]<0){
+                        instrumentPoly[i][4]=0-instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][4]>1){
+                        instrumentPoly[i][4]=1/instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][5]<0){
+                        instrumentPoly[i][5]=0-instrumentPoly[i][5];
+                    }
+                    if(instrumentPoly[i][5]>1){
+                        instrumentPoly[i][5]=1/instrumentPoly[i][5];
+                    }
+
                 }
 
             }
@@ -698,6 +717,24 @@ class instrument{
                     instrumentPoly[i][5]=(1.0/(b_spinner/(b_mod_spinner*(pitchcolor_spinner*voicespitch.at(i))*
                                                         (ampcolor_spinner*voicesamp.at(i))*(phasecolor_spinner*
                                                                                                     voicesphase.at(i)))));
+                    if(instrumentPoly[i][3]<0){
+                        instrumentPoly[i][3]=0-instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][3]>1){
+                        instrumentPoly[i][3]=1/instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][4]<0){
+                        instrumentPoly[i][4]=0-instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][4]>1){
+                        instrumentPoly[i][4]=1/instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][5]<0){
+                        instrumentPoly[i][5]=0-instrumentPoly[i][5];
+                    }
+                    if(instrumentPoly[i][5]>1){
+                        instrumentPoly[i][5]=1/instrumentPoly[i][5];
+                    }
                 }
             }
             if (heuristic_listbox=3 && voicesphase.size()>=voices_spinner && voicesamp.size()>=voices_spinner &&composition[currentStep].size()>=2&& voicespitch.size()>=voices_spinner){//2d interfere
@@ -733,6 +770,24 @@ class instrument{
                     instrumentPoly[i][5]=(1.0/(b_spinner/(b_mod_spinner*(pitchcolor_spinner*voicespitch.at(i))*
                                                         (ampcolor_spinner*voicesamp.at(i))*(phasecolor_spinner*
                                                                                                     voicesphase.at(i)))));
+                    if(instrumentPoly[i][3]<0){
+                        instrumentPoly[i][3]=0-instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][3]>1){
+                        instrumentPoly[i][3]=1/instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][4]<0){
+                        instrumentPoly[i][4]=0-instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][4]>1){
+                        instrumentPoly[i][4]=1/instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][5]<0){
+                        instrumentPoly[i][5]=0-instrumentPoly[i][5];
+                    }
+                    if(instrumentPoly[i][5]>1){
+                        instrumentPoly[i][5]=1/instrumentPoly[i][5];
+                    }
                 }
             }
             if (heuristic_listbox=4 && voicesphase.size()>=voices_spinner && voicesamp.size()>=voices_spinner &&composition[currentStep].size()>=2&& voicespitch.size()>=voices_spinner){//3d interfere
@@ -769,6 +824,24 @@ class instrument{
                     instrumentPoly[i][5]=(1.0/(b_spinner/(b_mod_spinner*(pitchcolor_spinner*voicespitch.at(i))*
                                                         (ampcolor_spinner*voicesamp.at(i))*(phasecolor_spinner*
                                                                                                     voicesphase.at(i)))));
+                    if(instrumentPoly[i][3]<0){
+                        instrumentPoly[i][3]=0-instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][3]>1){
+                        instrumentPoly[i][3]=1/instrumentPoly[i][3];
+                    }
+                    if(instrumentPoly[i][4]<0){
+                        instrumentPoly[i][4]=0-instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][4]>1){
+                        instrumentPoly[i][4]=1/instrumentPoly[i][4];
+                    }
+                    if(instrumentPoly[i][5]<0){
+                        instrumentPoly[i][5]=0-instrumentPoly[i][5];
+                    }
+                    if(instrumentPoly[i][5]>1){
+                        instrumentPoly[i][5]=1/instrumentPoly[i][5];
+                    }
                 }
             }
         }

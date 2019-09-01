@@ -83,16 +83,12 @@
 		<Unit filename="indexbuffer.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="new.h" />
-		<Unit filename="renderer.cpp" />
 		<Unit filename="renderer.h" />
 		<Unit filename="shade.shader" />
-		<Unit filename="shader.cpp" />
 		<Unit filename="shader.h" />
 		<Unit filename="shader2.shader" />
 		<Unit filename="soundcard.h" />
-		<Unit filename="vertexarray.cpp" />
 		<Unit filename="vertexarray.h" />
-		<Unit filename="vertexbuffer.cpp" />
 		<Unit filename="vertexbuffer.h" />
 		<Unit filename="vertexbufferlayout.h" />
 		<Extensions>

@@ -1,3 +1,4 @@
+#pragma once
 #include "renderer.h"
 #include "vertexarray.h"
 #include "indexbuffer.h"

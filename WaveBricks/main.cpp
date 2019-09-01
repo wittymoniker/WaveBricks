@@ -10,9 +10,11 @@
 //#pragma comment(lib, "glut32.lib")
 #include <GL/glew.h>
 #include<GL/glui.h>
+#include<GL/glu.h>
 #include<GL/freeglut.h>
 #include<GLFW/glfw3.h>
 #include <glm/glm.hpp>
+
 //
 
 #include "al.h"
@@ -458,23 +460,23 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();//load identity matrix
 
-    glTranslatef(0.0f,0.0f,-7.0f);//move forward 4 units
+    //glTranslatef(0.0f,0.0f,-7.0f);
     //glTranslatef(1.5f, 0.0f, -7.0f);
     for (int it =0; it<instruments.size();it++){
 
         alGetSourcef(instruments[it].soundsource, AL_SEC_OFFSET, &tracking);
         instruments[it].currentStep=tracking*(60/tempo);
-        instruments[it].currentStep=tracking;
+        instruments[it].currentStep=(int)tracking;
         instruments[it].tempo=tempo;
         instruments[it].render();
 
 
 
 
-        float verts[instruments[it].voices_spinner*3];
-        float colors[instruments[it].voices_spinner*4];
-        std::string vertexShader;
-        std::string fragmentShader;
+        //float verts[instruments[it].voices_spinner*3];
+       // float colors[instruments[it].voices_spinner*4];
+        //std::string vertexShader;
+        //std::string fragmentShader;
         unsigned int indices[instruments[it].voices_spinner*3];
         for (int i=0;i<instruments[it].voices_spinner;i++){
             indices[i]=i;
@@ -485,7 +487,7 @@ void display(void)
         for (int i=instruments[it].voices_spinner-1;i>=0;i--){
             indices[instruments[it].voices_spinner*2+i]=i;
         }
-        glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner);
+        glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner*32);
         glBegin(GL_PATCHES);
         for(int i=0; i<instruments[it].voices_spinner; i++){
 
