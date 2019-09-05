@@ -455,8 +455,10 @@ ALuint source, buffer;
 
 
 
-void display(void)
+void display()
 {
+    glfwMakeContextCurrent(wavebricks_window);
+    glTranslatef(0.0f,0.0f,-0.5f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();//load identity matrix
 
@@ -487,7 +489,8 @@ void display(void)
         for (int i=instruments[it].voices_spinner-1;i>=0;i--){
             indices[instruments[it].voices_spinner*2+i]=i;
         }
-        glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner*32);
+        glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner);
+        glPushMatrix();
         glBegin(GL_PATCHES);
         for(int i=0; i<instruments[it].voices_spinner; i++){
 
@@ -509,7 +512,7 @@ void display(void)
 
         }
         glEnd();
-
+        glPopMatrix();
         /*Renderer renderer;
         renderer.Clear();
         VertexArray va;
@@ -656,10 +659,10 @@ int main(int argc, char **argv)
 
         glutMainLoopEvent();
 
-        glfwMakeContextCurrent(wavebricks_window);
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glfwMakeContextCurrent(wavebricks_window);
+        //glClear(GL_COLOR_BUFFER_BIT);
         display();
-        glfwSwapBuffers(wavebricks_window);
+        //glfwSwapBuffers(wavebricks_window);
         glfwPollEvents();
 
     }
