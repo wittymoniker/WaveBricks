@@ -12,8 +12,8 @@
 #include<GL/glui.h>
 #include<GL/glu.h>
 #include<GL/freeglut.h>
-#include<GLFW/glfw3.h>
-#include <glm/glm.hpp>
+//#include<GLFW/glfw3.h>
+//#include <glm/glm.hpp>
 
 //
 
@@ -85,7 +85,7 @@ char *mainboard_title = "WaveBricks Manager";
 int full_screen = 0;
 GLUI * mainboard_window;
 GLint mainboard_pane;
-GLFWwindow* wavebricks_window;
+GLint wavebricks_window;
 
 
 
@@ -457,8 +457,9 @@ ALuint source, buffer;
 
 void display()
 {
-    glfwMakeContextCurrent(wavebricks_window);
-    glTranslatef(0.0f,0.0f,-0.5f);
+    //glfwMakeContextCurrent(wavebricks_window);
+    glutSetWindow(wavebricks_window);
+    glTranslatef(0.0f,0.0f,-5.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();//load identity matrix
 
@@ -480,39 +481,28 @@ void display()
         //std::string vertexShader;
         //std::string fragmentShader;
         unsigned int indices[instruments[it].voices_spinner*3];
-        for (int i=0;i<instruments[it].voices_spinner;i++){
+        /*for (int i=0;i<instruments[it].voices_spinner;i++){
             indices[i]=i;
+
         }
         for (int i=instruments[it].voices_spinner-1;i>=0;i--){
             indices[instruments[it].voices_spinner+i]=instruments[it].voices_spinner-1-i;
         }
         for (int i=instruments[it].voices_spinner-1;i>=0;i--){
             indices[instruments[it].voices_spinner*2+i]=i;
-        }
-        glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner);
-        glPushMatrix();
-        glBegin(GL_PATCHES);
-        for(int i=0; i<instruments[it].voices_spinner; i++){
-
+        }*/
+        //glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner);
+        //glPushMatrix();
+        //glBegin(GL_PATCHES);
+        /*for(int i=0; i<instruments[it].voices_spinner; i++){
             glColor3f(instruments[it].instrumentPoly[i][3],instruments[it].instrumentPoly[i][4],instruments[it].instrumentPoly[i][5]);
-            glVertex3d(instruments[it].instrumentPoly[i][0],instruments[it].instrumentPoly[i][1],instruments[it].instrumentPoly[i][2]);
-            /*verts[3*i]=instruments[it].instrumentPoly[i][0];
-            cout<<"\n"<<verts[3*i]<<",";
-            verts[3*i+1]=instruments[it].instrumentPoly[i][1];
-            cout<<verts[3*i+1]<<",";
-            verts[3*i+2]=instruments[it].instrumentPoly[i][2];
-            cout<<verts[3*i+2]<<":";
-            colors[4*i]=-instruments[it].instrumentPoly[i][3];
-            cout<<colors[4*i]<<",";
-            colors[4*i+1]=-instruments[it].instrumentPoly[i][4];
-            cout<<colors[4*i+1]<<",";
-            colors[4*i+2]=-instruments[it].instrumentPoly[i][5];
-            cout<<colors[4*i+2]<<";\n";
-            colors[4*i+3]=1.0f;*/
-
-        }
-        glEnd();
-        glPopMatrix();
+            cout<<instruments[it].instrumentPoly[i][3]<<" "<<instruments[it].instrumentPoly[i][4]<<" "<<instruments[it].instrumentPoly[i][5]<<" COLORS\n";
+            glVertex3f(instruments[it].instrumentPoly[i][0],instruments[it].instrumentPoly[i][1],instruments[it].instrumentPoly[i][2]);
+            cout<<instruments[it].instrumentPoly[i][0]<<" "<<instruments[it].instrumentPoly[i][1]<<" "<<instruments[it].instrumentPoly[i][2]<<" VERTS\n";
+        }*/
+        cout<<"\nEND CHUNK\n";
+        //glEnd();
+        //glPopMatrix();
         /*Renderer renderer;
         renderer.Clear();
         VertexArray va;
@@ -557,10 +547,15 @@ static void WBInit(){
     //int argc;char **argv;
     //int argac;char **argav;
 
-    glfwWindowHint( GLFW_OPENGL_DEBUG_CONTEXT, true );
-    wavebricks_window = glfwCreateWindow(1024,768,"WaveBricks Main Window", NULL, NULL);
+//    glfwWindowHint( GLFW_OPENGL_DEBUG_CONTEXT, true );
+    glutInitWindowSize(1024,728);
+    wavebricks_window = glutCreateWindow("WaveBricks Main Window");
+    glutDisplayFunc(idle);
+    GLUI_Master.set_glutIdleFunc (idle);
+    GLUI_Master.set_glutMouseFunc(mouse);
+    GLUI_Master.set_glutDisplayFunc(display);
 
-    glfwMakeContextCurrent(wavebricks_window);
+    glutSetWindow(wavebricks_window);
 
     glewInit();
 
@@ -641,11 +636,11 @@ int main(int argc, char **argv)
     cout << "           WaveBricks v 1.0\n      copyright 2019 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
     glutInit(&argc, argv);
     alutInit(&argc, argv);
-    glfwInit();
+    //glfwInit();
 //    glewInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
+    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     WBInit();
 
     initMainBoard();
@@ -653,8 +648,8 @@ int main(int argc, char **argv)
     ///////////sldjadajsdjjsdaldjsjddjlwdjljw;
 
 
-    glfwMakeContextCurrent(wavebricks_window);
-    while(!glfwWindowShouldClose(wavebricks_window)){
+    glutSetWindow(wavebricks_window);
+    while(true){
         glutSetWindow(mainboard_pane);
 
         glutMainLoopEvent();
@@ -663,7 +658,7 @@ int main(int argc, char **argv)
         //glClear(GL_COLOR_BUFFER_BIT);
         display();
         //glfwSwapBuffers(wavebricks_window);
-        glfwPollEvents();
+        //glfwPollEvents();
 
     }
 

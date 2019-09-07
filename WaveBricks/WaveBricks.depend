@@ -71,7 +71,7 @@
 
 1495245212 D
 
-1567644269 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1567726929 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<windows.h>
 	<GLUT/glut.h>
 	"GLUI/glui.h"
@@ -82,8 +82,6 @@
 	<GL/glui.h>
 	<GL/glu.h>
 	<GL/freeglut.h>
-	<GLFW/glfw3.h>
-	<glm/glm.hpp>
 	"al.h"
 	"alc.h"
 	"alut.h"
@@ -234,7 +232,7 @@
 	<vfw.h>
 	<tchar.h>
 
-1566954328 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
+1567870741 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
 	<windows.h>
 	<stdlib.h>
 	<vector>

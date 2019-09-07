@@ -125,7 +125,7 @@ class instrument{
 
         };
 
-        int heuristic_listbox;
+        int heuristic_listbox=1;
 
 
         int voices_spinner;
@@ -633,13 +633,27 @@ class instrument{
 
 
         }
-        float instrumentPoly[256][6];
+        vector<vector<float>> instrumentPoly;
+
         void render(){
+            glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
+            glPushMatrix();
+            glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
+            glBegin(GL_PATCHES);
+            instrumentPoly.resize(voices_spinner);
+            for (int i=0; i<voices_spinner; i++){
+                instrumentPoly[i].resize(6);
+            }
             updateVoices();
             assembleVoices();
            // //glLoadIdentity();
             //glTranslatef(1.5f, 0.0f, -7.0f);
-
+            for(int i=0;i<voices_spinner;i++){
+                voicesamp[i]=stepvoices[currentStep][0][i];
+                voicespitch[i]=stepvoices[currentStep][1][i];
+                voicesphase[i]=stepvoices[currentStep][2][i];
+                cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<" "<<heuristic_listbox<<"\n";
+            }
             if (heuristic_listbox=1 && voicesphase.size()>=voices_spinner && voicesamp.size()>=voices_spinner &&composition[currentStep].size()>=2&& voicespitch.size()>=voices_spinner){//2d shape
                 for (int i=0; i<voices_spinner;i++){
                         for(int iy=0; iy<composition[currentStep][0].size();iy++){
@@ -651,13 +665,18 @@ class instrument{
                     for(int iy=0; iy<composition[currentStep][1].size();iy++){
                         voicespitch[i] += voicespitch[i]*sqrt(composition[currentStep][1][iy])/1024;
                         voicespitch[i] += voicespitch[i]*sin(currentStep*2.0*PI*fm_spinner)*fmint_spinner;
+                        cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<"\n";
                     }
                 }
                 for (int i=0; i<voices_spinner;i++){
                         //TODO: set voice values all to 1 unless being played, wherat custom values proclaimed
-                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)));
-                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)));
-                    instrumentPoly[i][2]=((zpos_spinner));
+                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)))*voicesamp[i]*voicespitch[i]*voicesphase[i]+voicesamp[i]+voicespitch[i]+voicesphase[i];
+                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner)))*voicespitch[i]+voicespitch[i];
+
+                    instrumentPoly[i][2]=((zpos_spinner))+voicesamp[i];
+                    cout<<instrumentPoly[i][0];
+                    cout<<instrumentPoly[i][1];
+                    cout<<instrumentPoly[i][2];
 
                     instrumentPoly[i][3]=(1.0/(r_spinner/(r_mod_spinner*(pitchcolor_spinner*voicespitch.at(i))*
                                                         (ampcolor_spinner*voicesamp.at(i))*(phasecolor_spinner*
@@ -686,6 +705,10 @@ class instrument{
                     if(instrumentPoly[i][5]>1){
                         instrumentPoly[i][5]=1/instrumentPoly[i][5];
                     }
+                    glColor3f(instrumentPoly[i][3],instrumentPoly[i][4],instrumentPoly[i][5]);
+                    cout<<instrumentPoly[i][3]<<" "<<instrumentPoly[i][4]<<" "<<instrumentPoly[i][5]<<" COLORS\n";
+                    glVertex3f(instrumentPoly[i][0],instrumentPoly[i][1],instrumentPoly[i][2]);
+                    cout<<instrumentPoly[i][0]<<" "<<instrumentPoly[i][1]<<" "<<instrumentPoly[i][2]<<" VERTS\n";
 
                 }
 
@@ -704,9 +727,9 @@ class instrument{
                     }
                 }
                 for (int i=0; i<voices_spinner;i++){
-                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)));
-                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)));
-                    instrumentPoly[i][2]=((zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)));
+                    instrumentPoly[i][0]=((xpos_spinner+(xmod_spinner*pitchscale_spinner*ampscale_spinner*phasescale_spinner)))*voicesamp[i]*voicespitch[i]*voicesphase[i]+voicesamp[i]+voicespitch[i]+voicesphase[i];
+                    instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner)))*voicespitch[i]+voicespitch[i];
+                    instrumentPoly[i][2]=((zpos_spinner+(zmod_spinner*pitchscale_spinner*ampscale_spinner)))*voicesamp[i]*voicespitch[i]+voicesamp[i]+voicespitch[i];
 
                     instrumentPoly[i][3]=(1.0/(r_spinner/(r_mod_spinner*(pitchcolor_spinner*voicespitch.at(i))*
                                                         (ampcolor_spinner*voicesamp.at(i))*(phasecolor_spinner*
@@ -735,6 +758,10 @@ class instrument{
                     if(instrumentPoly[i][5]>1){
                         instrumentPoly[i][5]=1/instrumentPoly[i][5];
                     }
+                    glColor3f(instrumentPoly[i][3],instrumentPoly[i][4],instrumentPoly[i][5]);
+                    cout<<instrumentPoly[i][3]<<" "<<instrumentPoly[i][4]<<" "<<instrumentPoly[i][5]<<" COLORS\n";
+                    glVertex3f(instrumentPoly[i][0],instrumentPoly[i][1],instrumentPoly[i][2]);
+                    cout<<instrumentPoly[i][0]<<" "<<instrumentPoly[i][1]<<" "<<instrumentPoly[i][2]<<" VERTS\n";
                 }
             }
             if (heuristic_listbox=3 && voicesphase.size()>=voices_spinner && voicesamp.size()>=voices_spinner &&composition[currentStep].size()>=2&& voicespitch.size()>=voices_spinner){//2d interfere
@@ -788,6 +815,10 @@ class instrument{
                     if(instrumentPoly[i][5]>1){
                         instrumentPoly[i][5]=1/instrumentPoly[i][5];
                     }
+                    glColor3f(instrumentPoly[i][3],instrumentPoly[i][4],instrumentPoly[i][5]);
+                    cout<<instrumentPoly[i][3]<<" "<<instrumentPoly[i][4]<<" "<<instrumentPoly[i][5]<<" COLORS\n";
+                    glVertex3f(instrumentPoly[i][0],instrumentPoly[i][1],instrumentPoly[i][2]);
+                    cout<<instrumentPoly[i][0]<<" "<<instrumentPoly[i][1]<<" "<<instrumentPoly[i][2]<<" VERTS\n";
                 }
             }
             if (heuristic_listbox=4 && voicesphase.size()>=voices_spinner && voicesamp.size()>=voices_spinner &&composition[currentStep].size()>=2&& voicespitch.size()>=voices_spinner){//3d interfere
@@ -842,8 +873,13 @@ class instrument{
                     if(instrumentPoly[i][5]>1){
                         instrumentPoly[i][5]=1/instrumentPoly[i][5];
                     }
+                    glColor3f(instrumentPoly[i][3],instrumentPoly[i][4],instrumentPoly[i][5]);
+                    cout<<instrumentPoly[i][3]<<" "<<instrumentPoly[i][4]<<" "<<instrumentPoly[i][5]<<" COLORS\n";
+                    glVertex3f(instrumentPoly[i][0],instrumentPoly[i][1],instrumentPoly[i][2]);
+                    cout<<instrumentPoly[i][0]<<" "<<instrumentPoly[i][1]<<" "<<instrumentPoly[i][2]<<" VERTS\n";
                 }
             }
+            glEnd();
         }
 
 
@@ -992,12 +1028,12 @@ class instrument{
             */
             //void * __gxx_personality_v0=0;
             //void * _Unwind_Resume =0;
-            voiceautomation_script={"1,1.5,0.5,"
+            voiceautomation_script={"1.0,1.5,0.5,"
                                     "1.3,1.3,0.2,"
                                     "1.2,0.8,.3,"
                                     "1.1,0.4,0.2,"
                                     "4.2,.02,0.7,"
-                                    "3,1.25,0.4"
+                                    "3.0,1.25,0.4"
                                     ":16,"
                                     "2,1.9,0.5,"
                                     "1,2.7,0.4,"
