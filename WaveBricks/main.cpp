@@ -86,7 +86,7 @@ int full_screen = 0;
 GLUI * mainboard_window;
 GLint mainboard_pane;
 GLint wavebricks_window;
-
+HDC hdc;
 
 
 
@@ -308,6 +308,8 @@ void assembleInst()
     //instruments.resize(instruments.size()+1);
     instruments.push_back(newInst);
     instruments[instruments.size()-1].assemble();
+    glutDisplayFunc(display);
+    GLUI_Master.set_glutIdleFunc (display);
     //instruments[instruments.size()-1].synth_panel->set_main_gfx_window( wavebricks_window );
 }
 
@@ -333,13 +335,10 @@ void trackPlay(){
     for(int i=0;i<instruments.size();i++){
         instruments[i].currentStep = tracking;
         instruments[i].assembleSongData();
-        alBufferData(instruments[i].soundbuffer, AL_FORMAT_MONO16, &instruments[i].samples, sizeof(instruments[i].samples), 44100);
-        instruments[i].soundsource = i;
-        alGenSources(i, &instruments[i].soundsource);
-        alSourcei(instruments[i].soundsource, AL_BUFFER, instruments[i].soundbuffer);
+
     }
     for(int i=0;i<instruments.size();i++){
-        alSourcePlay(instruments[i].soundsource);
+        instruments[i].play();
 
     }
 
@@ -480,7 +479,7 @@ void display()
        // float colors[instruments[it].voices_spinner*4];
         //std::string vertexShader;
         //std::string fragmentShader;
-        unsigned int indices[instruments[it].voices_spinner*3];
+        //unsigned int indices[instruments[it].voices_spinner*3];
         /*for (int i=0;i<instruments[it].voices_spinner;i++){
             indices[i]=i;
 
@@ -534,7 +533,9 @@ void display()
         shader.Unbind();
         */
     }
-
+    if(playbutton){
+        trackPlay();
+    }
 
 }
 void debugCB( GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *msg, const void *data )
@@ -549,13 +550,15 @@ static void WBInit(){
 
 //    glfwWindowHint( GLFW_OPENGL_DEBUG_CONTEXT, true );
     glutInitWindowSize(1024,728);
+    glutDisplayFunc(display);
     wavebricks_window = glutCreateWindow("WaveBricks Main Window");
-    glutDisplayFunc(idle);
-    GLUI_Master.set_glutIdleFunc (idle);
-    GLUI_Master.set_glutMouseFunc(mouse);
-    GLUI_Master.set_glutDisplayFunc(display);
+    glutDisplayFunc(display);
+    //GLUI_Master.set_glutIdleFunc (idle);
+    //GLUI_Master.set_glutMouseFunc(mouse);
+    //GLUI_Master.set_glutDisplayFunc(display);
 
     glutSetWindow(wavebricks_window);
+    glutDisplayFunc(display);
 
     glewInit();
 
@@ -595,9 +598,9 @@ void initMainBoard ()
 {
     glutInitWindowSize(250,275);
     mainboard_pane = glutCreateWindow("Wavebricks Manager");
-    glutDisplayFunc(idle);
-    GLUI_Master.set_glutIdleFunc (idle);
-    GLUI_Master.set_glutMouseFunc(mouse);
+    glutDisplayFunc(display);
+    //GLUI_Master.set_glutIdleFunc (disp);
+    //GLUI_Master.set_glutMouseFunc(mouse);
     GLUI_Master.set_glutDisplayFunc(display);
 	mainboard_window = GLUI_Master.create_glui_subwindow (mainboard_pane);
 
@@ -613,8 +616,8 @@ void initMainBoard ()
 
     //glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
     mainboard_window->set_main_gfx_window( mainboard_pane );
-    GLUI_Master.set_glutIdleFunc( NULL );
-    GLUI_Master.set_glutMouseFunc(mouse);
+    //GLUI_Master.set_glutIdleFunc( NULL );
+    //GLUI_Master.set_glutMouseFunc(mouse);
 }
 
 
@@ -649,18 +652,15 @@ int main(int argc, char **argv)
 
 
     glutSetWindow(wavebricks_window);
-    while(true){
-        glutSetWindow(mainboard_pane);
 
-        glutMainLoopEvent();
+    glutMainLoop();
 
-        //glfwMakeContextCurrent(wavebricks_window);
-        //glClear(GL_COLOR_BUFFER_BIT);
-        display();
-        //glfwSwapBuffers(wavebricks_window);
-        //glfwPollEvents();
 
-    }
+    //glfwMakeContextCurrent(wavebricks_window);
+    //glClear(GL_COLOR_BUFFER_BIT);
+    display();
+    //glfwSwapBuffers(wavebricks_window);
+    //glfwPollEvents();
 
 
 

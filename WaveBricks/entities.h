@@ -6,12 +6,13 @@
 #include <algorithm>
 //#pragma comment(lib, "glut32.lib")
 #include<GL/freeglut.h>
-#include <GL/glut.h>
-#include <GL/glui.h>
-#include<GL/gl.h>
+//#include <GL/glut.h>
+#include <GL/glew.h>
+#include<GL/glui.h>
 #include<GL/glu.h>
+#include<GL/freeglut.h>
 
-#include <GL/glut.h>
+//#include <GL/glut.h>
 //#include <synths.h>
 
 #include "al.h"
@@ -276,8 +277,8 @@ class instrument{
             glutInitWindowSize(700,800);
             GLuint wavebricks_synth;
             wavebricks_synth = glutCreateWindow("Wavebricks Synth");
-            glutDisplayFunc(idle);
-            GLUI_Master.set_glutIdleFunc (idle);
+            //glutDisplayFunc(display);
+
 
 
             GLUI * synth_panel = GLUI_Master.create_glui_subwindow (wavebricks_synth);
@@ -638,7 +639,8 @@ class instrument{
         void render(){
             glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
             glPushMatrix();
-            glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
+            //glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
+            glTranslatef(0.0f, 0.0f, -7.0f);
             glBegin(GL_PATCHES);
             instrumentPoly.resize(voices_spinner);
             for (int i=0; i<voices_spinner; i++){
@@ -647,12 +649,12 @@ class instrument{
             updateVoices();
             assembleVoices();
            // //glLoadIdentity();
-            //glTranslatef(1.5f, 0.0f, -7.0f);
+
             for(int i=0;i<voices_spinner;i++){
                 voicesamp[i]=stepvoices[currentStep][0][i];
                 voicespitch[i]=stepvoices[currentStep][1][i];
                 voicesphase[i]=stepvoices[currentStep][2][i];
-                cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<" "<<heuristic_listbox<<"\n";
+                //cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<" "<<heuristic_listbox<<"\n";
             }
             if (heuristic_listbox=1 && voicesphase.size()>=voices_spinner && voicesamp.size()>=voices_spinner &&composition[currentStep].size()>=2&& voicespitch.size()>=voices_spinner){//2d shape
                 for (int i=0; i<voices_spinner;i++){
@@ -665,7 +667,7 @@ class instrument{
                     for(int iy=0; iy<composition[currentStep][1].size();iy++){
                         voicespitch[i] += voicespitch[i]*sqrt(composition[currentStep][1][iy])/1024;
                         voicespitch[i] += voicespitch[i]*sin(currentStep*2.0*PI*fm_spinner)*fmint_spinner;
-                        cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<"\n";
+                        //cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<"\n";
                     }
                 }
                 for (int i=0; i<voices_spinner;i++){
@@ -674,9 +676,6 @@ class instrument{
                     instrumentPoly[i][1]=((ypos_spinner+(ymod_spinner*pitchscale_spinner)))*voicespitch[i]+voicespitch[i];
 
                     instrumentPoly[i][2]=((zpos_spinner))+voicesamp[i];
-                    cout<<instrumentPoly[i][0];
-                    cout<<instrumentPoly[i][1];
-                    cout<<instrumentPoly[i][2];
 
                     instrumentPoly[i][3]=(1.0/(r_spinner/(r_mod_spinner*(pitchcolor_spinner*voicespitch.at(i))*
                                                         (ampcolor_spinner*voicesamp.at(i))*(phasecolor_spinner*
@@ -880,10 +879,61 @@ class instrument{
                 }
             }
             glEnd();
+            glPopMatrix();
+            glFlush();
+            //glutSwapBuffers();
         }
 
 
 
+        #define CASE_RETURN(err) case (err): return "##err"
+        const char* al_err_str(ALenum err) {
+            switch(err) {
+                CASE_RETURN(AL_NO_ERROR);
+                CASE_RETURN(AL_INVALID_NAME);
+                CASE_RETURN(AL_INVALID_ENUM);
+                CASE_RETURN(AL_INVALID_VALUE);
+                CASE_RETURN(AL_INVALID_OPERATION);
+                CASE_RETURN(AL_OUT_OF_MEMORY);
+            }
+            return "unknown";
+        }
+        #undef CASE_RETURN
+
+        #define __al_check_error(file,line) \
+            do { \
+                ALenum err = alGetError(); \
+                for(; err!=AL_NO_ERROR; err=alGetError()) { \
+                    std::cerr << "AL Error " << al_err_str(err) << " at " << file << ":" << line << std::endl; \
+                } \
+            }while(0)
+
+        #define al_check_error() \
+            __al_check_error(__FILE__, __LINE__)
+
+
+        void init_al() {
+            ALCdevice *dev = NULL;
+            ALCcontext *ctx = NULL;
+
+            const char *defname = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+            std::cout << "Default device: " << defname << std::endl;
+
+            dev = alcOpenDevice(defname);
+            ctx = alcCreateContext(dev, NULL);
+            alcMakeContextCurrent(ctx);
+        }
+
+        void exit_al() {
+            ALCdevice *dev = NULL;
+            ALCcontext *ctx = NULL;
+            ctx = alcGetCurrentContext();
+            dev = alcGetContextsDevice(ctx);
+
+            alcMakeContextCurrent(NULL);
+            alcDestroyContext(ctx);
+            alcCloseDevice(dev);
+        }
 
 
 
@@ -894,37 +944,23 @@ class instrument{
         ALuint soundbuffer;
         ALuint soundstream;
 
-        void playVertice(short data[], float srate,  float freq, float amp, float phase,
-                                 float decayf, float bpm,float am,float amfreq, float fm, float fmfreq,float step){
-            float ampmult = 1024.0f;
-            float cycle = 2.0f;
-            float minute = 60.0f;
-            float i = 0.0f;
-            float ampadj =ampmult* amp;
-            float M_PI = PI;
 
-            int sizeSS=((44100*(60/tempo))*composition.size()+ (44100*(60/tempo))*16);
-            //data=data;
-            for(float i = step*(44100*(60/tempo));i<sizeSS;(i)++){
-                //cout<<"\nattempting transfer at "<<i;
-                data[(int)i] += (ampadj*(((sin(((freq*2.0*M_PI)/44100*i)*phase+((freq*2.0*M_PI)/44100*i)*(fm*sin((fmfreq*2.0*M_PI)/44100*i))))
-                                            +(sin(((freq*2.0*M_PI)/44100*i)+((freq*2.0*M_PI)/44100*i)*(fm*sin((fmfreq*2.0*M_PI)/44100*i))))
-                                            *(sin((amfreq*2.0*M_PI)/44100*i)*am))));
-            }
-        }
-        short samples;
+        ALshort *samples;
+
+
+
         void assembleSongData(){
+            samples=new ALshort[composition.size()*2*(22050*(60/(int)tempo))];
+            init_al();
             updateVoices();
             assembleVoices();
             float bpm = tempo;
             //ALfloat *soundstream;
-            ALuint srate = 44100;
+            ALuint srate = 22050;
 
             alGenBuffers(1, &soundbuffer);
 
-            short *samples=(short*)malloc(4*((44100*(60/tempo))*composition.size()+ (44100*(60/tempo))*16));
-
-            cout<<composition.size();
+            //cout<<composition.size();
 
             for (int it=0;composition.size()>it&&stepvoices.size()>it;it++){
                 for(int iu=0; iu < composition[it].size() && iu < stepvoices[it].size();iu++){
@@ -943,9 +979,46 @@ class instrument{
                     }
                 }
             }
+
             cout<<"\nwrote composition\n";
 
 
+        }
+        void playVertice(ALshort data[], float srate,  float freq, float amp, float phase,
+                                 float decayf, float bpm,float am,float amfreq, float fm, float fmfreq,float step){
+            float ampmult = 32.0f;
+            float cycle = 2.0f;
+            float minute = 60.0f;
+            float i = 0.0f;
+            float ampadj =ampmult* amp;
+            float M_PI = PI;
+
+            int sizeSS=composition.size()*2*(22050*(60/(int)tempo));
+            //data=data;
+            for(int i = step*(22050*(60/tempo));i<(step+(1.0*decayf))*(22050*(60/tempo));(i)++){
+                //cout<<"\nattempting transfer at "<<i;
+              if(sizeof(samples[i]+(short)(ampadj*(((sin(((freq*2.0*M_PI)/22050*i)*phase+((freq*2.0*M_PI)/22050*i)*(fm*sin((fmfreq*2.0*M_PI)/22050*i))))
+                        +(sin(((freq*2.0*M_PI)/22050*i)+((freq*2.0*M_PI)/22050*i)*(fm*sin((fmfreq*2.0*M_PI)/22050*i))))
+                        *(sin((amfreq*2.0*M_PI)/22050*i)*am)))))<=32767
+                   &&
+                   sizeof(samples[i]+(short)(ampadj*(((sin(((freq*2.0*M_PI)/22050*i)*phase+((freq*2.0*M_PI)/22050*i)*(fm*sin((fmfreq*2.0*M_PI)/22050*i))))
+                        +(sin(((freq*2.0*M_PI)/22050*i)+((freq*2.0*M_PI)/22050*i)*(fm*sin((fmfreq*2.0*M_PI)/22050*i))))
+                        *(sin((amfreq*2.0*M_PI)/22050*i)*am)))))>=-32767 )
+
+               samples[i] += (ALshort)(ampadj*(((sin(((freq*2.0*M_PI)/22050*i)*phase+((freq*2.0*M_PI)/22050*i)*(fm*sin((fmfreq*2.0*M_PI)/22050*i))))
+                        +(sin(((freq*2.0*M_PI)/22050*i)+((freq*2.0*M_PI)/22050*i)*(fm*sin((fmfreq*2.0*M_PI)/22050*i))))
+                        *(sin((amfreq*2.0*M_PI)/22050*i)*am))));
+
+                //cout << samples[i];
+            }
+
+        }
+        void play(){
+            alBufferData(soundbuffer, AL_FORMAT_MONO16, &samples, composition.size()*2*(22050*(60/(int)tempo)), (22050));
+            alGenSources(1, &soundsource);
+            alSourcei(soundsource, AL_BUFFER,soundbuffer);
+            alSourcePlay(soundsource);
+            cout<<"play";
         }
 
 
