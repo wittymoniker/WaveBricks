@@ -71,7 +71,7 @@
 
 1495245212 D
 
-1568071305 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1568312880 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<windows.h>
 	<GLUT/glut.h>
 	"GLUI/glui.h"
@@ -105,7 +105,7 @@
 	"vertexarray.h"
 	"vertexbufferlayout.h"
 	"shader.h"
-	"entities.h"
+	"entities.cpp"
 
 1537195320 gin/master
 	<GLUT/glut.h>
@@ -138,17 +138,29 @@
 	<stdlib.h>
 	<vector>
 
-1558484522 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
-	<cmath>
-	<vector>
+1568312962 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<windows.h>
 	<stdlib.h>
-	<fstream>
-	<GLUT/glut.h>
-	"GLUI/glui.h"
-	<GL/glut.h>
-	"GL/glui.h"
-	"entities.h"
+	<vector>
+	<algorithm>
+	<GL/glew.h>
+	<GL/freeglut.h>
+	<GL/glui.h>
+	<GL/glu.h>
+	<GL/freeglut.h>
+	"al.h"
+	"alc.h"
+	"alut.h"
+	"stdio.h"
+	"math.h"
+	<string>
+	"string"
+	<iostream>
+	<vector>
+	<tuple>
+	<utility>
+	<stdio.h>
+	<assert.h>
 
 1485631403 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 

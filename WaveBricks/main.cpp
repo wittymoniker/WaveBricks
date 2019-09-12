@@ -47,7 +47,7 @@
 #include "vertexbufferlayout.h"
 #include "shader.h"
 
-#include "entities.h"
+#include "entities.cpp"
 
 //#include "synths.cpp"
 //#include "entities.cpp"

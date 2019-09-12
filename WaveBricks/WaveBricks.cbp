@@ -75,6 +75,7 @@
 		<Unit filename="al.h" />
 		<Unit filename="alc.h" />
 		<Unit filename="alut.h" />
+		<Unit filename="entities.cpp" />
 		<Unit filename="entities.h" />
 		<Unit filename="file.cpp" />
 		<Unit filename="glew.c">
