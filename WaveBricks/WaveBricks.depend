@@ -51,15 +51,13 @@
 
 1485627589 c:\weed op\weed-op\weed op\include\entities.h
 
-1568332494 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
+1568393848 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<windows.h>
 	<stdlib.h>
 	<vector>
 	<algorithm>
 	<GL/glew.h>
-	<GL/freeglut.h>
 	<GL/glui.h>
-	<GL/glu.h>
 	<GL/freeglut.h>
 	"al.h"
 	"alc.h"
@@ -79,7 +77,7 @@
 
 1495245212 D
 
-1568312880 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1568395025 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
 	<windows.h>
 	<GLUT/glut.h>
 	"GLUI/glui.h"
@@ -88,7 +86,6 @@
 	"alut.h"
 	<GL/glew.h>
 	<GL/glui.h>
-	<GL/glu.h>
 	<GL/freeglut.h>
 	"al.h"
 	"alc.h"
@@ -113,7 +110,7 @@
 	"vertexarray.h"
 	"vertexbufferlayout.h"
 	"shader.h"
-	"entities.cpp"
+	"entities.h"
 
 1537195320 gin/master
 	<GLUT/glut.h>
@@ -146,16 +143,11 @@
 	<stdlib.h>
 	<vector>
 
-1568332494 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
+1568394509 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.cpp
 	<windows.h>
 	<stdlib.h>
 	<vector>
 	<algorithm>
-	<GL/glew.h>
-	<GL/freeglut.h>
-	<GL/glui.h>
-	<GL/glu.h>
-	<GL/freeglut.h>
 	"al.h"
 	"alc.h"
 	"alut.h"
@@ -169,6 +161,7 @@
 	<utility>
 	<stdio.h>
 	<assert.h>
+	"main.cpp"
 
 1485631403 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\file.cpp
 
@@ -252,15 +245,13 @@
 	<vfw.h>
 	<tchar.h>
 
-1568247623 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
+1568395104 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entities.h
 	<windows.h>
 	<stdlib.h>
 	<vector>
 	<algorithm>
-	<GL/freeglut.h>
 	<GL/glew.h>
 	<GL/glui.h>
-	<GL/glu.h>
 	<GL/freeglut.h>
 	"al.h"
 	"alc.h"
@@ -302,21 +293,21 @@
 	"GL/glui.h"
 	"synths.h"
 
-1558486466 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+1568394668 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\main.cpp
+	<windows.h>
 	<GLUT/glut.h>
 	"GLUI/glui.h"
 	"al.h"
 	"alc.h"
 	"alut.h"
-	<GL/glut.h>
-	<synths.h>
-	"GL/glui.h"
+	<GL/glew.h>
+	<GL/glui.h>
+	<GL/freeglut.h>
 	"al.h"
 	"alc.h"
 	"alut.h"
 	<cmath>
 	<vector>
-	<windows.h>
 	<stdlib.h>
 	<iostream>
 	<fstream>
@@ -324,11 +315,18 @@
 	<winioctl.h>
 	<unistd.h>
 	<fcntl.h>
+	<thread>
 	<map>
 	<string>
+	<sstream>
 	<stdio.h>
-	"synths.cpp"
-	"entities.cpp"
+	"renderer.h"
+	"vertexbuffer.h"
+	"indexbuffer.h"
+	"vertexarray.h"
+	"vertexbufferlayout.h"
+	"shader.h"
+	"entities.h"
 
 1558555247 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\\synths.h
 	<windows.h>
@@ -681,7 +679,8 @@
 	<sstream>
 	<stdio.h>
 
-1568332066 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entitiesd.cpp
+1568394509 c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entitiesd.cpp
+	"entities.cpp"
 
 1568332539 source:c:\users\noah\documents\wavebricks\wavebricks\wavebricks\entitiesd.cpp
 	"entities.cpp"

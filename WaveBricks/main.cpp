@@ -1,4 +1,4 @@
-
+#pragma once
 #include <windows.h>
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -10,8 +10,9 @@
 //#pragma comment(lib, "glut32.lib")
 #include <GL/glew.h>
 #include<GL/glui.h>
-#include<GL/glu.h>
+//#include<GL/glu.h>
 #include<GL/freeglut.h>
+
 //#include<GLFW/glfw3.h>
 //#include <glm/glm.hpp>
 
@@ -46,8 +47,9 @@
 #include "vertexarray.h"
 #include "vertexbufferlayout.h"
 #include "shader.h"
+#include "entities.h"
 
-#include "entities.cpp"
+
 
 //#include "synths.cpp"
 //#include "entities.cpp"
@@ -55,7 +57,6 @@ using namespace std;
 
 
 //static ALuint audios[];
-
 
 static std::vector<instrument> instruments;
 
@@ -304,9 +305,10 @@ enum
 
 void assembleInst()
 {
-    instrument newInst;
-    //instruments.resize(instruments.size()+1);
-    instruments.push_back(newInst);
+    instrument *newInst;
+    newInst = new instrument;
+    //newInst->assemble();
+    instruments.push_back(*newInst);
     instruments[instruments.size()-1].assemble();
     glutDisplayFunc(display);
     GLUI_Master.set_glutIdleFunc (display);

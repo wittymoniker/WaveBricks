@@ -1,3 +1,4 @@
+#pragma once
 #include<windows.h>
 #include <stdlib.h>
 #include<vector>
@@ -5,11 +6,12 @@
 //#pragma comment(lib, "glut32.lib")
 
 //#include <GL/glut.h>
-#include <GL/glew.h>
-#include<GL/freeglut.h>
-#include<GL/glui.h>
-#include<GL/glu.h>
-#include<GL/freeglut.h>
+//#include <GL/glew.h>
+//#include<GL/freeglut.h>
+
+//#include<GL/glu.h>
+//#include<GL/freeglut.h>
+//#include<GL/glui.h>
 
 //#include <GL/glut.h>
 //#include <synths.h>

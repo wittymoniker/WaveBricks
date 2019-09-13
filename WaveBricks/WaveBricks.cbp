@@ -50,7 +50,7 @@
 			<Add directory="SFML-2.5.1/include" />
 		</Compiler>
 		<Linker>
-			<Add option="-lfreeglut -lglu32 -lopengl32" />
+			<Add option="-lfreeglut -lopengl32" />
 			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglui32.a" />
 			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/freeglut.lib" />
 			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/alut.lib" />
@@ -62,7 +62,6 @@
 			<Add library="sfml-graphics" />
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
-			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglew32.a" />
 			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libglu32.a" />
 			<Add library="../../../../../../Program Files (x86)/CodeBlocks/MinGW/lib/libopengl32.a" />
 			<Add directory="C:/Weed Op/Weed-Op/freeglut/lib" />
@@ -75,7 +74,6 @@
 		<Unit filename="al.h" />
 		<Unit filename="alc.h" />
 		<Unit filename="alut.h" />
-		<Unit filename="entities.cpp" />
 		<Unit filename="entities.h" />
 		<Unit filename="entitiesd.cpp" />
 		<Unit filename="file.cpp" />

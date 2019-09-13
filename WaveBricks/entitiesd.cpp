@@ -1,4 +1,5 @@
-#include "entities.cpp"
+#pragma once
+#include "entities.h"
 
 void instrument::assembleVoices(){
             vector<vector<vector<vector<float>>>>breakpoints={};
@@ -747,7 +748,7 @@ void instrument::assembleVoices(){
                         +(sin(((freq*2.0*M_PI)/22050*i)+((freq*2.0*M_PI)/22050*i)*(fm*sin((fmfreq*2.0*M_PI)/22050*i))))
                         *(sin((amfreq*2.0*M_PI)/22050*i)*am))));
 
-                cout << samples[i];
+                //cout << samples[i];
             }
 
         }
