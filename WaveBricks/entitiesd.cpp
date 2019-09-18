@@ -445,7 +445,7 @@ void instrument::render() {
 	glPushMatrix();
 	//glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
 	//glTranslatef(0.0f, 0.0f, -7.0f);
-	glBegin(GL_PATCHES);
+	glBegin(GL_TRIANGLES);
 	instrumentPoly.resize(voices_spinner);
 	for (int i = 0; i < voices_spinner; i++) {
 		instrumentPoly[i].resize(6);
@@ -685,7 +685,7 @@ void instrument::render() {
 	glEnd();
 	glPopMatrix();
 	glFlush();
-	//glutSwapBuffers();
+	glutSwapBuffers();
 }
 
 
@@ -740,7 +740,7 @@ void instrument::playVertice(ALshort data[], float srate, float freq, float amp,
 
 	int sizeSS = composition.size() * 2 * (22050 * (60 / (int)tempo));
 	//data=data;
-	for (int i = step * (22050 * (60 / tempo)); i < (step + (1.0 * decayf)) * (22050 * (60 / (float)tempo)) && i < sizeSS; (i)++) {
+	for (int i = step * (22050 * (60 / tempo)); i < (step + (1.0 * decayf)) * (22050 * (60 / tempo)) && i < sizeSS; (i)++) {
 		//cout<<"\nattempting transfer at "<<i;
 		if ((samples[i] + (short)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
 			+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
@@ -932,4 +932,26 @@ void instrument::initVals() {
 				 "1.3,63:"
 				 "1.3,85:"
 				 "1.3,129:" };
+}
+void instrument::init_al() {
+	ALCdevice* dev = NULL;
+	ALCcontext* ctx = NULL;
+
+	const char* defname = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
+	std::cout << "Default device: " << defname << std::endl;
+
+	dev = alcOpenDevice(defname);
+	ctx = alcCreateContext(dev, NULL);
+	alcMakeContextCurrent(ctx);
+}
+
+void instrument::exit_al() {
+	ALCdevice* dev = NULL;
+	ALCcontext* ctx = NULL;
+	ctx = alcGetCurrentContext();
+	dev = alcGetContextsDevice(ctx);
+
+	alcMakeContextCurrent(NULL);
+	alcDestroyContext(ctx);
+	alcCloseDevice(dev);
 }

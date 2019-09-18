@@ -243,28 +243,9 @@ public:
             __al_check_error(__FILE__, __LINE__)
 
 
-	void init_al() {
-		ALCdevice* dev = NULL;
-		ALCcontext* ctx = NULL;
+	void init_al();
 
-		const char* defname = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);
-		std::cout << "Default device: " << defname << std::endl;
-
-		dev = alcOpenDevice(defname);
-		ctx = alcCreateContext(dev, NULL);
-		alcMakeContextCurrent(ctx);
-	}
-
-	void exit_al() {
-		ALCdevice* dev = NULL;
-		ALCcontext* ctx = NULL;
-		ctx = alcGetCurrentContext();
-		dev = alcGetContextsDevice(ctx);
-
-		alcMakeContextCurrent(NULL);
-		alcDestroyContext(ctx);
-		alcCloseDevice(dev);
-	}
+	void exit_al();
 
 
 
