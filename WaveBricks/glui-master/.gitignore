@@ -1,7 +1,0 @@
-
-*.o
-/bin/
-/lib/
-
-# Conventional cmake build directory
-/build/

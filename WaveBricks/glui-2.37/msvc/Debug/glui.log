@@ -1,0 +1,63 @@
+﻿  algebra3.cpp
+  arcball.cpp
+  glui.cpp
+  glui_add_controls.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_bitmaps.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_bitmap_img_data.cpp
+  glui_button.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_checkbox.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_column.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_commandline.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_control.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_edittext.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_filebrowser.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_list.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_listbox.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_mouse_iaction.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_node.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_panel.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_radio.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_rollout.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  Generating Code...
+  Compiling...
+  glui_rotation.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_scrollbar.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_separator.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_spinner.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_statictext.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_string.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_textbox.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_translation.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_tree.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_treepanel.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  glui_window.cpp
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory
+  quaternion.cpp
+  Generating Code...
+C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL\glui.h(66,10): error C1083:  Cannot open include file: 'glut.h': No such file or directory

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProjectSchemaDefinitions xmlns="clr-namespace:Microsoft.Build.Framework.XamlTypes;assembly=Microsoft.Build.Framework">
+  <Rule Name="ReferencedPackages59f29d2e-e3d4-4687-8d3b-446ca85e2dde" PageTemplate="tool" DisplayName="Referenced Packages" SwitchPrefix="/" Order="1">
+    <Rule.Categories>
+      <Category Name="freeglut" DisplayName="freeglut" />
+    </Rule.Categories>
+    <Rule.DataSource>
+      <DataSource Persistence="ProjectFile" ItemType="" />
+    </Rule.DataSource>
+    <EnumProperty Name="Linkage-freeglut" DisplayName="Linkage" Description="Which version of the .lib file to link to this library" Category="freeglut">
+      <EnumValue Name="" DisplayName="Dynamic Library (DLL)" />
+      <EnumValue Name="static" DisplayName="Static" />
+      <EnumValue Name="ltcg" DisplayName="Link Time Compiler Generation" />
+    </EnumProperty>
+  </Rule>
+</ProjectSchemaDefinitions>

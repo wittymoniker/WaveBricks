@@ -1,3 +1,4 @@
+#pragma once
 #if !defined(AL_ALUT_H)
 #define AL_ALUT_H
 
@@ -17,30 +18,30 @@ extern "C" {
 #endif
 
 #if defined(_WIN32) && !defined(_XBOX)
- #if defined (ALUT_BUILD_LIBRARY)
-  #define ALUT_API __declspec(dllexport)
- #else
-  #define ALUT_API __declspec(dllimport)
- #endif
+#if defined (ALUT_BUILD_LIBRARY)
+#define ALUT_API __declspec(dllexport)
 #else
- #if defined(ALUT_BUILD_LIBRARY) && defined(HAVE_GCC_VISIBILITY)
-  #define ALUT_API __attribute__((visibility("default")))
- #else
-  #define ALUT_API extern
- #endif
+#define ALUT_API __declspec(dllimport)
+#endif
+#else
+#if defined(ALUT_BUILD_LIBRARY) && defined(HAVE_GCC_VISIBILITY)
+#define ALUT_API __attribute__((visibility("default")))
+#else
+#define ALUT_API extern
+#endif
 #endif
 
 #if defined(_WIN32)
- #define ALUT_APIENTRY __cdecl
+#define ALUT_APIENTRY __cdecl
 #else
- #define ALUT_APIENTRY
+#define ALUT_APIENTRY
 #endif
 
 #if defined(__MWERKS_)
- #pragma export on
+#pragma export on
 #endif
 
-/* Flag deprecated functions if possible (VisualC++ .NET and GCC >= 3.1.1). */
+	/* Flag deprecated functions if possible (VisualC++ .NET and GCC >= 3.1.1). */
 #if defined(_MSC_VER) && _MSC_VER >= 1300 && !defined(MIDL_PASS)
 #define ALUT_ATTRIBUTE_DEPRECATED __declspec(deprecated)
 #elif defined(__GNUC__) &&  (__GNUC__ > 3 || (__GNUC__ == 3 && (__GNUC_MINOR__ > 1 || (__GNUC_MINOR__ == 1 && __GNUC_PATCHLEVEL__ >= 1))))
@@ -81,42 +82,42 @@ extern "C" {
 #define ALUT_LOADER_BUFFER                     0x300
 #define ALUT_LOADER_MEMORY                     0x301
 
-ALUT_API ALboolean ALUT_APIENTRY alutInit (int *argcp, char **argv);
-ALUT_API ALboolean ALUT_APIENTRY alutInitWithoutContext (int *argcp, char **argv);
-ALUT_API ALboolean ALUT_APIENTRY alutExit (void);
+	ALUT_API ALboolean ALUT_APIENTRY alutInit(int* argcp, char** argv);
+	ALUT_API ALboolean ALUT_APIENTRY alutInitWithoutContext(int* argcp, char** argv);
+	ALUT_API ALboolean ALUT_APIENTRY alutExit(void);
 
-ALUT_API ALenum ALUT_APIENTRY alutGetError (void);
-ALUT_API const char *ALUT_APIENTRY alutGetErrorString (ALenum error);
+	ALUT_API ALenum ALUT_APIENTRY alutGetError(void);
+	ALUT_API const char* ALUT_APIENTRY alutGetErrorString(ALenum error);
 
-ALUT_API ALuint ALUT_APIENTRY alutCreateBufferFromFile (const char *fileName);
-ALUT_API ALuint ALUT_APIENTRY alutCreateBufferFromFileImage (const ALvoid *data, ALsizei length);
-ALUT_API ALuint ALUT_APIENTRY alutCreateBufferHelloWorld (void);
-ALUT_API ALuint ALUT_APIENTRY alutCreateBufferWaveform (ALenum waveshape, ALfloat frequency, ALfloat phase, ALfloat duration);
+	ALUT_API ALuint ALUT_APIENTRY alutCreateBufferFromFile(const char* fileName);
+	ALUT_API ALuint ALUT_APIENTRY alutCreateBufferFromFileImage(const ALvoid* data, ALsizei length);
+	ALUT_API ALuint ALUT_APIENTRY alutCreateBufferHelloWorld(void);
+	ALUT_API ALuint ALUT_APIENTRY alutCreateBufferWaveform(ALenum waveshape, ALfloat frequency, ALfloat phase, ALfloat duration);
 
-ALUT_API ALvoid *ALUT_APIENTRY alutLoadMemoryFromFile (const char *fileName, ALenum *format, ALsizei *size, ALfloat *frequency);
-ALUT_API ALvoid *ALUT_APIENTRY alutLoadMemoryFromFileImage (const ALvoid *data, ALsizei length, ALenum *format, ALsizei *size, ALfloat *frequency);
-ALUT_API ALvoid *ALUT_APIENTRY alutLoadMemoryHelloWorld (ALenum *format, ALsizei *size, ALfloat *frequency);
-ALUT_API ALvoid *ALUT_APIENTRY alutLoadMemoryWaveform (ALenum waveshape, ALfloat frequency, ALfloat phase, ALfloat duration, ALenum *format, ALsizei *size, ALfloat *freq);
+	ALUT_API ALvoid* ALUT_APIENTRY alutLoadMemoryFromFile(const char* fileName, ALenum* format, ALsizei* size, ALfloat* frequency);
+	ALUT_API ALvoid* ALUT_APIENTRY alutLoadMemoryFromFileImage(const ALvoid* data, ALsizei length, ALenum* format, ALsizei* size, ALfloat* frequency);
+	ALUT_API ALvoid* ALUT_APIENTRY alutLoadMemoryHelloWorld(ALenum* format, ALsizei* size, ALfloat* frequency);
+	ALUT_API ALvoid* ALUT_APIENTRY alutLoadMemoryWaveform(ALenum waveshape, ALfloat frequency, ALfloat phase, ALfloat duration, ALenum* format, ALsizei* size, ALfloat* freq);
 
-ALUT_API const char *ALUT_APIENTRY alutGetMIMETypes (ALenum loader);
+	ALUT_API const char* ALUT_APIENTRY alutGetMIMETypes(ALenum loader);
 
-ALUT_API ALint ALUT_APIENTRY alutGetMajorVersion (void);
-ALUT_API ALint ALUT_APIENTRY alutGetMinorVersion (void);
+	ALUT_API ALint ALUT_APIENTRY alutGetMajorVersion(void);
+	ALUT_API ALint ALUT_APIENTRY alutGetMinorVersion(void);
 
-ALUT_API ALboolean ALUT_APIENTRY alutSleep (ALfloat duration);
+	ALUT_API ALboolean ALUT_APIENTRY alutSleep(ALfloat duration);
 
-/* Nasty Compatibility stuff, WARNING: THESE FUNCTIONS ARE STRONGLY DEPRECATED */
+	/* Nasty Compatibility stuff, WARNING: THESE FUNCTIONS ARE STRONGLY DEPRECATED */
 #if defined(__APPLE__)
-ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVFile (ALbyte *fileName, ALenum *format, void **data, ALsizei *size, ALsizei *frequency);
-ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVMemory (ALbyte *buffer, ALenum *format, void **data, ALsizei *size, ALsizei *frequency);
+	ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVFile(ALbyte* fileName, ALenum* format, void** data, ALsizei* size, ALsizei* frequency);
+	ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVMemory(ALbyte* buffer, ALenum* format, void** data, ALsizei* size, ALsizei* frequency);
 #else
-ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVFile (ALbyte *fileName, ALenum *format, void **data, ALsizei *size, ALsizei *frequency, ALboolean *loop);
-ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVMemory (ALbyte *buffer, ALenum *format, void **data, ALsizei *size, ALsizei *frequency, ALboolean *loop);
+	ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVFile(ALbyte* fileName, ALenum* format, void** data, ALsizei* size, ALsizei* frequency, ALboolean* loop);
+	ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutLoadWAVMemory(ALbyte* buffer, ALenum* format, void** data, ALsizei* size, ALsizei* frequency, ALboolean* loop);
 #endif
-ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutUnloadWAV (ALenum format, ALvoid *data, ALsizei size, ALsizei frequency);
+	ALUT_API ALUT_ATTRIBUTE_DEPRECATED void ALUT_APIENTRY alutUnloadWAV(ALenum format, ALvoid* data, ALsizei size, ALsizei frequency);
 
 #if defined(__MWERKS_)
- #pragma export off
+#pragma export off
 #endif
 
 #if defined(__cplusplus)

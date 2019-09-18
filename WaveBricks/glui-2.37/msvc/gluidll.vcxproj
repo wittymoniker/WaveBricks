@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug GLUIDLL|Win32">
+      <Configuration>Debug GLUIDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release GLUIDLL|Win32">
+      <Configuration>Release GLUIDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>_gluidll library</ProjectName>
+    <ProjectGuid>{5803648B-B9F4-4BEB-A954-3C3EB5AE9FF6}</ProjectGuid>
+    <RootNamespace>_gluidll library</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release GLUIDLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug GLUIDLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release GLUIDLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug GLUIDLL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>16.0.29124.152</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug GLUIDLL|Win32'">
+    <OutDir>DebugDLL\</OutDir>
+    <IntDir>DebugDLL\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release GLUIDLL|Win32'">
+    <OutDir>ReleaseDLL\</OutDir>
+    <IntDir>ReleaseDLL\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug GLUIDLL|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;GLUI_BUILDING_LIB;GLUIDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <AssemblerListingLocation>$(OutDir)</AssemblerListingLocation>
+      <ObjectFileName>$(OutDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName)</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>bin/glui32dlld.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>lib/glui32dlld.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release GLUIDLL|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;GLUI_BUILDING_LIB;GLUIDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <AssemblerListingLocation>$(OutDir)</AssemblerListingLocation>
+      <ObjectFileName>$(OutDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName)</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat />
+    </ClCompile>
+    <Link>
+      <OutputFile>bin/glui32dll.dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>lib/glui32dll.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\algebra3.cpp" />
+    <ClCompile Include="..\arcball.cpp" />
+    <ClCompile Include="..\glui.cpp" />
+    <ClCompile Include="..\glui_add_controls.cpp" />
+    <ClCompile Include="..\glui_bitmaps.cpp" />
+    <ClCompile Include="..\glui_bitmap_img_data.cpp" />
+    <ClCompile Include="..\glui_button.cpp" />
+    <ClCompile Include="..\glui_checkbox.cpp" />
+    <ClCompile Include="..\glui_column.cpp" />
+    <ClCompile Include="..\glui_commandline.cpp" />
+    <ClCompile Include="..\glui_control.cpp" />
+    <ClCompile Include="..\glui_edittext.cpp" />
+    <ClCompile Include="..\glui_filebrowser.cpp" />
+    <ClCompile Include="..\glui_list.cpp" />
+    <ClCompile Include="..\glui_listbox.cpp" />
+    <ClCompile Include="..\glui_mouse_iaction.cpp" />
+    <ClCompile Include="..\glui_node.cpp" />
+    <ClCompile Include="..\glui_panel.cpp" />
+    <ClCompile Include="..\glui_radio.cpp" />
+    <ClCompile Include="..\glui_rollout.cpp" />
+    <ClCompile Include="..\glui_rotation.cpp" />
+    <ClCompile Include="..\glui_scrollbar.cpp" />
+    <ClCompile Include="..\glui_separator.cpp" />
+    <ClCompile Include="..\glui_spinner.cpp" />
+    <ClCompile Include="..\glui_statictext.cpp" />
+    <ClCompile Include="..\glui_string.cpp" />
+    <ClCompile Include="..\glui_textbox.cpp" />
+    <ClCompile Include="..\glui_translation.cpp" />
+    <ClCompile Include="..\glui_tree.cpp" />
+    <ClCompile Include="..\glui_treepanel.cpp" />
+    <ClCompile Include="..\glui_window.cpp" />
+    <ClCompile Include="..\quaternion.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\algebra3.h" />
+    <ClInclude Include="..\arcball.h" />
+    <ClInclude Include="..\glui_internal.h" />
+    <ClInclude Include="..\glui_internal_control.h" />
+    <ClInclude Include="..\include\Gl\glui.h" />
+    <ClInclude Include="..\quaternion.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
