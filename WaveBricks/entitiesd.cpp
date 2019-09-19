@@ -438,7 +438,7 @@ void instrument::updateVoices() {
 
 
 }
-vector<vector<float>> instrumentPoly;
+vector<vector<GLfloat>> instrumentPoly;
 
 void instrument::render() {
 	glPatchParameteri(GL_PATCH_VERTICES, voices_spinner);
@@ -476,42 +476,42 @@ void instrument::render() {
 		}
 		for (int i = 0; i < voices_spinner; i++) {
 			//TODO: set voice values all to 1 unless being played, wherat custom values proclaimed
-			instrumentPoly[i][0] = ((xpos_spinner + (xmod_spinner * pitchscale_spinner * ampscale_spinner * phasescale_spinner))) * voicesamp[i] * voicespitch[i] * voicesphase[i] + voicesamp[i] + voicespitch[i] + voicesphase[i];
-			instrumentPoly[i][1] = ((ypos_spinner + (ymod_spinner * pitchscale_spinner))) * voicespitch[i] + voicespitch[i];
+			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner * ampscale_spinner * phasescale_spinner))) * voicesamp[i] * voicespitch[i] * voicesphase[i] + voicesamp[i] + voicespitch[i] + voicesphase[i];
+			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * pitchscale_spinner))) * voicespitch[i] + voicespitch[i];
 
-			instrumentPoly[i][2] = ((zpos_spinner)) + voicesamp[i];
+			instrumentPoly[i][2] = (GLfloat)((zpos_spinner)) + voicesamp[i];
 
-			instrumentPoly[i][3] = (1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
 			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = 0 - instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = 1 / instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = 0 - instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = 1 / instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = 0 - instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
 			}
 			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = 1 / instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
 			}
-			glColor3f(instrumentPoly[i][3], instrumentPoly[i][4], instrumentPoly[i][5]);
-			cout << instrumentPoly[i][3] << " " << instrumentPoly[i][4] << " " << instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f(instrumentPoly[i][0], instrumentPoly[i][1], instrumentPoly[i][2]);
-			cout << instrumentPoly[i][0] << " " << instrumentPoly[i][1] << " " << instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
+			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
+			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
 
 		}
 
@@ -530,41 +530,41 @@ void instrument::render() {
 			}
 		}
 		for (int i = 0; i < voices_spinner; i++) {
-			instrumentPoly[i][0] = ((xpos_spinner + (xmod_spinner * pitchscale_spinner * ampscale_spinner * phasescale_spinner))) * voicesamp[i] * voicespitch[i] * voicesphase[i] + voicesamp[i] + voicespitch[i] + voicesphase[i];
-			instrumentPoly[i][1] = ((ypos_spinner + (ymod_spinner * pitchscale_spinner))) * voicespitch[i] + voicespitch[i];
-			instrumentPoly[i][2] = ((zpos_spinner + (zmod_spinner * pitchscale_spinner * ampscale_spinner))) * voicesamp[i] * voicespitch[i] + voicesamp[i] + voicespitch[i];
+			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner * ampscale_spinner * phasescale_spinner))) * voicesamp[i] * voicespitch[i] * voicesphase[i] + voicesamp[i] + voicespitch[i] + voicesphase[i];
+			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * pitchscale_spinner))) * voicespitch[i] + voicespitch[i];
+			instrumentPoly[i][2] = (GLfloat)((zpos_spinner + (zmod_spinner * pitchscale_spinner * ampscale_spinner))) * voicesamp[i] * voicespitch[i] + voicesamp[i] + voicespitch[i];
 
-			instrumentPoly[i][3] = (1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
 			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = 0 - instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = 1 / instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = 0 - instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = 1 / instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = 0 - instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
 			}
 			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = 1 / instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
 			}
-			glColor3f(instrumentPoly[i][3], instrumentPoly[i][4], instrumentPoly[i][5]);
-			cout << instrumentPoly[i][3] << " " << instrumentPoly[i][4] << " " << instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f(instrumentPoly[i][0], instrumentPoly[i][1], instrumentPoly[i][2]);
-			cout << instrumentPoly[i][0] << " " << instrumentPoly[i][1] << " " << instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
+			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
+			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
 		}
 	}
 	if (heuristic_listbox = 3 && voicesphase.size() >= voices_spinner && voicesamp.size() >= voices_spinner && composition[currentStep].size() >= 2 && voicespitch.size() >= voices_spinner) {//2d interfere
@@ -582,46 +582,46 @@ void instrument::render() {
 		}
 		for (int i = 0; i < voices_spinner; i++) {
 			//TODO: set voice values all to 1 unless being played, wherat custom values proclaimed
-			instrumentPoly[i][0] = ((xpos_spinner + (xmod_spinner * pitchscale_spinner) +
+			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner) +
 				xpos_spinner + (xmod_spinner * pitchscale_spinner) *
 				scale_spinner * xmod_spinner * sin((i / voices_spinner) * xmod_spinner * (voicespitch.at(i) * pitchrot_spinner))));
-			instrumentPoly[i][1] = ((ypos_spinner + (ymod_spinner * ampscale_spinner) +
+			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * ampscale_spinner) +
 				ypos_spinner + (ymod_spinner * ampscale_spinner) *
 				scale_spinner * ymod_spinner * cos((i / voices_spinner) * ymod_spinner * (voicesamp.at(i) * amprot_spinner)) *
 				(ampscale_spinner * voicesamp[i])));
-			instrumentPoly[i][2] = ((zpos_spinner));
+			instrumentPoly[i][2] = (GLfloat)((zpos_spinner));
 
-			instrumentPoly[i][3] = (1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
 			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = 0 - instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = 1 / instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = 0 - instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = 1 / instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = 0 - instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
 			}
 			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = 1 / instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
 			}
-			glColor3f(instrumentPoly[i][3], instrumentPoly[i][4], instrumentPoly[i][5]);
-			cout << instrumentPoly[i][3] << " " << instrumentPoly[i][4] << " " << instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f(instrumentPoly[i][0], instrumentPoly[i][1], instrumentPoly[i][2]);
-			cout << instrumentPoly[i][0] << " " << instrumentPoly[i][1] << " " << instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
+			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
+			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
 		}
 	}
 	if (heuristic_listbox = 4 && voicesphase.size() >= voices_spinner && voicesamp.size() >= voices_spinner && composition[currentStep].size() >= 2 && voicespitch.size() >= voices_spinner) {//3d interfere
@@ -638,48 +638,48 @@ void instrument::render() {
 			}
 		}
 		for (int i = 0; i < voices_spinner; i++) {
-			instrumentPoly[i][0] = ((xpos_spinner + (xmod_spinner * pitchscale_spinner) +
+			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner) +
 				xpos_spinner + (xmod_spinner * pitchscale_spinner) *
 				scale_spinner * xmod_spinner * sin((i / voices_spinner) * xmod_spinner * (voicespitch.at(i) * pitchrot_spinner))));
-			instrumentPoly[i][1] = ((ypos_spinner + (ymod_spinner * ampscale_spinner) +
+			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * ampscale_spinner) +
 				ypos_spinner + (ymod_spinner * ampscale_spinner) *
 				scale_spinner * ymod_spinner * cos((i / voices_spinner) * ymod_spinner * (voicesamp.at(i) * amprot_spinner)) *
 				(ampscale_spinner * voicesamp[i])));
-			instrumentPoly[i][2] = ((zpos_spinner + (zmod_spinner * phasescale_spinner) +
+			instrumentPoly[i][2] = (GLfloat)((zpos_spinner + (zmod_spinner * phasescale_spinner) +
 				zpos_spinner + (zmod_spinner * phasescale_spinner) *
 				scale_spinner * zmod_spinner * tan((i / voices_spinner) * zmod_spinner * (voicesphase.at(i) * phaserot_spinner))));
 
-			instrumentPoly[i][3] = (1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
+			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
 				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
 					voicesphase.at(i)))));
 			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = 0 - instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = 1 / instrumentPoly[i][3];
+				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
 			}
 			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = 0 - instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = 1 / instrumentPoly[i][4];
+				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
 			}
 			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = 0 - instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
 			}
 			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = 1 / instrumentPoly[i][5];
+				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
 			}
-			glColor3f(instrumentPoly[i][3], instrumentPoly[i][4], instrumentPoly[i][5]);
-			cout << instrumentPoly[i][3] << " " << instrumentPoly[i][4] << " " << instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f(instrumentPoly[i][0], instrumentPoly[i][1], instrumentPoly[i][2]);
-			cout << instrumentPoly[i][0] << " " << instrumentPoly[i][1] << " " << instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
+			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
+			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
 		}
 	}
 	glEnd();
@@ -742,15 +742,15 @@ void instrument::playVertice(ALshort data[], float srate, float freq, float amp,
 	//data=data;
 	for (int i = step * (22050 * (60 / tempo)); i < (step + (1.0 * decayf)) * (22050 * (60 / tempo)) && i < sizeSS; (i)++) {
 		//cout<<"\nattempting transfer at "<<i;
-		if ((samples[i] + (short)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
+		if ((samples[i] + (ALshort)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
 			+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
 			* (sin((amfreq * 2.0 * M_PI) / 22050 * i) * am))))) <= 32768
 			&&
-			(samples[i] + (short)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
+			(samples[i] + (ALshort)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
 				+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
 				* (sin((amfreq * 2.0 * M_PI) / 22050 * i) * am))))) >= -32768)
 
-			samples[i] += (ALshort)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
+			data[i] += (ALshort)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
 				+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
 				* (sin((amfreq * 2.0 * M_PI) / 22050 * i) * am))));
 

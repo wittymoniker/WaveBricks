@@ -499,7 +499,7 @@ void display()
 			glVertex3f(instruments[it].instrumentPoly[i][0],instruments[it].instrumentPoly[i][1],instruments[it].instrumentPoly[i][2]);
 			cout<<instruments[it].instrumentPoly[i][0]<<" "<<instruments[it].instrumentPoly[i][1]<<" "<<instruments[it].instrumentPoly[i][2]<<" VERTS\n";
 		}*/
-		cout << "\nEND CHUNK\n";
+		//cout << "\nEND CHUNK\n";
 		//glEnd();
 		//glPopMatrix();
 		/*Renderer renderer;
