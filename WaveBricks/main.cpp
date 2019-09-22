@@ -302,8 +302,9 @@ enum
 std::map<int, instrument> instrumentsmap;
 void assembleInst()
 {
-
-	instruments.push_back(unique_ptr<instrument>(new instrument()));
+	instrument *newInst;
+	newInst = new instrument;
+	instruments.push_back(unique_ptr<instrument>(newInst));
 	instruments.at(instruments.size() - 1)->assemble();
 	glutDisplayFunc(display);
 	GLUI_Master.set_glutIdleFunc(display);

@@ -2323,7 +2323,7 @@ class GLUIAPI GLUI_Listbox_Item : public GLUI_Node
 {
 public:
     GLUI_String text;
-    int         id;
+    int         id=1;
 };
 
 class GLUIAPI GLUI_Listbox : public GLUI_Control

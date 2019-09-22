@@ -62,7 +62,6 @@ public:
 	//heuristic;
 	bool gravity, collide, d2;
 	std::string name;
-	float amp, pitch, phase, decayf;
 
 	std::vector<GLfloat> voicespitch;
 	std::vector<GLfloat> voicesamp;
@@ -220,7 +219,7 @@ public:
 	float panning_spinner ;
 
 
-	int sizeSS;
+	float sizeSS;
 
 	string apm_script;
 	string color_script;
@@ -257,8 +256,9 @@ public:
 	void render();
 	void assembleSongData();
 	void play();
-	void playVertice(ALshort data[], float srate, float freq, float amp, float phase,
-		float decayf, float bpm, float am, float amfreq, float fm, float fmfreq, float step);
+	long int it, iu, iy, ii, i, ir;
+	float srate, freq, amp, phase, decayf, bpm, am, amfreq, fm, fmfreq,step;
+	void playVertice();
 	static void glui_callback(int control_id) {
 
 	}
@@ -294,7 +294,6 @@ public:
 
 
 	vector<vector<GLfloat>> instrumentPoly;
-	ALuint srate;
 	ALuint source;
 	ALuint soundsource;
 	ALint data_size;
@@ -302,7 +301,7 @@ public:
 	ALuint soundstream;
 
 
-	ALshort* samples;
+	std::vector<ALshort> data;
 	GLfloat vertices;
 	GLfloat colors;
 
