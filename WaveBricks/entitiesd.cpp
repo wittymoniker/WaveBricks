@@ -2,37 +2,36 @@
 #include "entities.cpp"
 
 
-
 void instrument::assembleVoices() {
-	vector<vector<vector<vector<float>>>>breakpoints = {};
+	instrument::breakpoints = {};
 	int last = 0;
-	for (int i = 1; i < stepvoices.size(); i++) {
-		if (!stepvoices[i].empty()) {
-			if (!stepvoices.at(i).at(2).empty()) {
-				breakpoints.resize(breakpoints.size() + 1);
-				breakpoints[breakpoints.size() - 1].resize(i + 1);
-				breakpoints[breakpoints.size() - 1][i].resize(3);
-				breakpoints[breakpoints.size() - 1][i][0].resize(voices_spinner);
-				breakpoints[breakpoints.size() - 1][i][1].resize(voices_spinner);
-				breakpoints[breakpoints.size() - 1][i][2].resize(voices_spinner);
-				breakpoints.at(breakpoints.size() - 1).at(i) = (stepvoices.at(i));
+	for (int i = 1; i < instrument::stepvoices.size(); i++) {
+		if (!instrument::stepvoices[i].empty()) {
+			if (!instrument::stepvoices.at(i).at(2).empty()) {
+				instrument::breakpoints.resize(instrument::breakpoints.size() + 1);
+				instrument::breakpoints[instrument::breakpoints.size() - 1].resize(i + 1);
+				instrument::breakpoints[instrument::breakpoints.size() - 1][i].resize(3);
+				instrument::breakpoints[instrument::breakpoints.size() - 1][i][0].resize(instrument::voices_spinner);
+				instrument::breakpoints[instrument::breakpoints.size() - 1][i][1].resize(instrument::voices_spinner);
+				instrument::breakpoints[instrument::breakpoints.size() - 1][i][2].resize(instrument::voices_spinner);
+				instrument::breakpoints.at(instrument::breakpoints.size() - 1).at(i) = (instrument::stepvoices.at(i));
 			}
 		}
 	}
-	for (int ir = 1; ir < breakpoints.size(); ir++) {
+	for (int ir = 1; ir < instrument::breakpoints.size(); ir++) {
 		int lastBreak = 0;
-		for (int iu = breakpoints[lastBreak].size(); iu < breakpoints[ir].size(); iu++) {
-			stepvoices[iu].resize(3);
-			stepvoices[iu][0].resize(voices_spinner);
-			stepvoices[iu][1].resize(voices_spinner);
-			stepvoices[iu][2].resize(voices_spinner);
-			for (int iy = 0; iy < breakpoints[ir][iu].size() && iy < stepvoices[iu][2].size(); iy++) {
-				for (int i = 0; i < voices_spinner; i++) {
-					stepvoices.at(iu).at(iy).at(i) = (((breakpoints[ir][breakpoints[ir].size() - 1][iy][i] / (breakpoints[ir][breakpoints[ir].size() - 1][iy][i]
-						- breakpoints[lastBreak][breakpoints[lastBreak].size() - 1][iy][i])))
-						* stepvoices.at(lastBreak).at(iy).at(i))
-						+ (((((breakpoints[ir][breakpoints[ir].size() - 1][iy][i]) / breakpoints[ir][breakpoints[ir].size() - 1][iy][i])
-							/ breakpoints[ir][breakpoints[ir].size() - 1][iy][i])) * (stepvoices.at(iu).at(iy).at(i)));
+		for (int iu = instrument::breakpoints[lastBreak].size(); iu < instrument::breakpoints[ir].size(); iu++) {
+			instrument::stepvoices[iu].resize(3);
+			instrument::stepvoices[iu][0].resize(voices_spinner);
+			instrument::stepvoices[iu][1].resize(voices_spinner);
+			instrument::stepvoices[iu][2].resize(voices_spinner);
+			for (int iy = 0; iy < instrument::breakpoints[ir][iu].size() && iy < instrument::stepvoices[iu][2].size(); iy++) {
+				for (int i = 0; i < instrument::voices_spinner; i++) {
+					instrument::stepvoices.at(iu).at(iy).at(i) = (((instrument::breakpoints[ir][instrument::breakpoints[ir].size() - 1][iy][i] / (instrument::breakpoints[ir][instrument::breakpoints[ir].size() - 1][iy][i]
+						- instrument::breakpoints[lastBreak][instrument::breakpoints[lastBreak].size() - 1][iy][i])))
+						* instrument::stepvoices.at(lastBreak).at(iy).at(i))
+						+ (((((instrument::breakpoints[ir][instrument::breakpoints[ir].size() - 1][iy][i]) / instrument::breakpoints[ir][instrument::breakpoints[ir].size() - 1][iy][i])
+							/ instrument::breakpoints[ir][instrument::breakpoints[ir].size() - 1][iy][i])) * (instrument::stepvoices.at(iu).at(iy).at(i)));
 				}
 			}
 
@@ -41,33 +40,33 @@ void instrument::assembleVoices() {
 			lastBreak = ir - 1;
 		}
 	}
-	if (breakpoints.size() == 0) {
-		stepvoices.resize(composition.size());
-		for (int i = 0; i < stepvoices.size(); i++) {
-			stepvoices[i] = stepvoices[0];
+	if (instrument::breakpoints.size() == 0) {
+		instrument::stepvoices.resize(instrument::composition.size());
+		for (int i = 0; i < instrument::stepvoices.size(); i++) {
+			instrument::stepvoices[i] = instrument::stepvoices[0];
 		}
 	}
 
 	last = 1;
-	if (decaystep.size() < composition.size()) {
-		decaystep.resize(composition.size());
+	if (instrument::decaystep.size() < instrument::composition.size()) {
+		instrument::decaystep.resize(instrument::composition.size());
 	}
-	for (int i = 0; i < decaystep.size(); i++) {
+	for (int i = 0; i < instrument::decaystep.size(); i++) {
 
-		if (!decaystep.at(i)) {
-			decaystep.at(i) = last;
+		if (!instrument::decaystep.at(i)) {
+			instrument::decaystep.at(i) = last;
 		}
 		else {
-			int last = decaystep.at(i);
+			int last = instrument::decaystep.at(i);
 		}
 	}
-	if (stepvoices.at(currentStep).size() >= 3) {
-		voicesamp.resize(stepvoices.at(currentStep).at(0).size() + 1);
-		voicespitch.resize(stepvoices.at(currentStep).at(1).size() + 1);
-		voicesphase.resize(stepvoices.at(currentStep).at(2).size() + 1);
-		voicesamp = stepvoices.at(currentStep).at(0);
-		voicespitch = stepvoices.at(currentStep).at(1);
-		voicesphase = stepvoices.at(currentStep).at(2);
+	if (instrument::stepvoices.at(instrument::currentStep).size() >= 3) {
+		instrument::voicesamp.resize(instrument::stepvoices.at(instrument::currentStep).at(0).size() + 1);
+		instrument::voicespitch.resize(instrument::stepvoices.at(instrument::currentStep).at(1).size() + 1);
+		instrument::voicesphase.resize(instrument::stepvoices.at(instrument::currentStep).at(2).size() + 1);
+		instrument::voicesamp = instrument::stepvoices.at(instrument::currentStep).at(0);
+		instrument::voicespitch = instrument::stepvoices.at(instrument::currentStep).at(1);
+		instrument::voicesphase = instrument::stepvoices.at(instrument::currentStep).at(2);
 	}
 
 }
@@ -76,60 +75,60 @@ void instrument::assemble() {
 	//cout  << "assemble instrument" ;
 	initVals();
 	glutInitWindowSize(700, 800);
-	GLuint wavebricks_synth;
-	wavebricks_synth = glutCreateWindow("Wavebricks Synth");
+	
+	instrument::wavebricks_synth = glutCreateWindow("Wavebricks Synth");
 	//glutDisplayFunc(display);
 
 
 
-	GLUI* synth_panel = GLUI_Master.create_glui_subwindow(wavebricks_synth);
-	GLUI_Panel* syn_panel = synth_panel->add_panel("Synth Panel");
+	instrument::synth_panel = GLUI_Master.create_glui_subwindow(wavebricks_synth);
+	instrument::syn_panel = synth_panel->add_panel("Synth Panel");
 	//GLuint synth_window= glutCreateWindow ("WaveBricks Instrument");
 	//synth_panel->add_listbox_to_panel(syn_panel, "Construction Heuristic", heuristic_listbox );
-	GLUI_Listbox* heuristic_listbox_panel = synth_panel->add_listbox_to_panel(syn_panel, "Construction Heuristic", &heuristic_listbox, HEURISTIC_LISTBOX, glui_callback);
-	heuristic_listbox_panel->add_item(1, "Vertice Voice 2d");//phase manipulation is rotation around shape, frequency is distance, amplitude contributes to distance between sister vertices
-	heuristic_listbox_panel->add_item(2, "Vertice Voice 3d");//phase manipulation is rotation around an axis, frequency is one other axis, and amplitude another axis. octave or order or cycle per distance around shape
-	heuristic_listbox_panel->add_item(3, "AFP XYZ 2d");//wave interfered across shape as oscilloscope, clipped at boundaries, FM by changing scanning location, 2d.
-	heuristic_listbox_panel->add_item(4, "AFP XYZ  3d");//wave interfered across shape as oscilloscope, clipped at boundaries, FM by changing scanning location, 3d.
+	instrument::heuristic_listbox_panel = synth_panel->add_listbox_to_panel(instrument::syn_panel, "Construction Heuristic", &(instrument::heuristic_listbox), HEURISTIC_LISTBOX, instrument::glui_callback);
+	instrument::heuristic_listbox_panel->add_item(1, "Vertice Voice 2d");//phase manipulation is rotation around shape, frequency is distance, amplitude contributes to distance between sister vertices
+	instrument::heuristic_listbox_panel->add_item(2, "Vertice Voice 3d");//phase manipulation is rotation around an axis, frequency is one other axis, and amplitude another axis. octave or order or cycle per distance around shape
+	instrument::heuristic_listbox_panel->add_item(3, "AFP XYZ 2d");//wave interfered across shape as oscilloscope, clipped at boundaries, FM by changing scanning location, 2d.
+	instrument::heuristic_listbox_panel->add_item(4, "AFP XYZ  3d");//wave interfered across shape as oscilloscope, clipped at boundaries, FM by changing scanning location, 3d.
 
 
-	GLUI_Spinner* panning_panel = synth_panel->add_spinner_to_panel(syn_panel, "Audio Panning(L/R)", GLUI_SPINNER_FLOAT, &panning_spinner, PANNING_SPINNER, glui_callback);
+	instrument::panning_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Audio Panning(L/R)", GLUI_SPINNER_FLOAT, &(instrument::panning_spinner), PANNING_SPINNER, instrument::glui_callback);
 
-	GLUI_Spinner* xpos_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Shape Position X", GLUI_SPINNER_FLOAT, &xpos_spinner, XPOS_SPINNER, glui_callback);
-	GLUI_Spinner* ypos_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Shape Position Y", GLUI_SPINNER_FLOAT, &ypos_spinner, YPOS_SPINNER, glui_callback);
-	GLUI_Spinner* zpos_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Shape Position Z", GLUI_SPINNER_FLOAT, &zpos_spinner, ZPOS_SPINNER, glui_callback);
+	 instrument::xpos_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Shape Position X", GLUI_SPINNER_FLOAT, &(instrument::xpos_spinner), XPOS_SPINNER, instrument::glui_callback);
+	instrument::ypos_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Shape Position Y", GLUI_SPINNER_FLOAT, &(instrument::ypos_spinner), YPOS_SPINNER, instrument::glui_callback);
+	instrument::zpos_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Shape Position Z", GLUI_SPINNER_FLOAT, &(instrument::zpos_spinner), ZPOS_SPINNER, instrument::glui_callback);
 
-	GLUI_Spinner* xmod_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "X Mod", GLUI_SPINNER_FLOAT, &xmod_spinner, XMOD_SPINNER, glui_callback);
-	GLUI_Spinner* ymod_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Y Mod", GLUI_SPINNER_FLOAT, &ymod_spinner, YMOD_SPINNER, glui_callback);
-	GLUI_Spinner* zmod_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Z Mod", GLUI_SPINNER_FLOAT, &zmod_spinner, ZMOD_SPINNER, glui_callback);
-
-
-	GLUI_Spinner* voices_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Voices Number", GLUI_SPINNER_INT, &voices_spinner, VOICES_SPINNER, glui_callback);
-
-	GLUI_Spinner* scale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Scale", GLUI_SPINNER_FLOAT, &scale_spinner, SCALE_SPINNER, glui_callback);
-
-	GLUI_Spinner* r_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Red", GLUI_SPINNER_FLOAT, &r_spinner, R_SPINNER, glui_callback);
-	GLUI_Spinner* g_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Green", GLUI_SPINNER_FLOAT, &g_spinner, G_SPINNER, glui_callback);
-	GLUI_Spinner* b_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Blue", GLUI_SPINNER_FLOAT, &b_spinner, B_SPINNER, glui_callback);
-
-	GLUI_Spinner* r_mod_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Red Mod", GLUI_SPINNER_FLOAT, &r_spinner, R_SPINNER, glui_callback);
-	GLUI_Spinner* g_mod_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Green Mod", GLUI_SPINNER_FLOAT, &g_spinner, G_SPINNER, glui_callback);
-	GLUI_Spinner* b_mod_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Blue Mod", GLUI_SPINNER_FLOAT, &b_spinner, B_SPINNER, glui_callback);
+	instrument::xmod_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "X Mod", GLUI_SPINNER_FLOAT, &(instrument::xmod_spinner), XMOD_SPINNER, instrument::glui_callback);
+	instrument::ymod_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Y Mod", GLUI_SPINNER_FLOAT, &(instrument::ymod_spinner), YMOD_SPINNER, instrument::glui_callback);
+	instrument::zmod_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Z Mod", GLUI_SPINNER_FLOAT, &(instrument::zmod_spinner), ZMOD_SPINNER, instrument::glui_callback);
 
 
-	GLUI_Spinner* phaserot_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Phase Vertice Rotation Influence", GLUI_SPINNER_FLOAT, &phaserot_spinner, PHASEROT_SPINNER, glui_callback);
-	GLUI_Spinner* phasecolor_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Phase Color Influence", GLUI_SPINNER_FLOAT, &phasecolor_spinner, PHASECOLOR_SPINNER, glui_callback);
-	GLUI_Spinner* phasescale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Phase Scale Influence", GLUI_SPINNER_FLOAT, &phasescale_spinner, PHASESCALE_SPINNER, glui_callback);
-	GLUI_Spinner* ampcolor_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Amplitude Color Influence", GLUI_SPINNER_FLOAT, &ampcolor_spinner, AMPCOLOR_SPINNER, glui_callback);
-	GLUI_Spinner* pitchcolor_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Pitch Color Influence", GLUI_SPINNER_FLOAT, &pitchcolor_spinner, PITCHCOLOR_SPINNER, glui_callback);
-	GLUI_Spinner* ampscale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Amplitude Scale Influence", GLUI_SPINNER_FLOAT, &ampscale_spinner, AMPSCALE_SPINNER, glui_callback);
-	GLUI_Spinner* pitchscale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Pitch Scale Influence", GLUI_SPINNER_FLOAT, &pitchscale_spinner, PITCHSCALE_SPINNER, glui_callback);
-	GLUI_Spinner* pitchrot_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Pitch Rotation Influence", GLUI_SPINNER_FLOAT, &pitchrot_spinner, PITCHROT_SPINNER, glui_callback);
-	GLUI_Spinner* amprot_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Amplitude Rotation Influence", GLUI_SPINNER_FLOAT, &amprot_spinner, AMPROT_SPINNER, glui_callback);
-	GLUI_Spinner* fm_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Frequency Modulation Frequency", GLUI_SPINNER_FLOAT, &fm_spinner, FM_SPINNER, glui_callback);
-	GLUI_Spinner* fmint_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Frequency Modulation Intensity", GLUI_SPINNER_FLOAT, &fmint_spinner, FMINT_SPINNER, glui_callback);
-	GLUI_Spinner* am_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Amplitude Modulation Frequency", GLUI_SPINNER_FLOAT, &am_spinner, AM_SPINNER, glui_callback);
-	GLUI_Spinner* amint_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "Amplitude Modulation Intensity", GLUI_SPINNER_FLOAT, &amint_spinner, AMINT_SPINNER, glui_callback);
+	instrument::voices_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Voices Number", GLUI_SPINNER_INT, &(instrument::voices_spinner), VOICES_SPINNER, instrument::glui_callback);
+
+	instrument::scale_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Scale", GLUI_SPINNER_FLOAT, &(instrument::scale_spinner), SCALE_SPINNER, instrument::glui_callback);
+
+	instrument::r_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Red", GLUI_SPINNER_FLOAT, &(instrument::r_spinner), R_SPINNER, instrument::glui_callback);
+	instrument::g_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Green", GLUI_SPINNER_FLOAT, &(instrument::g_spinner), G_SPINNER, instrument::glui_callback);
+	instrument::b_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Blue", GLUI_SPINNER_FLOAT, &(instrument::b_spinner), B_SPINNER, instrument::glui_callback);
+
+	instrument::r_mod_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Red Mod", GLUI_SPINNER_FLOAT, &(instrument::r_spinner), R_SPINNER, instrument::glui_callback);
+	instrument::g_mod_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Green Mod", GLUI_SPINNER_FLOAT, &(instrument::g_spinner), G_SPINNER, instrument::glui_callback);
+	instrument::b_mod_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Blue Mod", GLUI_SPINNER_FLOAT, &(instrument::b_spinner), B_SPINNER, instrument::glui_callback);
+
+
+	instrument::phaserot_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Phase Vertice Rotation Influence", GLUI_SPINNER_FLOAT, &(instrument::phaserot_spinner), PHASEROT_SPINNER, instrument::glui_callback);
+	instrument::phasecolor_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Phase Color Influence", GLUI_SPINNER_FLOAT, &(instrument::phasecolor_spinner), PHASECOLOR_SPINNER, instrument::glui_callback);
+	instrument::phasescale_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Phase Scale Influence", GLUI_SPINNER_FLOAT, &(instrument::phasescale_spinner), PHASESCALE_SPINNER, instrument::glui_callback);
+	instrument::ampcolor_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Amplitude Color Influence", GLUI_SPINNER_FLOAT, &(instrument::ampcolor_spinner), AMPCOLOR_SPINNER, instrument::glui_callback);
+	instrument::pitchcolor_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Pitch Color Influence", GLUI_SPINNER_FLOAT, &(instrument::pitchcolor_spinner), PITCHCOLOR_SPINNER, instrument::glui_callback);
+	instrument::ampscale_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Amplitude Scale Influence", GLUI_SPINNER_FLOAT, &(instrument::ampscale_spinner), AMPSCALE_SPINNER, instrument::glui_callback);
+	instrument::pitchscale_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Pitch Scale Influence", GLUI_SPINNER_FLOAT, &(instrument::pitchscale_spinner), PITCHSCALE_SPINNER, instrument::glui_callback);
+	instrument::pitchrot_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Pitch Rotation Influence", GLUI_SPINNER_FLOAT, &(instrument::pitchrot_spinner), PITCHROT_SPINNER, instrument::glui_callback);
+	instrument::amprot_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Amplitude Rotation Influence", GLUI_SPINNER_FLOAT, &(instrument::amprot_spinner), AMPROT_SPINNER, instrument::glui_callback);
+	instrument::fm_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Frequency Modulation Frequency", GLUI_SPINNER_FLOAT, &(instrument::fm_spinner), FM_SPINNER, instrument::glui_callback);
+	instrument::fmint_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Frequency Modulation Intensity", GLUI_SPINNER_FLOAT, &(instrument::fmint_spinner), FMINT_SPINNER, instrument::glui_callback);
+	instrument::am_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Amplitude Modulation Frequency", GLUI_SPINNER_FLOAT, &(instrument::am_spinner), AM_SPINNER, instrument::glui_callback);
+	instrument::amint_spinner_panel = synth_panel->add_spinner_to_panel(instrument::syn_panel, "Amplitude Modulation Intensity", GLUI_SPINNER_FLOAT, &(instrument::amint_spinner), AMINT_SPINNER, instrument::glui_callback);
 
 	/*
 	 GLUI_Spinner *hpfilterscale_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "HP Filter Scale Influence", GLUI_SPINNER_FLOAT, &hpfilterscale_spinner, HPFILTERSCALE_SPINNER, glui_callback);
@@ -138,15 +137,15 @@ void instrument::assemble() {
 	 GLUI_Spinner *lpfiltercolor_spinner_panel = synth_panel->add_spinner_to_panel(syn_panel, "LP Filter Color Influence", GLUI_SPINNER_FLOAT, &lpfiltercolor_spinner, LPFILTERCOLOR_SPINNER, glui_callback);
  */
  //script so users can define the sine voices differences across a song, or set them steady(see spinners)
-	GLUI_EditText* voicesscript_panel = synth_panel->add_edittext_to_panel(syn_panel, "Voices and Voice Automation Script:"
-		, voiceautomation_script, VOICEAUTOMATION_SCRIPT, glui_callback);
+	instrument::voicesscript_panel = synth_panel->add_edittext_to_panel(instrument::syn_panel, "Voices and Voice Automation Script:"
+		, instrument::voiceautomation_script, VOICEAUTOMATION_SCRIPT, instrument::glui_callback);
 	//script so users can define composition for song along tracking by BPM
-	GLUI_EditText* compositionscript_panel = synth_panel->add_edittext_to_panel(syn_panel, "Composition script:"
-		, composition_script, COMPOSITION_SCRIPT, glui_callback);
+	instrument::compositionscript_panel = synth_panel->add_edittext_to_panel(instrument::syn_panel, "Composition script:"
+		, instrument::composition_script, COMPOSITION_SCRIPT, instrument::glui_callback);
 
 
-	GLUI_EditText* decayscript_panel = synth_panel->add_edittext_to_panel(syn_panel, "Decay script:"
-		, decay_script, DECAY_SCRIPT, glui_callback);
+	instrument::decayscript_panel = synth_panel->add_edittext_to_panel(instrument::syn_panel, "Decay script:"
+		, instrument::decay_script, DECAY_SCRIPT, instrument::glui_callback);
 
 	//script so users can define envelope changes over song, stretched by note length in composition
 	   /* GLUI_EditText *envelopescript_panel = synth_panel->add_edittext_to_panel(syn_panel, "Envelope script:"
@@ -162,14 +161,14 @@ void instrument::assemble() {
 																																																													 //syn_panel->set_w(600);
 																																																													 //syn_panel->set_h(650);
 
-	voicesscript_panel->set_h(20);
-	voicesscript_panel->set_w(650);
+	instrument::voicesscript_panel->set_h(20);
+	instrument::voicesscript_panel->set_w(650);
 
-	compositionscript_panel->set_h(20);
-	compositionscript_panel->set_w(650);
+	instrument::compositionscript_panel->set_h(20);
+	instrument::compositionscript_panel->set_w(650);
 
-	decayscript_panel->set_h(20);
-	decayscript_panel->set_w(650);
+	instrument::decayscript_panel->set_h(20);
+	instrument::decayscript_panel->set_w(650);
 
 	/*    envelopescript_panel->set_h(15);
 		envelopescript_panel->set_w(200);
@@ -184,7 +183,7 @@ void instrument::assemble() {
 		//apmscript_panel->set_w(200);
 
 
-	synth_panel->set_main_gfx_window(wavebricks_synth);
+	instrument::synth_panel->set_main_gfx_window(wavebricks_synth);
 
 	GLUI_Button* exitinst_button = synth_panel->add_button_to_panel(syn_panel, "Delete Instrument", DESTROY_BUTTON, glui_callback);
 
@@ -192,79 +191,79 @@ void instrument::assemble() {
 	//glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 }
 void instrument::updateVoices() {
-	decaystep = {};
-	voicesamp = {};
-	voicesphase = {};
-	voicespitch = {};
-	stepvoices = {};
-	compamp = {};
-	comppitch = {};
-	composition = {};
+	instrument::decaystep = {};
+	instrument::voicesamp = {};
+	instrument::voicesphase = {};
+	instrument::voicespitch = {};
+	instrument::stepvoices = {};
+	instrument::compamp = {};
+	instrument::comppitch = {};
+	instrument::composition = {};
 	std::string tempNumber;//
-	stepvoices.resize(1);
-	composition.resize(1);
+	instrument::stepvoices.resize(1);
+	instrument::composition.resize(1);
 	char comma = ',';
 	char colon = ':';
 	std::string placement = "amp";
 	float step = 0;
-	for (unsigned i = 0; i < voiceautomation_script.length(); i++) {//voices script interpreter
+	for (unsigned i = 0; i < instrument::voiceautomation_script.length(); i++) {//voices script interpreter
 
-		if (voiceautomation_script[i] != colon && voiceautomation_script[i] != comma) {
-			tempNumber = tempNumber + (voiceautomation_script[i]);
+		if (instrument::voiceautomation_script[i] != colon && instrument::voiceautomation_script[i] != comma) {
+			tempNumber = tempNumber + (instrument::voiceautomation_script[i]);
 			//cout<<voiceautomation_script.at(i);
 			//cout<<"appended tempNumber" +tempNumber;
 			//cout<<atof(tempNumber);
 		}
 		else {
 			//cout <<"else";
-			if (voiceautomation_script[i] == colon) {
+			if (instrument::voiceautomation_script[i] == colon) {
 				//cout<<colon;
 				if (placement == "amp" && tempNumber.length() > 0) {
-					voicesamp.push_back(atof(tempNumber.c_str()));
+					instrument::voicesamp.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "pitch";
 
 				}
 				if (placement == "pitch" && tempNumber.length() > 0) {
-					voicespitch.push_back(atof(tempNumber.c_str()));
+					instrument::voicespitch.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "phase";
 				}
 				if (placement == "phase" && tempNumber.length() > 0) {
-					voicesphase.push_back(atof(tempNumber.c_str()));
+					instrument::voicesphase.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "getNewStep";
 
 				}
 
 			}
-			if (voiceautomation_script.at(i) == comma) {
+			if (instrument::voiceautomation_script.at(i) == comma) {
 				if (placement == "phase" && tempNumber.length() > 0) {
-					voicesphase.push_back(atof(tempNumber.c_str()));
+					instrument::voicesphase.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "amp";
 				}
 				if (placement == "amp" && tempNumber.length() > 0) {
-					voicesamp.push_back(atof(tempNumber.c_str()));
+					instrument::voicesamp.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "pitch";
 				}
 				if (placement == "pitch" && tempNumber.length() > 0) {
-					voicespitch.push_back(atof(tempNumber.c_str()));
+					instrument::voicespitch.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "phase";
 				}
 				if (placement == "getNewStep" && tempNumber.length() > 0) {
-					stepvoices[step].push_back(voicesamp);
-					stepvoices[step].push_back(voicespitch);
-					stepvoices[step].push_back(voicesphase);
+					instrument::stepvoices[step].push_back(instrument::voicesamp);
+					instrument::stepvoices[step].push_back(instrument::voicespitch);
+					instrument::stepvoices[step].push_back(instrument::voicesphase);
 					//cout<<(atof(tempNumber.c_str()));
 					step = (atof(tempNumber.c_str()));
-					stepvoices.resize(step + 1);
+					instrument::stepvoices.resize(step + 1);
 
-					voicesamp = {};
-					voicespitch = {};
-					voicesphase = {};
+					instrument::voicesamp = {};
+					instrument::voicespitch = {};
+					instrument::voicesphase = {};
 					tempNumber = "";
 					placement = "amp";
 
@@ -274,31 +273,31 @@ void instrument::updateVoices() {
 
 	}
 	if (placement == "phase" && tempNumber.length() > 0) {
-		voicesphase.push_back(atof(tempNumber.c_str()));
+		instrument::voicesphase.push_back(atof(tempNumber.c_str()));
 		tempNumber = "";
 		placement = "amp";
 	}
 	if (placement == "amp" && tempNumber.length() > 0) {
-		voicesamp.push_back(atof(tempNumber.c_str()));
+		instrument::voicesamp.push_back(atof(tempNumber.c_str()));
 		tempNumber = "";
 		placement = "pitch";
 	}
 	if (placement == "pitch" && tempNumber.length() > 0) {
-		voicespitch.push_back(atof(tempNumber.c_str()));
+		instrument::voicespitch.push_back(atof(tempNumber.c_str()));
 		tempNumber = "";
 		placement = "phase";
 	}
 	if (placement == "getNewStep" && tempNumber.length() > 0) {
-		stepvoices[step].push_back(voicesamp);
-		stepvoices[step].push_back(voicespitch);
-		stepvoices[step].push_back(voicesphase);
+		instrument::stepvoices[step].push_back(instrument::voicesamp);
+		instrument::stepvoices[step].push_back(instrument::voicespitch);
+		instrument::stepvoices[step].push_back(instrument::voicesphase);
 		//cout<<(atof(tempNumber.c_str()));
 		step = (atof(tempNumber.c_str()));
-		stepvoices.resize(step + 1);
+		instrument::stepvoices.resize(step + 1);
 
-		voicesamp = {};
-		voicespitch = {};
-		voicesphase = {};
+		instrument::voicesamp = {};
+		instrument::voicespitch = {};
+		instrument::voicesphase = {};
 		tempNumber = "";
 		placement = "amp";
 
@@ -306,22 +305,22 @@ void instrument::updateVoices() {
 
 	placement = "amp";
 	step = 0;
-	for (unsigned i = 0; i < composition_script.length(); i++) {//composition script interpreter
-		if (composition_script.at(i) != colon && composition_script[i] != comma) {
-			tempNumber = tempNumber + (composition_script[i]);
+	for (unsigned i = 0; i < instrument::composition_script.length(); i++) {//composition script interpreter
+		if (instrument::composition_script.at(i) != colon && instrument::composition_script[i] != comma) {
+			tempNumber = tempNumber + (instrument::composition_script[i]);
 			//cout<<"appended tempNumber" +tempNumber;
 		}
 		else {
 			//cout<<"else";
-			if (composition_script.at(i) == colon) {
+			if (instrument::composition_script.at(i) == colon) {
 				//cout<<colon;
 				if (placement == "amp" && tempNumber.length() > 0) {
-					compamp.push_back(atof(tempNumber.c_str()));
+					instrument::compamp.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "pitch";
 				}
 				if (placement == "pitch" && tempNumber.length() > 0) {
-					comppitch.push_back(atof(tempNumber.c_str()));
+					instrument::comppitch.push_back(atof(tempNumber.c_str()));
 					//cout<<comppitch.at(0);
 					tempNumber = "";
 					placement = "getNewStep";
@@ -332,25 +331,25 @@ void instrument::updateVoices() {
 			if (composition_script.at(i) == comma) {
 				//cout<<comma;
 				if (placement == "getNewStep" && tempNumber.length() > 0) {
-					composition[step].push_back(compamp);
-					composition[step].push_back(comppitch);
+					instrument::composition[step].push_back(instrument::compamp);
+					instrument::composition[step].push_back(instrument::comppitch);
 					step = (atof(tempNumber.c_str()));
-					composition.resize(step + 1);
+					instrument::composition.resize(step + 1);
 
 
-					compamp = {};
-					comppitch = {};
+					instrument::compamp = {};
+					instrument::comppitch = {};
 					tempNumber = "";
 					placement = "amp";
 
 				}
 				if (placement == "amp" && tempNumber.length() > 0) {
-					compamp.push_back(atof(tempNumber.c_str()));
+					instrument::compamp.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "pitch";
 				}
 				if (placement == "pitch" && tempNumber.length() > 0) {
-					comppitch.push_back(atof(tempNumber.c_str()));
+					instrument::comppitch.push_back(atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "amp";
 				}
@@ -359,64 +358,64 @@ void instrument::updateVoices() {
 		}
 	}
 	if (placement == "getNewStep" && tempNumber.length() > 0) {
-		composition[step].push_back(compamp);
-		composition[step].push_back(comppitch);
+		instrument::composition[step].push_back(compamp);
+		instrument::composition[step].push_back(comppitch);
 		step = (atof(tempNumber.c_str()));
-		composition.resize(step + 1);
+		instrument::composition.resize(step + 1);
 
 
-		compamp = {};
-		comppitch = {};
+		instrument::compamp = {};
+		instrument::comppitch = {};
 		tempNumber = "";
 		placement = "amp";
 
 	}
 	if (placement == "amp" && tempNumber.length() > 0) {
-		compamp.push_back(atof(tempNumber.c_str()));
+		instrument::compamp.push_back(atof(tempNumber.c_str()));
 		tempNumber = "";
 		placement = "pitch";
 	}
 	if (placement == "pitch" && tempNumber.length() > 0) {
-		comppitch.push_back(atof(tempNumber.c_str()));
+		instrument::comppitch.push_back(atof(tempNumber.c_str()));
 		tempNumber = "";
 		placement = "amp";
 	}
 
 
-	decaystep.resize(1);
+	instrument::decaystep.resize(1);
 	placement = "decay";
 	step = 0;
-	for (unsigned i = 0; i < decay_script.length(); i++) {//decay script interpreter
-		if (decay_script.at(i) != colon && decay_script[i] != comma) {
-			tempNumber = tempNumber + (decay_script[i]);
+	for (unsigned i = 0; i < instrument::decay_script.length(); i++) {//decay script interpreter
+		if (instrument::decay_script.at(i) != colon && instrument::decay_script[i] != comma) {
+			tempNumber = tempNumber + (instrument::decay_script[i]);
 			//cout<<"appended tempNumber" +tempNumber;
 		}
 		else {
-			if (decay_script.at(i) == colon) {
+			if (instrument::decay_script.at(i) == colon) {
 				//cout<<colon;
 				if (placement == "decay" && tempNumber.length() > 0) {
-					decaystep[step] = (atof(tempNumber.c_str()));
+					instrument::decaystep[step] = (atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "step";
 				}
 				if (placement == "step" && tempNumber.length() > 0) {
 					step = (atof(tempNumber.c_str()));
-					decaystep.resize(step + 1);
+					instrument::decaystep.resize(step + 1);
 					tempNumber = "";
 					placement = "decay";
 				}
 
 			}
-			if (decay_script.at(i) == comma) {
+			if (instrument::decay_script.at(i) == comma) {
 				//cout<<comma;
 				if (placement == "decay" && tempNumber.length() > 0) {
-					decaystep[step] = (atof(tempNumber.c_str()));
+					instrument::decaystep[step] = (atof(tempNumber.c_str()));
 					tempNumber = "";
 					placement = "step";
 				}
 				if (placement == "step" && tempNumber.length() > 0) {
 					step = (atof(tempNumber.c_str()));
-					decaystep.resize(step + 1);
+					instrument::decaystep.resize(step + 1);
 					tempNumber = "";
 					placement = "decay";
 				}
@@ -424,13 +423,13 @@ void instrument::updateVoices() {
 		}
 	}
 	if (placement == "decay" && tempNumber.length() > 0) {
-		decaystep[step] = (atof(tempNumber.c_str()));
+		instrument::decaystep[step] = (atof(tempNumber.c_str()));
 		tempNumber = "";
 		placement = "step";
 	}
 	if (placement == "step" && tempNumber.length() > 0) {
 		step = (atof(tempNumber.c_str()));
-		decaystep.resize(step + 1);
+		instrument::decaystep.resize(step + 1);
 		tempNumber = "";
 		placement = "decay";
 	}
@@ -438,248 +437,249 @@ void instrument::updateVoices() {
 
 
 }
-vector<vector<GLfloat>> instrumentPoly;
+
+
 
 void instrument::render() {
-	glPatchParameteri(GL_PATCH_VERTICES, voices_spinner);
+	glPatchParameteri(GL_PATCH_VERTICES, instrument::voices_spinner);
 	glPushMatrix();
 	//glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
 	//glTranslatef(0.0f, 0.0f, -7.0f);
 	glBegin(GL_TRIANGLES);
-	instrumentPoly.resize(voices_spinner);
-	for (int i = 0; i < voices_spinner; i++) {
-		instrumentPoly[i].resize(6);
+	instrument::instrumentPoly.resize(instrument::voices_spinner);
+	for (int i = 0; i < instrument::voices_spinner; i++) {
+		instrument::instrumentPoly[i].resize(6);
 	}
-	updateVoices();
-	assembleVoices();
+	instrument::updateVoices();
+	instrument::assembleVoices();
 	// //glLoadIdentity();
 
-	for (int i = 0; i < voices_spinner; i++) {
-		voicesamp[i] = stepvoices[currentStep][0][i];
-		voicespitch[i] = stepvoices[currentStep][1][i];
-		voicesphase[i] = stepvoices[currentStep][2][i];
+	for (int i = 0; i < instrument::voices_spinner; i++) {
+		instrument::voicesamp[i] = instrument::stepvoices[instrument::currentStep][0][i];
+		instrument::voicespitch[i] = instrument::stepvoices[instrument::currentStep][1][i];
+		instrument::voicesphase[i] = instrument::stepvoices[instrument::currentStep][2][i];
 		//cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<" "<<heuristic_listbox<<"\n";
 	}
-	if (heuristic_listbox = 1 && voicesphase.size() >= voices_spinner && voicesamp.size() >= voices_spinner && composition[currentStep].size() >= 2 && voicespitch.size() >= voices_spinner) {//2d shape
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][0].size(); iy++) {
-				voicesamp[i] += composition[currentStep][0][iy];
-				voicesamp[i] += voicesamp[i] * sin(currentStep * 2.0 * PI * am_spinner) * amint_spinner;
+	if (instrument::heuristic_listbox = 1 && instrument::voicesphase.size() >= instrument::voices_spinner && instrument::voicesamp.size() >= instrument::voices_spinner && instrument::composition[instrument::currentStep].size() >= 2 && instrument::voicespitch.size() >= instrument::voices_spinner) {//2d shape
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][0].size(); iy++) {
+				instrument::voicesamp[i] += instrument::composition[instrument::currentStep][0][iy];
+				instrument::voicesamp[i] += instrument::voicesamp[i] * sin(instrument::currentStep * 2.0 * instrument::PI * instrument::am_spinner) * instrument::amint_spinner;
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][1].size(); iy++) {
-				voicespitch[i] += voicespitch[i] * sqrt(composition[currentStep][1][iy]) / 1024;
-				voicespitch[i] += voicespitch[i] * sin(currentStep * 2.0 * PI * fm_spinner) * fmint_spinner;
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][1].size(); iy++) {
+				instrument::voicespitch[i] += instrument::voicespitch[i] * sqrt(instrument::composition[instrument::currentStep][1][iy]) / 1024;
+				instrument::voicespitch[i] += instrument::voicespitch[i] * sin(instrument::currentStep * 2.0 * PI * instrument::fm_spinner) * instrument::fmint_spinner;
 				//cout<<"\nvoicespitch phase amp "<<" " <<voicesamp[i]<< " "<<voicespitch[i]<<" "<<voicesphase[i]<<"\n";
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
+		for (int i = 0; i < instrument::voices_spinner; i++) {
 			//TODO: set voice values all to 1 unless being played, wherat custom values proclaimed
-			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner * ampscale_spinner * phasescale_spinner))) * voicesamp[i] * voicespitch[i] * voicesphase[i] + voicesamp[i] + voicespitch[i] + voicesphase[i];
-			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * pitchscale_spinner))) * voicespitch[i] + voicespitch[i];
+			instrument::instrumentPoly[i][0] = (GLfloat)((instrument::xpos_spinner + (instrument::xmod_spinner * instrument::pitchscale_spinner * instrument::ampscale_spinner * instrument::phasescale_spinner))) * instrument::voicesamp[i] * instrument::voicespitch[i] * instrument::voicesphase[i] + instrument::voicesamp[i] + instrument::voicespitch[i] + instrument::voicesphase[i];
+			instrument::instrumentPoly[i][1] = (GLfloat)((instrument::ypos_spinner + (instrument::ymod_spinner * instrument::pitchscale_spinner))) * instrument::voicespitch[i] + instrument::voicespitch[i];
 
-			instrumentPoly[i][2] = (GLfloat)((zpos_spinner)) + voicesamp[i];
+			instrument::instrumentPoly[i][2] = (GLfloat)((instrument::zpos_spinner)) + instrument::voicesamp[i];
 
-			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
+			instrument::instrumentPoly[i][3] = (GLfloat)(1.0 / (instrument::r_spinner / (instrument::r_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			instrument::instrumentPoly[i][4] = (GLfloat)(1.0 / (instrument::g_spinner / (instrument::g_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			instrument::instrumentPoly[i][5] = (GLfloat)(1.0 / (instrument::b_spinner / (instrument::b_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			if (instrument::instrumentPoly[i][3] < 0) {
+				instrument::instrumentPoly[i][3] = (GLfloat)0 - instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
+			if (instrument::instrumentPoly[i][3] > 1) {
+				instrument::instrumentPoly[i][3] = (GLfloat)1 / instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] < 0) {
+				instrument::instrumentPoly[i][4] = (GLfloat)0 - instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] > 1) {
+				instrument::instrumentPoly[i][4] = (GLfloat)1 / instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] < 0) {
+				instrument::instrumentPoly[i][5] = (GLfloat)0 - instrument::instrumentPoly[i][5];
 			}
-			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] > 1) {
+				instrument::instrumentPoly[i][5] = (GLfloat)1 / instrument::instrumentPoly[i][5];
 			}
-			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
-			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
-			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrument::instrumentPoly[i][3], (GLfloat)instrument::instrumentPoly[i][4], (GLfloat)instrument::instrumentPoly[i][5]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][3] << " " << (GLfloat)instrument::instrumentPoly[i][4] << " " << (GLfloat)instrument::instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrument::instrumentPoly[i][0], (GLfloat)instrument::instrumentPoly[i][1], (GLfloat)instrument::instrumentPoly[i][2]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][0] << " " << (GLfloat)instrument::instrumentPoly[i][1] << " " << (GLfloat)instrument::instrumentPoly[i][2] << " VERTS\n";
 
 		}
 
 	}
-	if (heuristic_listbox = 2 && voicesphase.size() >= voices_spinner && voicesamp.size() >= voices_spinner && composition[currentStep].size() >= 2 && voicespitch.size() >= voices_spinner) {//3d shape
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][0].size(); iy++) {
-				voicesamp[i] += composition[currentStep][0][iy];
-				voicesamp[i] += voicesamp[i] * sin(currentStep * 2.0 * PI * am_spinner) * amint_spinner;
+	if (instrument::heuristic_listbox = 2 && instrument::voicesphase.size() >= instrument::voices_spinner && instrument::voicesamp.size() >= instrument::voices_spinner && instrument::composition[instrument::currentStep].size() >= 2 && instrument::voicespitch.size() >= instrument::voices_spinner) {//3d shape
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][0].size(); iy++) {
+				instrument::voicesamp[i] += instrument::composition[currentStep][0][iy];
+				instrument::voicesamp[i] += instrument::voicesamp[i] * sin(instrument::currentStep * 2.0 * instrument::PI * instrument::am_spinner) * instrument::amint_spinner;
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][1].size(); iy++) {
-				voicespitch[i] += voicespitch[i] * sqrt(composition[currentStep][1][iy]) / 1024;
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][1].size(); iy++) {
+				instrument::voicespitch[i] += voicespitch[i] * sqrt(composition[currentStep][1][iy]) / 1024;
 				voicespitch[i] += voicespitch[i] * sin(currentStep * 2.0 * PI * fm_spinner) * fmint_spinner;
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
-			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner * ampscale_spinner * phasescale_spinner))) * voicesamp[i] * voicespitch[i] * voicesphase[i] + voicesamp[i] + voicespitch[i] + voicesphase[i];
-			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * pitchscale_spinner))) * voicespitch[i] + voicespitch[i];
-			instrumentPoly[i][2] = (GLfloat)((zpos_spinner + (zmod_spinner * pitchscale_spinner * ampscale_spinner))) * voicesamp[i] * voicespitch[i] + voicesamp[i] + voicespitch[i];
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			instrument::instrumentPoly[i][0] = (GLfloat)((instrument::xpos_spinner + (instrument::xmod_spinner * instrument::pitchscale_spinner * instrument::ampscale_spinner * instrument::phasescale_spinner))) * instrument::voicesamp[i] * instrument::voicespitch[i] * instrument::voicesphase[i] + instrument::voicesamp[i] + instrument::voicespitch[i] + instrument::voicesphase[i];
+			instrument::instrumentPoly[i][1] = (GLfloat)((instrument::ypos_spinner + (instrument::ymod_spinner * instrument::pitchscale_spinner))) * instrument::voicespitch[i] + instrument::voicespitch[i];
+			instrument::instrumentPoly[i][2] = (GLfloat)((instrument::zpos_spinner + (instrument::zmod_spinner * instrument::pitchscale_spinner * instrument::ampscale_spinner))) * instrument::voicesamp[i] * instrument::voicespitch[i] + instrument::voicesamp[i] + instrument::voicespitch[i];
 
-			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
+			instrument::instrumentPoly[i][3] = (GLfloat)(1.0 / (instrument::r_spinner / (instrument::r_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			instrument::instrumentPoly[i][4] = (GLfloat)(1.0 / (instrument::g_spinner / (instrument::g_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			instrument::instrumentPoly[i][5] = (GLfloat)(1.0 / (instrument::b_spinner / (instrument::b_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			if (instrument::instrumentPoly[i][3] < 0) {
+				instrument::instrumentPoly[i][3] = (GLfloat)0 - instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
+			if (instrument::instrumentPoly[i][3] > 1) {
+				instrument::instrumentPoly[i][3] = (GLfloat)1 / instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] < 0) {
+				instrument::instrumentPoly[i][4] = (GLfloat)0 - instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] > 1) {
+				instrument::instrumentPoly[i][4] = (GLfloat)1 / instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] < 0) {
+				instrument::instrumentPoly[i][5] = (GLfloat)0 - instrument::instrumentPoly[i][5];
 			}
-			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] > 1) {
+				instrument::instrumentPoly[i][5] = (GLfloat)1 / instrument::instrumentPoly[i][5];
 			}
-			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
-			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
-			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrument::instrumentPoly[i][3], (GLfloat)instrument::instrumentPoly[i][4], (GLfloat)instrument::instrumentPoly[i][5]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][3] << " " << (GLfloat)instrument::instrumentPoly[i][4] << " " << (GLfloat)instrument::instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrument::instrumentPoly[i][0], (GLfloat)instrument::instrumentPoly[i][1], (GLfloat)instrument::instrumentPoly[i][2]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][0] << " " << (GLfloat)instrument::instrumentPoly[i][1] << " " << (GLfloat)instrument::instrumentPoly[i][2] << " VERTS\n";
 		}
 	}
-	if (heuristic_listbox = 3 && voicesphase.size() >= voices_spinner && voicesamp.size() >= voices_spinner && composition[currentStep].size() >= 2 && voicespitch.size() >= voices_spinner) {//2d interfere
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][0].size(); iy++) {
-				voicesamp[i] += composition[currentStep][0][iy];
-				voicesamp[i] += voicesamp[i] * sin(currentStep * 2.0 * PI * am_spinner) * amint_spinner;
+	if (instrument::heuristic_listbox = 3 && instrument::voicesphase.size() >= instrument::voices_spinner && instrument::voicesamp.size() >= instrument::voices_spinner && instrument::composition[instrument::currentStep].size() >= 2 && instrument::voicespitch.size() >= instrument::voices_spinner) {//2d interfere
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][0].size(); iy++) {
+				instrument::voicesamp[i] += instrument::composition[instrument::currentStep][0][iy];
+				instrument::voicesamp[i] += instrument::voicesamp[i] * sin(instrument::currentStep * 2.0 * instrument::PI * instrument::am_spinner) * instrument::amint_spinner;
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][1].size(); iy++) {
-				voicespitch[i] += voicespitch[i] * sqrt(composition[currentStep][1][iy]) / 1024;
-				voicespitch[i] += voicespitch[i] * sin(currentStep * 2.0 * PI * fm_spinner) * fmint_spinner;
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][1].size(); iy++) {
+				instrument::voicespitch[i] += instrument::voicespitch[i] * sqrt(instrument::composition[instrument::currentStep][1][iy]) / 1024;
+				instrument::voicespitch[i] += instrument::voicespitch[i] * sin(instrument::currentStep * 2.0 * instrument::PI * instrument::fm_spinner) * instrument::fmint_spinner;
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
+		for (int i = 0; i < instrument::voices_spinner; i++) {
 			//TODO: set voice values all to 1 unless being played, wherat custom values proclaimed
-			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner) +
-				xpos_spinner + (xmod_spinner * pitchscale_spinner) *
-				scale_spinner * xmod_spinner * sin((i / voices_spinner) * xmod_spinner * (voicespitch.at(i) * pitchrot_spinner))));
-			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * ampscale_spinner) +
-				ypos_spinner + (ymod_spinner * ampscale_spinner) *
-				scale_spinner * ymod_spinner * cos((i / voices_spinner) * ymod_spinner * (voicesamp.at(i) * amprot_spinner)) *
-				(ampscale_spinner * voicesamp[i])));
-			instrumentPoly[i][2] = (GLfloat)((zpos_spinner));
+			instrument::instrumentPoly[i][0] = (GLfloat)((instrument::xpos_spinner + (instrument::xmod_spinner * instrument::pitchscale_spinner) +
+				instrument::xpos_spinner + (instrument::xmod_spinner * instrument::pitchscale_spinner) *
+				instrument::scale_spinner * instrument::xmod_spinner * sin((i / instrument::voices_spinner) * instrument::xmod_spinner * (instrument::voicespitch.at(i) * instrument::pitchrot_spinner))));
+			instrument::instrumentPoly[i][1] = (GLfloat)((instrument::ypos_spinner + (instrument::ymod_spinner * instrument::ampscale_spinner) +
+				instrument::ypos_spinner + (instrument::ymod_spinner * instrument::ampscale_spinner) *
+				instrument::scale_spinner * instrument::ymod_spinner * cos((i / instrument::voices_spinner) * instrument::ymod_spinner * (instrument::voicesamp.at(i) * instrument::amprot_spinner)) *
+				(instrument::ampscale_spinner * instrument::voicesamp[i])));
+			instrument::instrumentPoly[i][2] = (GLfloat)((instrument::zpos_spinner));
 
-			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
+			instrument::instrumentPoly[i][3] = (GLfloat)(1.0 / (instrument::r_spinner / (instrument::r_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
 					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
+			instrument::instrumentPoly[i][4] = (GLfloat)(1.0 / (instrument::g_spinner / (instrument::g_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			instrument::instrumentPoly[i][5] = (GLfloat)(1.0 / (instrument::b_spinner / (instrument::b_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			if (instrument::instrumentPoly[i][3] < 0) {
+				instrument::instrumentPoly[i][3] = (GLfloat)0 - instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
+			if (instrument::instrumentPoly[i][3] > 1) {
+				instrument::instrumentPoly[i][3] = (GLfloat)1 / instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] < 0) {
+				instrument::instrumentPoly[i][4] = (GLfloat)0 - instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] > 1) {
+				instrument::instrumentPoly[i][4] = (GLfloat)1 / instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] < 0) {
+				instrument::instrumentPoly[i][5] = (GLfloat)0 - instrument::instrumentPoly[i][5];
 			}
-			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] > 1) {
+				instrument::instrumentPoly[i][5] = (GLfloat)1 / instrument::instrumentPoly[i][5];
 			}
-			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
-			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
-			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrument::instrumentPoly[i][3], (GLfloat)instrument::instrumentPoly[i][4], (GLfloat)instrument::instrumentPoly[i][5]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][3] << " " << (GLfloat)instrument::instrumentPoly[i][4] << " " << (GLfloat)instrument::instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrument::instrumentPoly[i][0], (GLfloat)instrument::instrumentPoly[i][1], (GLfloat)instrument::instrumentPoly[i][2]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][0] << " " << (GLfloat)instrument::instrumentPoly[i][1] << " " << (GLfloat)instrument::instrumentPoly[i][2] << " VERTS\n";
 		}
 	}
-	if (heuristic_listbox = 4 && voicesphase.size() >= voices_spinner && voicesamp.size() >= voices_spinner && composition[currentStep].size() >= 2 && voicespitch.size() >= voices_spinner) {//3d interfere
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][0].size(); iy++) {
-				voicesamp[i] += composition[currentStep][0][iy];
-				voicesamp[i] += voicesamp[i] * sin(currentStep * 2.0 * PI * am_spinner) * amint_spinner;
+	if (instrument::heuristic_listbox = 4 && instrument::voicesphase.size() >= instrument::voices_spinner && instrument::voicesamp.size() >= instrument::voices_spinner && instrument::composition[instrument::currentStep].size() >= 2 && instrument::voicespitch.size() >= instrument::voices_spinner) {//3d interfere
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][0].size(); iy++) {
+				instrument::voicesamp[i] += instrument::composition[instrument::currentStep][0][iy];
+				instrument::voicesamp[i] += instrument::voicesamp[i] * sin(instrument::currentStep * 2.0 * instrument::PI * instrument::am_spinner) * instrument::amint_spinner;
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
-			for (int iy = 0; iy < composition[currentStep][1].size(); iy++) {
-				voicespitch[i] += voicespitch[i] * sqrt(composition[currentStep][1][iy]) / 1024;
-				voicespitch[i] += voicespitch[i] * sin(currentStep * 2.0 * PI * fm_spinner) * fmint_spinner;
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			for (int iy = 0; iy < instrument::composition[instrument::currentStep][1].size(); iy++) {
+				instrument::voicespitch[i] += instrument::voicespitch[i] * sqrt(instrument::composition[currentStep][1][iy]) / 1024;
+				instrument::voicespitch[i] += instrument::voicespitch[i] * sin(instrument::currentStep * 2.0 * instrument::PI * instrument::fm_spinner) * instrument::fmint_spinner;
 			}
 		}
-		for (int i = 0; i < voices_spinner; i++) {
-			instrumentPoly[i][0] = (GLfloat)((xpos_spinner + (xmod_spinner * pitchscale_spinner) +
-				xpos_spinner + (xmod_spinner * pitchscale_spinner) *
-				scale_spinner * xmod_spinner * sin((i / voices_spinner) * xmod_spinner * (voicespitch.at(i) * pitchrot_spinner))));
-			instrumentPoly[i][1] = (GLfloat)((ypos_spinner + (ymod_spinner * ampscale_spinner) +
-				ypos_spinner + (ymod_spinner * ampscale_spinner) *
-				scale_spinner * ymod_spinner * cos((i / voices_spinner) * ymod_spinner * (voicesamp.at(i) * amprot_spinner)) *
-				(ampscale_spinner * voicesamp[i])));
-			instrumentPoly[i][2] = (GLfloat)((zpos_spinner + (zmod_spinner * phasescale_spinner) +
-				zpos_spinner + (zmod_spinner * phasescale_spinner) *
-				scale_spinner * zmod_spinner * tan((i / voices_spinner) * zmod_spinner * (voicesphase.at(i) * phaserot_spinner))));
+		for (int i = 0; i < instrument::voices_spinner; i++) {
+			instrument::instrumentPoly[i][0] = (GLfloat)((instrument::xpos_spinner + (instrument::xmod_spinner * instrument::pitchscale_spinner) +
+				instrument::xpos_spinner + (instrument::xmod_spinner * instrument::pitchscale_spinner) *
+				instrument::scale_spinner * instrument::xmod_spinner * sin((i / instrument::voices_spinner) * instrument::xmod_spinner * (instrument::voicespitch.at(i) * instrument::pitchrot_spinner))));
+			instrument::instrumentPoly[i][1] = (GLfloat)((instrument::ypos_spinner + (instrument::ymod_spinner * instrument::ampscale_spinner) +
+				instrument::ypos_spinner + (instrument::ymod_spinner * instrument::ampscale_spinner) *
+				instrument::scale_spinner * instrument::ymod_spinner * cos((i / instrument::voices_spinner) * instrument::ymod_spinner * (instrument::voicesamp.at(i) * instrument::amprot_spinner)) *
+				(instrument::ampscale_spinner * instrument::voicesamp[i])));
+			instrument::instrumentPoly[i][2] = (GLfloat)((instrument::zpos_spinner + (instrument::zmod_spinner * instrument::phasescale_spinner) +
+				instrument::zpos_spinner + (instrument::zmod_spinner * instrument::phasescale_spinner) *
+				instrument::scale_spinner * instrument::zmod_spinner * tan((i / instrument::voices_spinner) * instrument::zmod_spinner * (instrument::voicesphase.at(i) * instrument::phaserot_spinner))));
 
-			instrumentPoly[i][3] = (GLfloat)(1.0 / (r_spinner / (r_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			instrumentPoly[i][4] = (GLfloat)(1.0 / (g_spinner / (g_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			instrumentPoly[i][5] = (GLfloat)(1.0 / (b_spinner / (b_mod_spinner * (pitchcolor_spinner * voicespitch.at(i)) *
-				(ampcolor_spinner * voicesamp.at(i)) * (phasecolor_spinner *
-					voicesphase.at(i)))));
-			if (instrumentPoly[i][3] < 0) {
-				instrumentPoly[i][3] = (GLfloat)0 - instrumentPoly[i][3];
+			instrument::instrumentPoly[i][3] = (GLfloat)(1.0 / (instrument::r_spinner / (instrument::r_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			instrument::instrumentPoly[i][4] = (GLfloat)(1.0 / (instrument::g_spinner / (instrument::g_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			instrument::instrumentPoly[i][5] = (GLfloat)(1.0 / (instrument::b_spinner / (instrument::b_mod_spinner * (instrument::pitchcolor_spinner * instrument::voicespitch.at(i)) *
+				(instrument::ampcolor_spinner * instrument::voicesamp.at(i)) * (instrument::phasecolor_spinner *
+					instrument::voicesphase.at(i)))));
+			if (instrument::instrumentPoly[i][3] < 0) {
+				instrument::instrumentPoly[i][3] = (GLfloat)0 - instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][3] > 1) {
-				instrumentPoly[i][3] = (GLfloat)1 / instrumentPoly[i][3];
+			if (instrument::instrumentPoly[i][3] > 1) {
+				instrument::instrumentPoly[i][3] = (GLfloat)1 / instrument::instrumentPoly[i][3];
 			}
-			if (instrumentPoly[i][4] < 0) {
-				instrumentPoly[i][4] = (GLfloat)0 - instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] < 0) {
+				instrument::instrumentPoly[i][4] = (GLfloat)0 - instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][4] > 1) {
-				instrumentPoly[i][4] = (GLfloat)1 / instrumentPoly[i][4];
+			if (instrument::instrumentPoly[i][4] > 1) {
+				instrument::instrumentPoly[i][4] = (GLfloat)1 / instrument::instrumentPoly[i][4];
 			}
-			if (instrumentPoly[i][5] < 0) {
-				instrumentPoly[i][5] = (GLfloat)0 - instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] < 0) {
+				instrument::instrumentPoly[i][5] = (GLfloat)0 - instrument::instrumentPoly[i][5];
 			}
-			if (instrumentPoly[i][5] > 1) {
-				instrumentPoly[i][5] = (GLfloat)1 / instrumentPoly[i][5];
+			if (instrument::instrumentPoly[i][5] > 1) {
+				instrument::instrumentPoly[i][5] = (GLfloat)1 / instrument::instrumentPoly[i][5];
 			}
-			glColor3f((GLfloat)instrumentPoly[i][3], (GLfloat)instrumentPoly[i][4], (GLfloat)instrumentPoly[i][5]);
-			cout << (GLfloat)instrumentPoly[i][3] << " " << (GLfloat)instrumentPoly[i][4] << " " << (GLfloat)instrumentPoly[i][5] << " COLORS\n";
-			glVertex3f((GLfloat)instrumentPoly[i][0], (GLfloat)instrumentPoly[i][1], (GLfloat)instrumentPoly[i][2]);
-			cout << (GLfloat)instrumentPoly[i][0] << " " << (GLfloat)instrumentPoly[i][1] << " " << (GLfloat)instrumentPoly[i][2] << " VERTS\n";
+			glColor3f((GLfloat)instrument::instrumentPoly[i][3], (GLfloat)instrument::instrumentPoly[i][4], (GLfloat)instrument::instrumentPoly[i][5]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][3] << " " << (GLfloat)instrument::instrumentPoly[i][4] << " " << (GLfloat)instrument::instrumentPoly[i][5] << " COLORS\n";
+			glVertex3f((GLfloat)instrument::instrumentPoly[i][0], (GLfloat)instrument::instrumentPoly[i][1], (GLfloat)instrument::instrumentPoly[i][2]);
+			//cout << (GLfloat)instrument::instrumentPoly[i][0] << " " << (GLfloat)instrument::instrumentPoly[i][1] << " " << (GLfloat)instrument::instrumentPoly[i][2] << " VERTS\n";
 		}
 	}
 	glEnd();
@@ -695,37 +695,40 @@ void instrument::render() {
 
 
 void instrument::assembleSongData() {
-	samples = new ALshort[composition.size() * 2 * (22050 * (60 / (int)tempo))];
-	init_al();
-	updateVoices();
-	assembleVoices();
-	float bpm = tempo;
+	instrument::samples = new ALshort[instrument::composition.size() * 2 * (22050 * (60 / (int)tempo))];
+	instrument::init_al();
+	instrument::updateVoices();
+	instrument::assembleVoices();
+	float bpm = instrument::tempo;
 	//ALfloat *soundstream;
 	ALuint srate = 22050;
 
-	alGenBuffers(1, &soundbuffer);
+	alGenBuffers(1, &(instrument::soundbuffer));
 
 	//cout<<composition.size();
-
-	for (int it = 0; composition.size() > it && stepvoices.size() > it; it++) {
-		for (int iu = 0; iu < composition[it].size() && iu < stepvoices[it].size(); iu++) {
-			for (int ii = 0; ii < stepvoices[it][iu].size() && it < composition[it][iu].size(); ii++) {
-				for (int iy = 0; iy < composition[it][iu].size(); iy++) {
-					for (int i = 0; i < voices_spinner; i++) {
+	instrument::audioout.open("audio.wav");
+	cout << instrument::composition.size();
+	for (int it = 0; it<instrument::composition.size() && it<instrument::stepvoices.size(); it++) {
+		for (int iu = 0; iu < instrument::composition[it].size() && iu < instrument::stepvoices[it].size(); iu++) {
+			for (int ii = 0; ii < instrument::stepvoices[it][iu].size() && it < instrument::composition[it][iu].size(); ii++) {
+				for (int iy = 0; iy < instrument::composition[it][iu].size(); iy++) {
+					for (int i = 0; i < instrument::voices_spinner; i++) {
 						//cout<<it<<"\n";
-						float amp = composition.at(it).at(iu).at(iy) * stepvoices[it][iu][i];
-						float pitch = composition.at(it).at(iu).at(iy) * stepvoices[it][iu][i];
-						float phase = stepvoices[it][iu][i];
-						float decayf = decaystep.at(it);
-						playVertice(samples, srate, pitch, amp, phase,
-							decayf, tempo, amint_spinner, am_spinner, fmint_spinner, fm_spinner, it);
+						float amp = instrument::composition.at(it).at(iu).at(iy) * instrument::stepvoices[it][iu][i];
+						float pitch = instrument::composition.at(it).at(iu).at(iy) * instrument::stepvoices[it][iu][i];
+						float phase = instrument::stepvoices[it][iu][i];
+						float decayf = instrument::decaystep.at(it);
+						instrument::playVertice(instrument::samples, instrument::srate, instrument::pitch, instrument::amp, instrument::phase,
+							instrument::decayf, instrument::tempo, instrument::amint_spinner, instrument::am_spinner, instrument::fmint_spinner, instrument::fm_spinner, it);
 					}
 				}
 			}
 		}
 	}
-
-	cout << "\nwrote composition\n";
+	for (int i = 0; i < instrument::composition.size() * 2 * (22050 * (60 / (int)tempo)); i++) {
+		instrument::audioout << instrument::samples[i];
+	}
+	instrument::audioout.close();
 
 
 }
@@ -736,34 +739,31 @@ void instrument::playVertice(ALshort data[], float srate, float freq, float amp,
 	float minute = 60.0f;
 	float i = 0.0f;
 	float ampadj = ampmult * amp;
-	float M_PI = PI;
+	float M_PI = instrument::PI;
 
-	int sizeSS = composition.size() * 2 * (22050 * (60 / (int)tempo));
+	instrument::sizeSS = instrument::composition.size() * 2 * (22050 * (60 / (int)instrument::tempo));
 	//data=data;
-	for (int i = step * (22050 * (60 / tempo)); i < (step + (1.0 * decayf)) * (22050 * (60 / tempo)) && i < sizeSS; (i)++) {
+	for (int i = step * (22050 * (60 / instrument::tempo)); i < (step + (1.0 * decayf)) * (22050 * (60 / instrument::tempo)) && i < instrument::sizeSS; (i)++) {
 		//cout<<"\nattempting transfer at "<<i;
-		if ((samples[i] + (ALshort)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
-			+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
-			* (sin((amfreq * 2.0 * M_PI) / 22050 * i) * am))))) <= 32768
-			&&
-			(samples[i] + (ALshort)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
-				+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
-				* (sin((amfreq * 2.0 * M_PI) / 22050 * i) * am))))) >= -32768)
 
-			data[i] += (ALshort)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
-				+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
-				* (sin((amfreq * 2.0 * M_PI) / 22050 * i) * am))));
-
-		//cout << samples[i];
+		(instrument::samples[i]) += (short)(ampadj * (((sin(((freq * 2.0 * M_PI) / 22050 * i) * phase + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
+					+ (sin(((freq * 2.0 * M_PI) / 22050 * i) + ((freq * 2.0 * M_PI) / 22050 * i) * (fm * sin((fmfreq * 2.0 * M_PI) / 22050 * i))))
+					* (sin((amfreq * 2.0 * M_PI) / 22050 * i) * am))));
+		
+		cout << samples[i];
 	}
 
 }
 void instrument::play() {
-	alBufferData(soundbuffer, AL_FORMAT_MONO16, &samples, composition.size() * 2 * (22050 * (60 / (int)tempo)), (22050));
-	alGenSources(1, &soundsource);
-	alSourcei(soundsource, AL_BUFFER, soundbuffer);
-	alSourcePlay(soundsource);
+	
+	alBufferData(instrument::soundbuffer, AL_FORMAT_MONO16, &(instrument::samples), instrument::composition.size() * 2 * (22050 * (60 / (int)instrument::tempo)), (22050));
+	alGenSources(1, &(instrument::soundsource));
+	alSourcei(instrument::soundsource, AL_BUFFER, instrument::soundbuffer);
+	alSourcePlay(instrument::soundsource);
 	cout << "play";
+	cout << "\nwrote composition\n";
+	
+	
 }
 
 
@@ -772,55 +772,55 @@ void instrument::play() {
 
 
 void instrument::initVals() {
-	tempo = 160.0;
+	instrument::tempo = 160.0;
 
-	PI = 3.141592653589f;
+	instrument::PI = 3.141592653589f;
 
-	ALuint srate = 44100;
-	ALuint soundsource;
-	ALint data_size;
-	ALuint soundbuffer;
-	ALuint soundstream;
+	instrument::srate = 22050;
+	instrument::soundsource;
+	instrument::data_size;
+	instrument::soundbuffer;
+	instrument::soundstream;
 	//float soundstreamvec[44100*60*5];
 
 
-	currentStep = 0;
-	mainboard_title = ((char*)"WaveBricks Synth");
+	instrument::currentStep = 0;
+	instrument::mainboard_title = ((char*)"WaveBricks Synth");
 
 
 
-	heuristic_listbox = 2;
-	voices_spinner = 6;
-	pitchscale_spinner = 0.5;
-	pitchcolor_spinner = 0.5;
-	pitchrot_spinner = 0.5;
-	ampscale_spinner = 0.5;
-	ampcolor_spinner = 0.5;
-	amprot_spinner = 0.5;
-	phaserot_spinner = 0.5;
-	phasecolor_spinner = 0.5;
-	phasescale_spinner = 0.5;
-	xpos_spinner = 0.0;
-	ypos_spinner = 0.0;
-	zpos_spinner = 0.0;
-	scale_spinner = 1.0;
+	instrument::heuristic_listbox = 2;
+	instrument::voices_spinner = 6;
+	instrument::pitchscale_spinner = 0.5;
+	instrument::pitchcolor_spinner = 0.5;
+	instrument::pitchrot_spinner = 0.5;
+	instrument::ampscale_spinner = 0.5;
+	instrument::ampcolor_spinner = 0.5;
+	instrument::amprot_spinner = 0.5;
+	instrument::phaserot_spinner = 0.5;
+	instrument::phasecolor_spinner = 0.5;
+	instrument::phasescale_spinner = 0.5;
+	instrument::xpos_spinner = 0.0;
+	instrument::ypos_spinner = 0.0;
+	instrument::zpos_spinner = 0.0;
+	instrument::scale_spinner = 1.0;
 	/*lpfiltercolor_spinner=0.5;
 	hpfiltercolor_spinner=0.0;
 	lpfilterscale_spinner=0.5;
 	hpfilterscale_spinner=0.0;*/
-	r_spinner = 0.5;
-	g_spinner = 0.5;
-	b_spinner = 0.5;
-	r_mod_spinner = 0.5;
-	g_mod_spinner = 0.5;
-	b_mod_spinner = 0.5;
-	xmod_spinner = 1.0;
-	ymod_spinner = 1.0;
-	zmod_spinner = 1.0;
-	fm_spinner = 0.0;
-	fmint_spinner = 1.0;
-	am_spinner = 0.0;
-	amint_spinner = 1.5;
+	instrument::r_spinner = 0.5;
+	instrument::g_spinner = 0.5;
+	instrument::b_spinner = 0.5;
+	instrument::r_mod_spinner = 0.5;
+	instrument::g_mod_spinner = 0.5;
+	instrument::b_mod_spinner = 0.5;
+	instrument::xmod_spinner = 1.0;
+	instrument::ymod_spinner = 1.0;
+	instrument::zmod_spinner = 1.0;
+	instrument::fm_spinner = 0.0;
+	instrument::fmint_spinner = 1.0;
+	instrument::am_spinner = 0.0;
+	instrument::amint_spinner = 1.5;
 
 
 
@@ -844,7 +844,7 @@ void instrument::initVals() {
 	*/
 	//void * __gxx_personality_v0=0;
 	//void * _Unwind_Resume =0;
-	voiceautomation_script = { "1.0,1.5,0.5,"
+	instrument::voiceautomation_script = { "1.0,1.5,0.5,"
 							"1.3,1.3,0.2,"
 							"1.2,0.8,.3,"
 							"1.1,0.4,0.2,"
@@ -885,7 +885,7 @@ void instrument::initVals() {
 							"1,0.05,0.4,"
 							"4,0.06,0.7,"
 							"3,0.0274,0.4:129," };
-	composition_script = { "2.0,3.0:"
+	instrument::composition_script = { "2.0,3.0:"
 						"1.0,1.0,440:"
 						"5,8,666:"
 						"11,1,555:"
@@ -924,7 +924,7 @@ void instrument::initVals() {
 						"119,1.3,707:"
 						"120,0.8,1337:"
 						"129,3.0,5096:" };
-	decay_script = { "1.3,0:"
+	instrument::decay_script = { "1.3,0:"
 				 "1.3,15:"
 				 "1.3,23:"
 				 "1.3,31:"
@@ -945,7 +945,7 @@ void instrument::init_al() {
 	alcMakeContextCurrent(ctx);
 }
 
-void instrument::exit_al() {
+void exit_al() {
 	ALCdevice* dev = NULL;
 	ALCcontext* ctx = NULL;
 	ctx = alcGetCurrentContext();

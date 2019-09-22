@@ -36,6 +36,7 @@
 #include <utility>
 #include <stdio.h>
 #include <assert.h>
+#include<fstream>
 
 
 
@@ -49,33 +50,37 @@ public:
 
 
 	double coords;
-	void initVars();
+	void initVals();
 	float PI;
+	ofstream audioout;
 
 
+	static ALCdevice* dev;
+	static ALCcontext* ctx;
 	float scale, tempo;
 	float currentStep;
 	//heuristic;
 	bool gravity, collide, d2;
 	std::string name;
+	float amp, pitch, phase, decayf;
 
-	std::vector<float> voicespitch;
-	std::vector<float> voicesamp;
-	std::vector<float> voicesphase;
-	std::vector<vector<vector<float>>> stepvoices;
+	std::vector<GLfloat> voicespitch;
+	std::vector<GLfloat> voicesamp;
+	std::vector<GLfloat> voicesphase;
+	std::vector<vector<vector<GLfloat>>> stepvoices;
 
-	std::vector<float> compamp;
-	std::vector<float> comppitch;
-	std::vector<vector<vector<float>>> composition;
+	std::vector<GLfloat> compamp;
+	std::vector<GLfloat> comppitch;
+	std::vector<vector<vector<GLfloat>>> composition;
 
-	std::vector<float> decaystep;
-
-
-
+	std::vector<GLfloat> decaystep;
 
 
 
-	enum
+
+
+
+	enum 
 	{
 		HEURISTIC_LISTBOX,
 
@@ -133,6 +138,47 @@ public:
 	};
 
 	//
+	GLuint wavebricks_synth;
+	GLUI* synth_panel;
+	GLUI_Panel* syn_panel;
+
+	GLUI_Listbox* heuristic_listbox_panel;
+
+	GLUI_Spinner* panning_panel;
+	GLUI_Spinner* xpos_spinner_panel;
+	GLUI_Spinner* ypos_spinner_panel;
+	GLUI_Spinner* zpos_spinner_panel;
+	GLUI_Spinner* xmod_spinner_panel;
+	GLUI_Spinner* ymod_spinner_panel;
+	GLUI_Spinner* zmod_spinner_panel;
+	GLUI_Spinner* voices_spinner_panel;
+	GLUI_Spinner* scale_spinner_panel;
+	GLUI_Spinner* r_spinner_panel;
+	GLUI_Spinner* g_spinner_panel;
+	GLUI_Spinner* b_spinner_panel;
+	GLUI_Spinner* r_mod_spinner_panel;
+	GLUI_Spinner* g_mod_spinner_panel;
+	GLUI_Spinner* b_mod_spinner_panel;
+	GLUI_Spinner* phaserot_spinner_panel;
+	GLUI_Spinner* phasecolor_spinner_panel;
+	GLUI_Spinner* phasescale_spinner_panel;
+	GLUI_Spinner* ampcolor_spinner_panel;
+	GLUI_Spinner* pitchcolor_spinner_panel;
+	GLUI_Spinner* ampscale_spinner_panel;
+	GLUI_Spinner* pitchscale_spinner_panel;
+	GLUI_Spinner* pitchrot_spinner_panel;
+	GLUI_Spinner* amprot_spinner_panel;
+	GLUI_Spinner* fm_spinner_panel;
+	GLUI_Spinner* fmint_spinner_panel;
+	GLUI_Spinner* am_spinner_panel;
+	GLUI_Spinner* amint_spinner_panel;
+
+	GLUI_EditText* voicesscript_panel;
+	GLUI_EditText* compositionscript_panel;
+	GLUI_EditText* decayscript_panel;
+
+
+	vector<vector<vector<vector<float>>>>breakpoints;
 
 	int heuristic_listbox;
 
@@ -174,6 +220,8 @@ public:
 	float panning_spinner ;
 
 
+	int sizeSS;
+
 	string apm_script;
 	string color_script;
 	string envelope_script;
@@ -199,8 +247,6 @@ public:
 	char* mainboard_title;
 
 
-	GLUI_Panel* syn_panel;
-
 
 	void centerOnScreen();
 	void assembleVoices();
@@ -208,7 +254,6 @@ public:
 	}
 	void assemble();
 	void updateVoices();
-	void initVals();
 	void render();
 	void assembleSongData();
 	void play();
@@ -243,12 +288,12 @@ public:
             __al_check_error(__FILE__, __LINE__)
 
 
-	void init_al();
+	static void init_al();
 
-	void exit_al();
+	static void exit_al();
 
 
-
+	vector<vector<GLfloat>> instrumentPoly;
 	ALuint srate;
 	ALuint source;
 	ALuint soundsource;
@@ -258,8 +303,6 @@ public:
 
 
 	ALshort* samples;
-
-	GLUI* synth_panel;
 	GLfloat vertices;
 	GLfloat colors;
 

@@ -44,6 +44,7 @@
 #include <stdio.h>
 
 #include "entities.cpp"
+#include<fstream>
 
 
 
@@ -54,7 +55,7 @@ using namespace std;
 
 //static ALuint audios[];
 
-static std::vector<instrument> instruments;
+std::vector<std::unique_ptr<instrument>> instruments;
 
 
 static int playbutton = 0;
@@ -298,15 +299,12 @@ enum
 	LOADBUTTON,
 	ADDINSTBUTTON
 };
-instrument* newInst;
 std::map<int, instrument> instrumentsmap;
 void assembleInst()
 {
 
-	newInst = new instrument;
-	//newInst->assemble();
-	instrumentsmap.insert(make_pair(instrumentsmap.size(), *newInst));
-	instrumentsmap[instrumentsmap.size() - 1].assemble();
+	instruments.push_back(unique_ptr<instrument>(new instrument()));
+	instruments.at(instruments.size() - 1)->assemble();
 	glutDisplayFunc(display);
 	GLUI_Master.set_glutIdleFunc(display);
 	//instruments[instruments.size()-1].synth_panel->set_main_gfx_window( wavebricks_window );
@@ -331,13 +329,16 @@ void trackPlay() {
 	dev = alcOpenDevice(defname);
 	ctx = alcCreateContext(dev, NULL);
 	alcMakeContextCurrent(ctx);
-	for (int i = 0; i < instrumentsmap.size(); i++) {
-		instrumentsmap[i].currentStep = tracking;
-		instrumentsmap[i].assembleSongData();
+	for (int i = 0; i < instruments.size(); i++) {
+		instruments.at(i)->currentStep = tracking;
+		instruments.at(i)->assembleSongData();
 
 	}
-	for (int i = 0; i < instrumentsmap.size(); i++) {
-		instrumentsmap[i].play();
+	for (int i = 0; i < instruments.size(); i++) {
+		
+		instruments.at(i)->play();
+		
+		
 
 	}
 
@@ -345,8 +346,8 @@ void trackPlay() {
 }
 void trackPause() {
 	//tracking =
-	for (int i = 0; i < instrumentsmap.size(); i++) {
-		alSourcePause(instrumentsmap[i].soundsource);
+	for (int i = 0; i < instruments.size(); i++) {
+		alSourcePause(instruments.at(i)->soundsource);
 	}
 
 
@@ -464,14 +465,13 @@ void display()
 
 	//glTranslatef(0.0f,0.0f,-7.0f);
 	//glTranslatef(1.5f, 0.0f, -7.0f);
-	for (int it = 0; it < instrumentsmap.size(); it++) {
+	for (int it = 0; it < instruments.size(); it++) {
 
-		alGetSourcef(instrumentsmap[it].soundsource, AL_SEC_OFFSET, &tracking);
-		instrumentsmap[it].currentStep = tracking * (60 / tempo);
-		instrumentsmap[it].currentStep = (int)tracking;
-		instrumentsmap[it].tempo = tempo;
-		instrumentsmap[it].render();
-		glutSwapBuffers();
+		alGetSourcef(instruments.at(it)->soundsource, AL_SEC_OFFSET, &tracking);
+		instruments.at(it)->currentStep = tracking * (60 / tempo);
+		instruments.at(it)->currentStep = (int)tracking;
+		instruments.at(it)->tempo = tempo;
+		instruments.at(it)->render();
 
 
 
