@@ -319,6 +319,8 @@ void load() {
 	cout << "\nfilename: ";
 	cin >> loadfile;
 }
+
+
 void trackPlay() {
 	//tracking =
 	ALCdevice* dev = NULL;
@@ -460,9 +462,7 @@ void display()
 	//glfwMakeContextCurrent(wavebricks_window);
 	glutSetWindow(wavebricks_window);
 	glTranslatef(0.0f, 0.0f, -5.0f);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glLoadIdentity();//load identity matrix
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//glTranslatef(0.0f,0.0f,-7.0f);
 	//glTranslatef(1.5f, 0.0f, -7.0f);
@@ -635,10 +635,17 @@ ALuint songbuffer;
 string winTit;
 
 
-int main(int argc, char** argv)
+int main(int argc, char *argv[])
 {
 	cout << "           WaveBricks v 1.0\n      copyright 2019 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
 	glutInit(&argc, argv);
+
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	
+
+	
+
+
 	alutInit(&argc, argv);
 	//glfwInit();
 //    glewInit();
@@ -646,6 +653,8 @@ int main(int argc, char** argv)
 	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
 	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	WBInit();
+	glutSetWindow(wavebricks_window);
+
 
 	initMainBoard();
 	//
@@ -653,6 +662,31 @@ int main(int argc, char** argv)
 
 
 	glutSetWindow(wavebricks_window);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(key);
+	glutIdleFunc(idle);
+
+	glClearColor(1, 1, 1, 1);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
 	glutMainLoop();
 
