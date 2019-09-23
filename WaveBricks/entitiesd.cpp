@@ -19,10 +19,13 @@ void instrument::assembleVoices() {
 				this->breakpoints[this->breakpoints.size() - 1][this->i-1][0].resize(this->voices_spinner);
 				this->breakpoints[this->breakpoints.size() - 1][this->i-1][1].resize(this->voices_spinner);
 				this->breakpoints[this->breakpoints.size() - 1][this->i-1][2].resize(this->voices_spinner);
-				this->breakpoints.at(this->breakpoints.size() - 1).at(this->i-1) = (this->stepvoices.at(this->i));
-				this->breakpoints.at(this->breakpoints.size() - 1).at(this->i-1).at(0)=(this->stepvoices.at(this->i).at(0));
-				this->breakpoints.at(this->breakpoints.size() - 1).at(this->i-1).at(1)=(this->stepvoices.at(this->i).at(1));
-				this->breakpoints.at(this->breakpoints.size() - 1).at(this->i-1).at(2)=(this->stepvoices.at(this->i).at(2));
+				this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1) = (this->stepvoices.at(this->i));
+				for (this->it = 0; this->it < this->voices_spinner; this->it++) {
+					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1).at(0).at(this->it) = (this->stepvoices.at(this->i).at(0).at(this->it));
+					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1).at(1).at(this->it) = (this->stepvoices.at(this->i).at(1).at(this->it));
+					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1).at(2).at(this->it) = (this->stepvoices.at(this->i).at(2).at(this->it));
+				}
+				
 			}
 		}
 	}
