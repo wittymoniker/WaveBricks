@@ -904,12 +904,8 @@ void instrument::play() {
 	this->audioout << "data----";  // (chunk size to be filled in later)
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	for (this-> i = 0; this->i < this->sizeSS-1; this->i++) {
-		if (this->data.at(this->i)) {
-			write_word(this->audioout, this->data.at(this->i), 2);
-			write_word(this->audioout, this->data.at(this->i), 2);
-		}
-		
-		//cout << (this->data.at(this->i));
+		write_word(this->audioout, this->data.at(this->i), 2);
+		write_word(this->audioout, this->data.at(this->i), 2);
 	}
 
 	size_t file_length = this->audioout.tellp();
@@ -1074,7 +1070,7 @@ void instrument::initVals() {
 		"40,1,555:" 
 	};
 	this->decay_script = { 
-		"1.3,0:"
+		"1,0:"
 				  };
 }
 void instrument::init_al() {
