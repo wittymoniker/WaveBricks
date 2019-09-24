@@ -304,7 +304,7 @@ public:
 	std::vector<ALshort> data;
 	GLfloat vertices;
 	GLfloat colors;
-	ALshort* sounddata;
+
 
 
 
