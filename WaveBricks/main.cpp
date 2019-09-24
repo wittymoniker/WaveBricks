@@ -470,7 +470,6 @@ void display()
 
 		alGetSourcef(instruments.at(it)->soundsource, AL_SEC_OFFSET, &tracking);
 		instruments.at(it)->currentStep = tracking * (60 / tempo);
-		instruments.at(it)->currentStep = (int)tracking;
 		instruments.at(it)->tempo = tempo;
 		instruments.at(it)->render();
 

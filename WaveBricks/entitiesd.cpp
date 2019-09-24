@@ -8,77 +8,71 @@
 void instrument::assembleVoices() {
 	this->breakpoints = {};
 	int last = 0;
-	this->stepvoices.resize(this->composition.size()+1);	
+	if (this->stepvoices.size() < this->composition.size()) {
+		this->stepvoices.resize(this->composition.size());
+	}
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (this->i = 1; this->i < this->stepvoices.size(); this->i++) {
-		if (!this->stepvoices[this->i].empty()) {
-			if (!this->stepvoices.at(this->i).at(2).empty()) {
+	for (this->i = 0; this->i < this->stepvoices.size(); this->i++) {
+		//cout << "for1";
+		if (this->stepvoices[this->i].size()==3) {
+			//cout << "if1";
+			if (this->stepvoices.at(this->i).at(2).size() == this->voices_spinner) {
+				//cout << "if2";
 				this->breakpoints.resize(this->breakpoints.size() + 1);
-				this->breakpoints[this->breakpoints.size() - 1].resize(i);
-				this->breakpoints[this->breakpoints.size() - 1][this->i-1].resize(3);
-				this->breakpoints[this->breakpoints.size() - 1][this->i-1][0].resize(this->voices_spinner);
-				this->breakpoints[this->breakpoints.size() - 1][this->i-1][1].resize(this->voices_spinner);
-				this->breakpoints[this->breakpoints.size() - 1][this->i-1][2].resize(this->voices_spinner);
-				this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1) = (this->stepvoices.at(this->i));
+				this->breakpoints[this->breakpoints.size() - 1].resize(this->i+1);
+				this->breakpoints[this->breakpoints.size() - 1][this->i].resize(3);
+				this->breakpoints[this->breakpoints.size() - 1][this->i][0].resize(this->voices_spinner);
+				this->breakpoints[this->breakpoints.size() - 1][this->i][1].resize(this->voices_spinner);
+				this->breakpoints[this->breakpoints.size() - 1][this->i][2].resize(this->voices_spinner);
 				for (this->it = 0; this->it < this->voices_spinner; this->it++) {
-					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1).at(0).at(this->it) = (this->stepvoices.at(this->i).at(0).at(this->it));
-					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1).at(1).at(this->it) = (this->stepvoices.at(this->i).at(1).at(this->it));
-					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i - 1).at(2).at(this->it) = (this->stepvoices.at(this->i).at(2).at(this->it));
+					//cout << "for2";
+					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i).at(0).at(this->it) = (this->stepvoices.at(this->i).at(0).at(this->it));
+					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i).at(1).at(this->it) = (this->stepvoices.at(this->i).at(1).at(this->it));
+					this->breakpoints.at(this->breakpoints.size() - 1).at(this->i).at(2).at(this->it) = (this->stepvoices.at(this->i).at(2).at(this->it));
+					//cout << "set breakpoints";
 				}
-				
+
 			}
 		}
 	}
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (this-> ir = 1; this->ir < this->breakpoints.size(); ir++) {
+	for (this->ir = 1; this->ir < this->breakpoints.size(); ir++) {
 		int lastBreak = 0;
-		for (this->iu = this->breakpoints[lastBreak].size(); this->iu <= this->breakpoints[ir].size(); this->iu++) {
+		for (this->iu = lastBreak; this->iu <= this->breakpoints[ir].size()-1; this->iu++) {
 			this->stepvoices[this->iu].resize(3);
-			this->stepvoices[this->iu][0].resize(this->voices_spinner,0);
-			this->stepvoices[this->iu][1].resize(this->voices_spinner,0);
-			this->stepvoices[this->iu][2].resize(this->voices_spinner,0);
+			this->stepvoices[this->iu][0].resize(this->voices_spinner);
+			this->stepvoices[this->iu][1].resize(this->voices_spinner);
+			this->stepvoices[this->iu][2].resize(this->voices_spinner);
 			//cout << "\nstep" << this->ir;
-			for (this-> iy = 0; this->iy < this->breakpoints[ir][iu].size() && this->iy < this->stepvoices[this->iu][2].size(); this->iy++) {
+			for (this->iy = 0; this->iy < 3; this->iy++) {
 				for (this->i = 0; this->i < this->voices_spinner; this->i++) {
 					//cout << "breakpoint index step" << this->iu<<"voice step"<<this->i;
-					this->stepvoices[this->iu][this->iy][this->i] = 
-						(this->breakpoints.at(this->ir).at(this->breakpoints.at(this->ir).size() - 1).at(this->iy).at(this->i)
-						* ((this->iu-lastBreak) / (this->breakpoints.at(this->ir).size() - 1-lastBreak)))
-						+ this->stepvoices.at(lastBreak).at(this->iy).at(this->i) 
-						* (this->breakpoints.at(lastBreak).at(this->breakpoints.at(lastBreak).size() - 1).at(this->iy).at(this->i)	
-							* ((this->breakpoints.at(this->ir).size() - 1-lastBreak)/ (this->iu - lastBreak)));
+					this->stepvoices[this->iu][this->iy][this->i] =
+						(this->breakpoints.at(lastBreak).at(this->breakpoints.at(lastBreak).size() - 1).at(this->iy).at(this->i));
 					//cout <<"stepvoices equal to"<< this->stepvoices.at(this->iu).at(this->iy).at(this->i);
 				}
 			}
 
 		}
 		if (this->ir > 0) {
-			lastBreak = this->ir - 1;
+			lastBreak = this->ir-1;
 		}
 	}
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	for (this->i = 0; this->i < this->stepvoices.size(); this->i++) {
-		this->stepvoices[this->i].resize(3);
-		if (this->stepvoices[this->i].empty()) {
-			for (this->it = 0; this->it < 3; this->it++) {
-				for (this->ir = 0; this->ir < this->voices_spinner; this->ir++) {
-					this->stepvoices[this->i][this->it].resize(this->voices_spinner);
-					this->stepvoices[this->i][this->it].resize(this->voices_spinner);
-					this->stepvoices[this->i][this->it].resize(this->voices_spinner);
-					this->stepvoices[this->i][this->it][this->ir] = (this->stepvoices[0][this->it][this->ir]);
-					this->stepvoices[this->stepvoices.size() - 1][0].push_back(this->stepvoices[0][0][ir]);
-					this->stepvoices[this->stepvoices.size() - 1][1].push_back(this->stepvoices[0][1][ir]);
-					this->stepvoices[this->stepvoices.size() - 1][2].push_back(this->stepvoices[0][2][ir]);
-				}
-
-			}
-
+		for (this->ir = 0; this->ir < this->voices_spinner; this->ir++) {
+			this->stepvoices[this->i].resize(3);
+			this->stepvoices[this->i][0].resize(this->voices_spinner);
+			this->stepvoices[this->i][1].resize(this->voices_spinner);
+			this->stepvoices[this->i][2].resize(this->voices_spinner);
+			//this->stepvoices[this->i][this->it][this->ir] = (this->stepvoices[0][this->it][this->ir]);
+			this->stepvoices[i][0][this->ir]=(this->stepvoices[0][0][this->ir]);
+			//cout << this->stepvoices[i][0][this->ir];
+			this->stepvoices[i][1][this->ir] = (this->stepvoices[0][1][this->ir]);
+			this->stepvoices[i][2][this->ir] = (this->stepvoices[0][2][this->ir]);
 		}
-
 	}
-	for (this->i = 0; this->i < this->composition.size(); this->i++) {
-		this->composition[i].resize(2);
-	}
+	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 
 	last = 1;
 	if (this->decaystep.size() < this->composition.size()) {
@@ -110,7 +104,7 @@ void instrument::assemble() {
 	//cout  << "assemble instrument" ;
 	initVals();
 	glutInitWindowSize(700, 800);
-	
+
 	this->wavebricks_synth = glutCreateWindow("Wavebricks Synth");
 	//glutDisplayFunc(display);
 
@@ -129,7 +123,7 @@ void instrument::assemble() {
 
 	this->panning_panel = synth_panel->add_spinner_to_panel(this->syn_panel, "Audio Panning(L/R)", GLUI_SPINNER_FLOAT, &(this->panning_spinner), PANNING_SPINNER, this->glui_callback);
 
-	 this->xpos_spinner_panel = synth_panel->add_spinner_to_panel(this->syn_panel, "Shape Position X", GLUI_SPINNER_FLOAT, &(this->xpos_spinner), XPOS_SPINNER, this->glui_callback);
+	this->xpos_spinner_panel = synth_panel->add_spinner_to_panel(this->syn_panel, "Shape Position X", GLUI_SPINNER_FLOAT, &(this->xpos_spinner), XPOS_SPINNER, this->glui_callback);
 	this->ypos_spinner_panel = synth_panel->add_spinner_to_panel(this->syn_panel, "Shape Position Y", GLUI_SPINNER_FLOAT, &(this->ypos_spinner), YPOS_SPINNER, this->glui_callback);
 	this->zpos_spinner_panel = synth_panel->add_spinner_to_panel(this->syn_panel, "Shape Position Z", GLUI_SPINNER_FLOAT, &(this->zpos_spinner), ZPOS_SPINNER, this->glui_callback);
 
@@ -240,7 +234,7 @@ void instrument::updateVoices() {
 	char comma = ',';
 	char colon = ':';
 	std::string placement = "amp";
-	float step = 0;
+	int step = 0;
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	for (unsigned i = 0; i < this->voiceautomation_script.length(); i++) {//voices script interpreter
 		if (this->voiceautomation_script[i] != colon && this->voiceautomation_script[i] != comma) {
@@ -341,7 +335,7 @@ void instrument::updateVoices() {
 		}
 		//cout<<(atof(tempNumber.c_str()));
 		step = (atof(tempNumber.c_str()));
-		this->stepvoices.resize(step+1);
+		this->stepvoices.resize(step + 1);
 		this->stepvoices[step].resize(3);
 		for (this->it = 0; this->it < this->voicesphase.size(); this->it++) {
 			this->stepvoices[step][0].push_back(this->voicesamp[this->it]);
@@ -357,7 +351,7 @@ void instrument::updateVoices() {
 
 	}
 
-	placement = "amp";
+	placement = "getNewStep";
 	step = 0;
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	for (unsigned i = 0; i < this->composition_script.length(); i++) {//composition script interpreter
@@ -380,6 +374,22 @@ void instrument::updateVoices() {
 					tempNumber = "";
 					placement = "getNewStep";
 				}
+				if (placement == "getNewStep" && tempNumber.length() > 0) {
+					this->composition[step].resize(2);
+					for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
+						this->composition[step][0].push_back(this->compamp[this->it]);
+						this->composition[step][1].push_back(this->comppitch[this->it]);
+					}
+					step = (atof(tempNumber.c_str()));
+					this->composition.resize(step + 1);
+					this->composition[step].resize(2);
+
+					this->compamp = {};
+					this->comppitch = {};
+					tempNumber = "";
+					placement = "amp";
+
+				}
 
 
 			}
@@ -394,10 +404,6 @@ void instrument::updateVoices() {
 					step = (atof(tempNumber.c_str()));
 					this->composition.resize(step + 1);
 					this->composition[step].resize(2);
-					for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
-						this->composition[step][0].push_back(this->compamp[this->it]);
-						this->composition[step][1].push_back(this->comppitch[this->it]);
-					}
 
 					this->compamp = {};
 					this->comppitch = {};
@@ -419,7 +425,7 @@ void instrument::updateVoices() {
 			}
 		}
 	}
-	if (placement == "getNewStep" && tempNumber.length() > 0) {
+	if (placement == "amp" && tempNumber.length() > 0) {
 		this->composition[step].resize(2);
 		for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 			this->composition[step][0].push_back(this->compamp[this->it]);
@@ -428,11 +434,6 @@ void instrument::updateVoices() {
 		step = (atof(tempNumber.c_str()));
 		this->composition.resize(step + 1);
 		this->composition[step].resize(2);
-		for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
-			this->composition[step][0].push_back(this->compamp[this->it]);
-			this->composition[step][1].push_back(this->comppitch[this->it]);
-		}
-
 		this->compamp = {};
 		this->comppitch = {};
 		tempNumber = "";
@@ -769,7 +770,7 @@ void instrument::render() {
 
 void instrument::assembleSongData() {
 	this->sizeSS = this->composition.size() * 2 * (22050.0f * (60.0f / this->tempo));
-	this->data.resize(this->sizeSS);
+	(this->data).resize(this->sizeSS);
 	this->updateVoices();
 	this->assembleVoices();
 	//cout << "sizeof samples:" << sizeof(&(this->samples));
@@ -783,63 +784,60 @@ void instrument::assembleSongData() {
 	//cout<<composition.size();
 	this->audioout.open("audio.wav", std::ios::binary);
 	cout << " compsize " << this->composition.size() << " voicesize " << this->stepvoices.size();
-	for ((this->it = 0); (this->it) < (this->composition.size()); (this->it) = (this->it+1)) {
+	for ((this->it = 0); (this->it) < (this->composition.size()); (this->it) = (this->it + 1)) {
 		//this->updateVoices();
 		//this->assembleVoices();
-		this->decayf = this->decaystep.at(this->it);
+		
 		//cout << "composition[it]: " << composition[it].size();
-		for (this->ir = 0; (this->ir) < (this->composition.at(this->it).at(1).size()); (this->ir) = (this->ir + 1)) {
-			for (this->ii = 0; (this->ii) < this->voices_spinner; (this->ii) = (this->ii + 1)) {
-				if ((this->stepvoices[this->it][0].size()) < this->voices_spinner || (this->stepvoices[this->it][1].size()) < this->voices_spinner || (this->stepvoices[this->it][2].size()) < this->voices_spinner) {
-					this->stepvoices[this->it][0]=(this->stepvoices[0][0]);
-					this->stepvoices[this->it][1]=(this->stepvoices[0][1]);
-					this->stepvoices[this->it][2]=(this->stepvoices[0][2]);
+		for (this->iu = 0; this->iu < this->composition[this->it].size(); this->iu++) {
+			for (this->ir = 0; (this->ir) < (this->composition.at(this->it).at(1).size()); (this->ir) = (this->ir + 1)) {
+				for (this->ii = 0; this->ii < this->voices_spinner; (this->ii) = (this->ii + 1)) {
+					//cout << "\n verticeplay, stepvoices: " << this->stepvoices.at(this->it).at(0).at(this->ii);
+					this->amp = this->composition.at(this->it).at(0).at(this->ir) * (this->stepvoices.at(this->it).at(0).at(this->ii));
+					this->freq = this->composition.at(this->it).at(1).at(this->ir) * (this->stepvoices.at(this->it).at(1).at(this->ii));
+					this->phase = (this->stepvoices.at(this->it).at(2).at(this->ii));
+					(this->step) = (this->it);
+					this->decayf = this->decaystep.at(this->it);
+					cout << " amp pitch phase:" << this->amp<<this->freq<<this->phase;
+					this->playVertice();
+
 				}
-				if ((this->composition[this->it][0].empty()) || (this->composition[this->it][1].empty())) {
-					this->composition[this->it][0].push_back(0);
-					this->composition[this->it][1].push_back(0);
-				}
-				//cout << "\n verticeplay, stepvoices: " << this->stepvoices.at(this->it).at(0).at(this->ii);
-				this->amp = this->composition.at(this->it).at(0).at(this->ir) * (1+this->stepvoices.at(this->it).at(0).at(this->ii));
-				this->freq = this->composition.at(this->it).at(1).at(this->ir) * (1+this->stepvoices.at(this->it).at(1).at(this->ii));
-				this->phase = (1+this->stepvoices.at(this->it).at(2).at(this->ii));
-				(this->step) = (this->it);
-				//cout << "step:" << this->step;
-				this->playVertice();
-						
 			}
-		}		
+		}
+		
 	}
-	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
+	this->i = 0;
 }
 void instrument::playVertice() {
-	float ampmult = 1024.0f;
+	float ampmult = 64.0f;
 	float cycle = 2.0f;
 	float minute = 60.0f;
 	float ampadj = ampmult * this->amp;
 	float M_PI = this->PI;
 
 	this->sizeSS = (this->composition.size() * 2 * (22050.0f * (60.0f / this->tempo)));
-	cout << " sizeSS:" << this->sizeSS<<" currentstep : "<< this->step <<" decay: "<< this->decayf;
+	//cout << " sizeSS:" << this->sizeSS << " currentstep : " << this->step << " decay: " << this->decayf;
 	//data=data;
 	//this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)((this->step + (1.0f * this->decayf)) * (22050.0f * (float)(60.0f / this->tempo))) && this->i <this->sizeSS; this->i = this->i + 1) {
-		//cout<<"\n attempting transfer at "<<i;
-		if ((((this->data.at(this->i)))+(ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)((this->step + (1.0f * this->decayf)) * (22050.0f * (float)(60.0f / this->tempo))) && this->i < this->sizeSS; this->i = this->i + 1) {
+		if ((((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 			+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 			* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))) < 32767
-			&& 
-			((this->data.at(this->i)) +(ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+			&&
+			((this->data.at(this->i)) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))) > -32768)
 		{
-		
-			this->data[this->i] += (ALshort)((ampadj * (((sin(((this->freq * 2.0f * this->PI) / 22050.0f * this->i) * this->phase + ((this->freq * 2.0f * this->PI) / 22050.0f * this->i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050.0f * i))))
-			+ (sin(((this->freq * 2.0f * this->PI) / 22050.0f * this->i) + ((this->freq * 2.0 * this->PI) / 22050.0f * this->i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050.0f * this->i))))
-			* (sin((this->amfreq * 2.0f * this->PI) / 22050.0f * this->i) * this->am)))));
+
+			this->data.at(this->i) += (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))));
+			//cout << (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				//+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				//* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))));
 		}
 
-
+		
 		else {
 			if ((((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
@@ -857,13 +855,14 @@ void instrument::playVertice() {
 				(this->data.at(this->i)) = 0;
 			}
 		}
-		//cout << (((this->data.at(this->i))));
+		//}
+		
 
-		
-		
+
+
 	}
-	cout << "play note ";
-	this->i = 0;
+	//cout << "play note ";
+
 }
 namespace little_endian_io
 {
@@ -884,8 +883,11 @@ using namespace little_endian_io;
 
 
 void instrument::play() {
-	
-	alBufferData(this->soundbuffer, AL_FORMAT_MONO16, &(this->data), this->composition.size() * 2 * (22050 * (60 / (int)this->tempo)), (22050));
+	this->dataAL = new ALshort[this->sizeSS];
+	for (this->i = 0; this->i < this->sizeSS - 1; this->i++) {
+		this->dataAL[i] =(ALshort) this->data[i];
+	}
+	alBufferData(this->soundbuffer, AL_FORMAT_MONO16, (this->dataAL), this->composition.size() * 2 * (22050 * (60 / (int)this->tempo)), (22050));
 	alGenSources(1, &(this->soundsource));
 	alSourcei(this->soundsource, AL_BUFFER, this->soundbuffer);
 	alSourcePlay(this->soundsource);
@@ -897,13 +899,13 @@ void instrument::play() {
 	write_word(this->audioout, 1, 2);  // PCM - integer samples
 	write_word(this->audioout, 1, 2);  // two channels (stereo file)
 	write_word(this->audioout, 22050, 4);  // samples per second (Hz)
-	write_word(this->audioout, (22050*2), 4);  // (Sample Rate * BitsPerSample * Channels) / 8
+	write_word(this->audioout, (22050 * 2), 4);  // (Sample Rate * BitsPerSample * Channels) / 8
 	write_word(this->audioout, 4, 2);  // data block size (size of two integer samples, one for each channel, in bytes)
 	write_word(this->audioout, 16, 2);  // number of bits per sample (use a multiple of 8)
 	size_t data_chunk_pos = this->audioout.tellp();
 	this->audioout << "data----";  // (chunk size to be filled in later)
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (this-> i = 0; this->i < this->sizeSS-1; this->i++) {
+	for (this->i = 0; this->i < this->sizeSS - 1; this->i++) {
 		write_word(this->audioout, this->data.at(this->i), 2);
 		write_word(this->audioout, this->data.at(this->i), 2);
 	}
@@ -947,7 +949,7 @@ void instrument::initVals() {
 	this->heuristic_listbox = 1;
 
 
-	this->voices_spinner = 7;
+	this->voices_spinner = 8;
 
 
 	this->pitchscale_spinner = 0.5;
@@ -992,9 +994,10 @@ void instrument::initVals() {
 	INTEGER STEPS, FLOAT EVERYTHING ELSE.
 
 	AMP,PITCH,PHASE (x Voices number) : (STEP), AMP,PITCH,PHASE (x Voices number):
+	PHASE SHOULD BE FROM 0.0000000000...1 to 2.0 but NOT zero.... zeroes should experimentally be represented by 0.0.
 
 	COMPOSITION:
-	AMP, PITCH : STEP, AMP, PITCH, AMP, PITCH : //SET FIRST NOTE TO 0AMP,0PITCH if you have to. Multiple notes per step in second step.
+	STEP, AMP, PITCH : STEP, AMP, PITCH, AMP, PITCH : //SET FIRST NOTE TO 0AMP,0PITCH if you have to. Multiple notes per step in second step.
 
 	DECAY:
 
@@ -1003,75 +1006,54 @@ void instrument::initVals() {
 	*/
 	//void * __gxx_personality_v0=0;
 	//void * _Unwind_Resume =0;
-	
-	
-	
-	
-	
-	
-	
-	this->voiceautomation_script = { 
-		"1,2,.333,"
-		"1,1.618,.618,"
-		"1,.5,.666,"
-		"2,.618,1.047,"
-		"3,1,1.5708,"
-		"0.25,6.666,.5,"
-		"1.25,1.25,1.25:40,"
-		"1.5,2,.333,"
-		"1.5,1.618,.618,"
-		"1,.5,.666,"
-		"1.618,.618,1.047,"
-		"0.744,1,1.5708,"
-		"0.744,6.666,.5,"
-		"1,1.25,1.25:"
-		};
-	this->composition_script = { 
-		"2.0,360.0:"
-		"1.0,1.0,440:"
-		"2.0,3,670:"
-		"3,7,440:"
-		"4,9,220:"
-		"5,8,666:"
-		"6,4,222:"
-		"7,9,512"
-		"8,2.0,360.0:"
-		"9,1.0,440:"
-		"10,3,670:"
-		"11,7,440:"
-		"12,9,220:"
-		"13,8,666:"
-		"14,4,222:"
-		"15,9,512"
-		"16,1,555:"
-		"17,1.3,707:"
-		"18.3,0.8,1337:"
-		"19,0.4,5096:"
-		"20,.02,741:"
-		"21,1.25,6808:"
-		"22,1.0,440:"
-		"23,8,666:"
-		"24,1,555:"
-		"25,1.3,707:"
-		"26,0.8,1337:"
-		"27,0.4,5096:"
-		"28,.02,741:"
-		"29,1.25,6808:"
-		"30,1.0,440:"
-		"31,8,666:"
-		"32,1,555:"
-		"33,1.3,707:"
-		"34,0.8,1337:"
-		"35,0.4,5096:"
-		"36,.02,741:"
-		"37,1.25,6808:"
-		"38,1.0,440:"
-		"39,8,666:"
-		"40,1,555:" 
+
+
+
+
+
+
+
+	this->voiceautomation_script = {
+		"8,1,1,"
+		"4,2,1,"
+		"2,6,1,"
+		"1,24,1,"
+		".5,1.25,1,"
+		".75,2.5,1,"
+		".25,12,1,"
+		".125,48,1:16,"
+		"4,1,1,"
+		"2,2,1,"
+		"1,6,1,"
+		".5,24,1,"
+		".25,1.25,1,"
+		".375,2.5,1,"
+		".125,12,1,"
+		".06125,48,1:25,"
+
 	};
-	this->decay_script = { 
+	this->composition_script = {
+		"0.0,1,90:"
+		"1,0,0:"
+		"2,1,90:"
+		"3,0,0:"
+		"4,0,0:"
+		"5,1,99:"
+		"6,0,0:"
+		"7,1,90:"
+		"8,0,0:"
+		"9,0,0:"
+		"10,1,90:"
+		"11,0,0:"
+		"12,1,90:"
+		"13,1,81:"
+		"14,0,0:"
+		"15,1,90:17,"
+
+	};
+	this->decay_script = {
 		"1,0:"
-				  };
+	};
 }
 void instrument::init_al() {
 	ALCdevice* dev = NULL;

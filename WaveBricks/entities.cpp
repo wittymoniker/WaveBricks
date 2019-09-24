@@ -302,6 +302,7 @@ public:
 
 
 	std::vector<ALshort> data;
+	ALshort* dataAL;
 	GLfloat vertices;
 	GLfloat colors;
 
