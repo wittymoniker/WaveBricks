@@ -809,7 +809,7 @@ void instrument::assembleSongData() {
 	this->i = 0;
 }
 void instrument::playVertice() {
-	float ampmult = 64.0f;
+	float ampmult = 128.0f;
 	float cycle = 2.0f;
 	float minute = 60.0f;
 	float ampadj = ampmult * this->amp;
@@ -949,7 +949,7 @@ void instrument::initVals() {
 	this->heuristic_listbox = 1;
 
 
-	this->voices_spinner = 8;
+	this->voices_spinner = 128;
 
 
 	this->pitchscale_spinner = 0.5;
@@ -1003,9 +1003,9 @@ void instrument::initVals() {
 
 	DECAY, STEP : DECAY, STEP
 
+	*IF IT DOESN'T COMPOSE, YOU *PROBABLY* made a comma  or colon error or enumeration error.
+
 	*/
-	//void * __gxx_personality_v0=0;
-	//void * _Unwind_Resume =0;
 
 
 
@@ -1014,45 +1014,28 @@ void instrument::initVals() {
 
 
 	this->voiceautomation_script = {
-		"8,1,1,"
-		"4,2,1,"
-		"2,6,1,"
-		"1,24,1,"
-		".5,1.25,1,"
-		".75,2.5,1,"
-		".25,12,1,"
-		".125,48,1:16,"
-		"4,1,1,"
-		"2,2,1,"
-		"1,6,1,"
-		".5,24,1,"
-		".25,1.25,1,"
-		".375,2.5,1,"
-		".125,12,1,"
-		".06125,48,1:25,"
+		"1,2,1,"
+		".5,4,1,"
+		".25, 8, 1,"
+		".125, 16, 1,"
+		".06125,32, 1,,"
+		"2,1,1,"
+		"4,.5,1,"
+		"8, .25, 1:1,"
 
 	};
 	this->composition_script = {
-		"0.0,1,90:"
-		"1,0,0:"
-		"2,1,90:"
-		"3,0,0:"
-		"4,0,0:"
-		"5,1,99:"
-		"6,0,0:"
-		"7,1,90:"
-		"8,0,0:"
-		"9,0,0:"
-		"10,1,90:"
-		"11,0,0:"
-		"12,1,90:"
-		"13,1,81:"
-		"14,0,0:"
-		"15,1,90:17,"
-
+		"0.0,5,500:"
+		"1.0,5,2000:"
+		"2.0,5,750:"
+		"3.0,5,1750:"
+		"4.0,5,1500:"
+		"5.0,5,750:"
+		"6.0,5,250:"
+		"7.0,5,1000:8.0,"
 	};
 	this->decay_script = {
-		"1,0:"
+		"1,0:1,2:"
 	};
 }
 void instrument::init_al() {
