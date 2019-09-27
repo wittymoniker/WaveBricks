@@ -415,7 +415,7 @@ static void key(unsigned char key, int x, int y)
 	if (bool right = 1) {
 		//right click
 	}
-
+	glutPostRedisplay();
 }
 
 static void Resize(int width, int height)
@@ -459,10 +459,11 @@ void display()
 {
 	//glfwMakeContextCurrent(wavebricks_window);
 	glutSetWindow(wavebricks_window);
-	glTranslatef(0.0f, 0.0f, -5.0f);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();//load identity matrix
+	glTranslatef(0.0f, 0.0f, -5.0f);
 
 	//glTranslatef(0.0f,0.0f,-7.0f);
 	//glTranslatef(1.5f, 0.0f, -7.0f);
@@ -634,7 +635,7 @@ ALuint songbuffer;
 string winTit;
 
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
 	cout << "           WaveBricks v 1.0\n      copyright 2019 Noah King(wittymoniker.com)\nmain console window. begin init gl:";
 	glutInit(&argc, argv);
@@ -652,6 +653,41 @@ int main(int argc, char** argv)
 
 
 	glutSetWindow(wavebricks_window);
+	glClearColor(1, 1, 1, 1);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+	glMatrixMode(GL_PROJECTION);												// select projection matrix
+	glViewport(0, 0, 1024,768);									// set the viewport
+	glMatrixMode(GL_PROJECTION);												// set matrix mode
+	glLoadIdentity();															// reset projection matrix
+	GLfloat aspect = (GLfloat)1024/768;		// set up a perspective projection matrix
+	glMatrixMode(GL_MODELVIEW);													// specify which matrix is the current matrix
+	glShadeModel(GL_SMOOTH);
+	glClearDepth(1.0f);														// specify the clear value for the depth buffer
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);						// specify implementation-specific hints
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+
+
 
 	glutMainLoop();
 

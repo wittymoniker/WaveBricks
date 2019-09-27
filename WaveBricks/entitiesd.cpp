@@ -513,7 +513,6 @@ void instrument::updateVoices() {
 
 void instrument::render() {
 	glPatchParameteri(GL_PATCH_VERTICES, this->voices_spinner);
-	glPushMatrix();
 	//glPatchParameteri(GL_PATCH_VERTICES,voices_spinner);
 	//glTranslatef(0.0f, 0.0f, -7.0f);
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
@@ -756,8 +755,6 @@ void instrument::render() {
 		}
 	}
 	glEnd();
-	glPopMatrix();
-	glFlush();
 	glutSwapBuffers();
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 }
@@ -1014,28 +1011,36 @@ void instrument::initVals() {
 
 
 	this->voiceautomation_script = {
+		"8, 2^0.125,1,"
+		"4, 2^0.25,1,"
+		"2, 2^0.5, 1,"
 		"1,2,1,"
-		".5,4,1,"
-		".25, 8, 1,"
-		".125, 16, 1,"
-		".06125,32, 1,,"
-		"2,1,1,"
-		"4,.5,1,"
-		"8, .25, 1:1,"
+		"1/1.5,2^2,1,"
+		"1/3,2^8,1:1,"
 
 	};
 	this->composition_script = {
-		"0.0,5,500:"
-		"1.0,5,2000:"
-		"2.0,5,750:"
-		"3.0,5,1750:"
-		"4.0,5,1500:"
-		"5.0,5,750:"
-		"6.0,5,250:"
-		"7.0,5,1000:8.0,"
+		"0.0,5,512:"
+		"1.0,5,256:"
+		"2.0,5,768:"
+		"3.0,5,1024:"
+		"4.0,5,256:"
+		"5.0,5,1024:"
+		"6.0,5,768:"
+		"7.0,5,512:"
+		"8.0,5,2048:"
+		"9.0,5,1024:"
+		"10.0,5,256:"
+		"11.0,5,512:"
+		"12.0,5,768:"
+		"13.0,5,256:"
+		"14.0,5,512:"
+		"15.0,5,1024:16,"
+
+
 	};
 	this->decay_script = {
-		"1,0:1,2:"
+		"1,1:1,2:"
 	};
 }
 void instrument::init_al() {
