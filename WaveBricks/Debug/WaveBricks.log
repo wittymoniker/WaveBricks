@@ -1,4 +1,5 @@
-﻿  entitiesd.cpp
+﻿  entities.cpp
+  entitiesd.cpp
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(15,28): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(39,30): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(41,39): warning C4018:  '<=': signed/unsigned mismatch
@@ -216,5 +217,14 @@ C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(791,34): warning C4018:  '<'
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(797,26): warning C4244:  '=': conversion from 'long' to 'float', possible loss of data
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(884,33): warning C4244:  'initializing': conversion from 'float' to 'unsigned int', possible loss of data
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(903,24): warning C4244:  'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+  main.cpp
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(911,21): warning C4244:  'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(203,7): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(203,15): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(333,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\main.cpp(338,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\main.cpp(350,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\main.cpp(470,22): warning C4018:  '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\noah\source\repos\WaveBricks\main.cpp(590,11): warning C4778:  'printf' : unterminated format string '%\t'
   WaveBricks.vcxproj -> C:\Users\noah\source\repos\WaveBricks\Debug\WaveBricks.exe
