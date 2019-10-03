@@ -48,7 +48,8 @@ void instrument::assembleVoices() {
 				for (this->i = 0; this->i < this->voices_spinner; this->i++) {
 					//cout << "breakpoint index step" << this->iu<<"voice step"<<this->i;
 					this->stepvoices[this->iu][this->iy][this->i] =
-						(this->breakpoints.at(lastBreak).at(this->breakpoints.at(lastBreak).size() - 1).at(this->iy).at(this->i));
+						(this->breakpoints.at(lastBreak).at(this->breakpoints.at(lastBreak).size() - 1).at(this->iy).at(this->i))*((iu-lastBreak)/(this->breakpoints.at(lastBreak).size()-lastBreak))
+						+ (this->stepvoices.at(lastBreak).at(this->iy).at(this->i)) * 1/((iu - lastBreak+0.666f) / (this->breakpoints.at(lastBreak).size() - lastBreak));
 					//cout <<"stepvoices equal to"<< this->stepvoices.at(this->iu).at(this->iy).at(this->i);
 				}
 			}
@@ -789,13 +790,13 @@ void instrument::assembleSongData() {
 		for (this->iu = 0; this->iu < this->composition[this->it].size(); this->iu++) {
 			for (this->ir = 0; (this->ir) < (this->composition.at(this->it).at(1).size()); (this->ir) = (this->ir + 1)) {
 				for (this->ii = 0; this->ii < this->voices_spinner; (this->ii) = (this->ii + 1)) {
-					cout << "\n verticeplay, stepvoices pitch: " << this->stepvoices.at(this->it).at(1).at(this->ii);
+					//cout << "\n verticeplay, stepvoices pitch: " << this->stepvoices.at(this->it).at(1).at(this->ii);
 					this->amp = this->composition.at(this->it).at(0).at(this->ir) * (this->stepvoices.at(this->it).at(0).at(this->ii));
 					this->freq = this->composition.at(this->it).at(1).at(this->ir) * (this->stepvoices.at(this->it).at(1).at(this->ii));
 					this->phase = (this->stepvoices.at(this->it).at(2).at(this->ii));
 					(this->step) = (this->it);
 					this->decayf = this->decaystep.at(this->it);
-					cout << " amp pitch phase:" << this->amp<<","<<this->freq<<","<<this->phase;
+					//cout << " amp pitch phase:" << this->amp<<","<<this->freq<<","<<this->phase;
 					this->playVertice();
 
 				}
@@ -982,23 +983,26 @@ void instrument::initVals() {
 
 
 
-	/*SCRIPTING
+	/*SCRIPTING README
 	*** REMEMBER: DELETE YOUR VOICES AUTOMATION SCRIPTS EVERY TIME YOU RESIZE THE INSTRUMENT VOICE COUNT.
 	PUT FUNCTIONS LIKE ROOT, SIN, ETC in PARENTHESES, OR HAVE ANY AND ALL MULTIPLYING FACTORS BEFORE BUT NOT AFTER.
 	VOICES SPINNER MUST NEVER BE LESS THAN THE NUMBER OF VOICES LISTED IN SCRIPT. YOU MAY SET VOICES SPINNER TO THE 
 	NUMBER OF WHICH THE SCRIPT CALLS FOR, IN ORDER TO TESSELLATE THE SHAPE MORE EFFECTIVELY.
-	VOICES:
-	START WITH NO STEP NUMBER, COMMA SEPARATED AMP PITCH PHASE, REPEATED FOR EACH VOICE(12 DEFAULT). COLON SEPARATED,
+	
 	BEGIN WITH NEW STEP FOR WHICH VOICES WILL TRANSISTION INTO ALONG WITH THE 3*12 INITIALIZERS, SEPARATED BY COMMAS. 
 	CONTINUE.
 
+	INTEGER STEPS, FLOAT EVERYTHING ELSE. GOOD PRACTICE TO REPRESENT EVERY WHOLE NUMBER WITH A .0.
 
-	INTEGER STEPS, FLOAT EVERYTHING ELSE.
-
+	YOU CAN MULTIPLY NUMBERS (WITH *) BY PROPORTIONS OR VALUES BUT DO NOT DIVIDE.
+	
+	VOICES SCRIPTING:
+	START WITH NO STEP NUMBER, COMMA SEPARATED AMP PITCH PHASE, REPEATED FOR EACH VOICE(12 DEFAULT). COLON SEPARATED,
+	
 	AMP,PITCH,PHASE (x Voices number) : (STEP), AMP,PITCH,PHASE (x Voices number):
 	PHASE SHOULD BE FROM 0.0000000000...1 to 2.0 but NOT zero.... zeroes should experimentally be represented by 0.0.
 
-	COMPOSITION:
+	COMPOSITION SCRIPTING:
 	STEP, AMP, PITCH : STEP, AMP, PITCH, AMP, PITCH : //SET FIRST NOTE TO 0AMP,0PITCH if you have to. Multiple notes 
 	per step in second step.
 
@@ -1019,85 +1023,52 @@ void instrument::initVals() {
 
 
 	this->voiceautomation_script = {
-		"4,.8414,1,"
-		"2,.9092,1,"
-		"1, .5984,1,"
-		"4,.909,1,"
-		"2,.8414,1,"
-		"1, .479,1:1,"
+		"1,1,1,"
+		"3,3,1"
+		"9,9,1:31,"
+		"9,1,1,"
+		"3,3,1,"
+		"1,9,1:32,"
 
 	};
 	this->composition_script = {
-		"0.0,5*sin((0+.14159)*2),128*sin(0+.14159),"
-		"5*sin((0)*2),128*sin(0):"
-		"1.0,5*sin((1+.14159)*2),128*sin(1+.14159),"
-		"5*sin((1)*2),128*sin(1):"
-		"2.0,5*sin((2+.14159)*2),128*sin(2+.14159),"
-		"5*sin((2)*2),128*sin(2):"
-		"3.0,5*sin((3+.14159)*2),128*sin(3+.14159),"
-		"5*sin((3)*2),128*sin(3):"
-		"4.0,5*sin((4+.14159)*2),128*sin(4+.14159),"
-		"5*sin((4)*2),128*sin(4):"
-		"5.0,5*sin((5+.14159)*2),128*sin(5+.14159),"
-		"5*sin((5)*2),128*sin(5):"
-		"6.0,5*sin((6+.14159)*2),128*sin(6+.14159),"
-		"5*sin((6)*2),128*sin(6):"
-		"7.0,5*sin((7+.14159)*2),128*sin(7+.14159),"
-		"5*sin((7)*2),128*sin(7):"
-		"8.0,5*sin((8+.14159)*2),128*sin(8+.14159),"
-		"5*sin((8)*2),128*sin(8):"
-		"9.0,5*sin((9+.14159)*2),128*sin(9+.14159),"
-		"5*sin((9)*2),128*sin(9):"
-		"10.0,5*sin((10+.14159)*2),128*sin(10+.14159),"
-		"5*sin((10)*2),128*sin(10):"
-		"11.0,5*sin((11+.14159)*2),128*sin(11+.14159),"
-		"5*sin((11)*2),128*sin(11):"
-		"12.0,5*sin((12+.14159)*2),128*sin(12+.14159),"
-		"5*sin((12)*2),128*sin(12):"
-		"13.0,5*sin((13+.14159)*2),128*sin(13+.14159),"
-		"5*sin((13)*2),128*sin(13):"
-		"14.0,5*sin((14+.14159)*2),128*sin(14+.14159),"
-		"5*sin((14)*2),128*sin(14):"
-		"15.0,5*sin((15+.14159)*2),128*sin(15+.14159),"
-		"5*sin((15)*2),128*sin(15):"
-		"16.0,5*sin((16+.14159)*2),128*sin(16+.14159),"
-		"5*sin((16)*2),128*sin(16):"
-		"17.0,5*sin((17+.14159)*2),128*sin(17+.14159),"
-		"5*sin((17)*2),128*sin(17):"
-		"18.0,5*sin((18+.14159)*2),128*sin(18+.14159),"
-		"5*sin((18)*2),128*sin(18):"
-		"19.0,5*sin((19+.14159)*2),128*sin(19+.14159),"
-		"5*sin((19)*2),128*sin(19):"
-		"20.0,5*sin((20+.14159)*2),128*sin(20+.14159),"
-		"5*sin((20)*2),128*sin(20):"
-		"21.0,5*sin((21+.14159)*2),128*sin(21+.14159),"
-		"5*sin((21)*2),128*sin(21):"
-		"22.0,5*sin((22+.14159)*2),128*sin(22+.14159),"
-		"5*sin((22)*2),128*sin(22):"
-		"23.0,5*sin((23+.14159)*2),128*sin(23+.14159),"
-		"5*sin((23)*2),128*sin(23):"
-		"24.0,5*sin((24+.14159)*2),128*sin(24+.14159),"
-		"5*sin((24)*2),128*sin(24):"
-		"25.0,5*sin((25+.14159)*2),128*sin(25+.14159),"
-		"5*sin((25)*2),128*sin(25):"
-		"26.0,5*sin((26+.14159)*2),128*sin(26+.14159),"
-		"5*sin((26)*2),128*sin(26):"
-		"27.0,5*sin((27+.14159)*2),128*sin(27+.14159),"
-		"5*sin((27)*2),128*sin(27):"
-		"28.0,5*sin((28+.14159)*2),128*sin(28+.14159),"
-		"5*sin((28)*2),128*sin(28):"
-		"29.0,5*sin((29+.14159)*2),128*sin(29+.14159),"
-		"5*sin((29)*2),128*sin(29):"
-		"30.0,5*sin((30+.14159)*2),128*sin(30+.14159),"
-		"5*sin((30)*2),128*sin(30):"
-		"31.0,5*sin((31+.14159)*2),128*sin(30+.14159),"
-		"5*sin((31)*2),128*sin(30):32,"
-
+		"00,2,512:"
+		"01,2,256:"
+		"02,2,170.6666:"
+		"03,2,128:"
+		"04,2,102.4:"
+		"05,2,85.3333:"
+		"06,2,512:"
+		"07,2,256:"
+		"08,2,512:"
+		"09,2,256:"
+		"10,2,170.6666:"
+		"11,2,128:"
+		"12,2,102.4:"
+		"13,2,85.3333:"
+		"14,2,512:"
+		"15,2,256:"
+		"16,2,512:"
+		"17,2,256:"
+		"18,2,170.6666:"
+		"19,2,128:"
+		"20,2,102.4:"
+		"21,2,85.3333:"
+		"22,2,512:"
+		"23,2,256:"
+		"24,2,512:"
+		"25,2,256:"
+		"26,2,128:"
+		"27,2,64:"
+		"28,2,32:"
+		"29,2,341.333:"
+		"30,2,170.666:"
+		"31,2,113.7777:32,"
 
 
 	};
 	this->decay_script = {
-		"0.5,0:0.5,2:"
+		"1,0:"
 	};
 }
 void instrument::init_al() {
