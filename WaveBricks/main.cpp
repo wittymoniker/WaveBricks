@@ -314,11 +314,30 @@ void assembleInst()
 void save() {
 
 }
+
 void load() {
 	std::string loadfile = "";
 	cout << "\nfilename: ";
 	cin >> loadfile;
 }
+
+
+
+
+
+namespace little_endian_io
+{
+	template <typename Word>
+	std::ostream& write_word(std::ostream& outs, Word value, unsigned size = sizeof(Word))
+	{
+		for (; size; --size, value >>= 8)
+			outs.put(static_cast <char> (value & 0xFF));
+		return outs;
+	}
+}
+using namespace little_endian_io;
+
+
 void trackPlay() {
 	//tracking =
 	ALCdevice* dev = NULL;
@@ -339,9 +358,40 @@ void trackPlay() {
 		
 		instruments.at(i)->play();
 		
-		
-
 	}
+
+	for (int i = 0; i < instruments.size(); i++ ){
+		instruments.at(i)->audioout.open((i)+"audio.wav", std::ios::binary);
+		instruments.at(i)->audioout << "RIFF----WAVEfmt ";     // (chunk size to be filled in later)
+		write_word(instruments.at(i)->audioout, 16, 4);  // no extension data
+		write_word(instruments.at(i)->audioout, 1, 2);  // PCM - integer samples
+		write_word(instruments.at(i)->audioout, 1, 2);  // two channels (stereo file)
+		write_word(instruments.at(i)->audioout, 22050, 4);  // samples per second (Hz)
+		write_word(instruments.at(i)->audioout, (22050 * 2), 4);  // (Sample Rate * BitsPerSample * Channels) / 8
+		write_word(instruments.at(i)->audioout, 4, 2);  // data block size (size of two integer samples, one for each channel, in bytes)
+		write_word(instruments.at(i)->audioout, 16, 2);  // number of bits per sample (use a multiple of 8)
+		size_t data_chunk_pos = instruments.at(i)->audioout.tellp();
+		instruments.at(i)->audioout << "data----";  // (chunk size to be filled in later)
+		instruments.at(i)->it = 0, instruments.at(i)->iu = 0, instruments.at(i)->iy = 0, instruments.at(i)->ii = 0, instruments.at(i)->i = 0, instruments.at(i)->ir = 0;
+		for (instruments.at(i)->i = 0; instruments.at(i)->i < instruments.at(i)->sizeSS - 1; instruments.at(i)->i++) {
+			write_word(instruments.at(i)->audioout, instruments.at(i)->data.at(instruments.at(i)->i), 2);
+			write_word(instruments.at(i)->audioout, instruments.at(i)->data.at(instruments.at(i)->i), 2);
+		}
+
+		size_t file_length = instruments.at(i)->audioout.tellp();
+
+		// Fix the data chunk header to contain the data size
+		instruments.at(i)-> audioout.seekp(data_chunk_pos + 4);
+		write_word(instruments.at(i)->audioout, file_length - data_chunk_pos + 8);
+
+		// Fix the file header to contain the proper RIFF chunk size, which is (file size - 8) bytes
+		instruments.at(i)->audioout.seekp(0 + 4);
+		write_word(instruments.at(i)-> audioout, file_length - 8, 4);
+		instruments.at(i)->audioout.close();
+		instruments.at(i)->it = 0, instruments.at(i)->iu = 0, instruments.at(i)->iy = 0, instruments.at(i)->ii = 0, instruments.at(i)-> i = 0, instruments.at(i)->ir = 0;
+	}
+
+	
 
 
 }

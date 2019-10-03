@@ -49,7 +49,7 @@ void instrument::assembleVoices() {
 					//cout << "breakpoint index step" << this->iu<<"voice step"<<this->i;
 					this->stepvoices[this->iu][this->iy][this->i] =
 						(this->breakpoints.at(lastBreak).at(this->breakpoints.at(lastBreak).size() - 1).at(this->iy).at(this->i))*((iu-lastBreak)/(this->breakpoints.at(lastBreak).size()-lastBreak))
-						+ (this->stepvoices.at(lastBreak).at(this->iy).at(this->i)) * 1/((iu - lastBreak+0.666f) / (this->breakpoints.at(lastBreak).size() - lastBreak));
+						+ (this->stepvoices.at(lastBreak).at(this->iy).at(this->i)) * 1/((iu - lastBreak+1.0f) / (this->breakpoints.at(lastBreak).size() - lastBreak));
 					//cout <<"stepvoices equal to"<< this->stepvoices.at(this->iu).at(this->iy).at(this->i);
 				}
 			}
@@ -780,7 +780,7 @@ void instrument::assembleSongData() {
 	alGenBuffers(1, &(this->soundbuffer));
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	//cout<<composition.size();
-	this->audioout.open("audio.wav", std::ios::binary);
+	
 	cout << " compsize " << this->composition.size() << " voicesize " << this->stepvoices.size();
 	for ((this->it = 0); (this->it) < (this->composition.size()); (this->it) = (this->it + 1)) {
 		//this->updateVoices();
@@ -813,23 +813,28 @@ void instrument::playVertice() {
 	float ampadj = ampmult * this->amp;
 	float M_PI = this->PI;
 
+	this->fm = this->fmint_spinner;
+	this->fmfreq = this->fm_spinner;
+	this->am = this->amint_spinner;
+	this->amfreq = this->am_spinner;
+
 	this->sizeSS = (this->composition.size() * 2 * (22050.0f * (60.0f / this->tempo)));
 	//cout << " sizeSS:" << this->sizeSS << " currentstep : " << this->step << " decay: " << this->decayf;
 	//data=data;
 	//this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)((this->step + (1.0f * this->decayf)) * (22050.0f * (float)(60.0f / this->tempo))) && this->i < this->sizeSS; this->i = this->i + 1) {
-		if ((((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-			+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-			* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))) < 32767
+		if ((this->data.at(this->i) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+			+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+			* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) < 32767)
 			&&
-			((this->data.at(this->i)) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))) > -32768)
+			(this->data.at(this->i) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm *this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+				+ ampadj*(sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) > -32768))
 		{
 
-			this->data.at(this->i) += (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))));
+			this->data.at(this->i) += (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin( (this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+				+ ampadj*(sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				* (1.0+sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)));
 			//cout << (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))));
@@ -837,16 +842,16 @@ void instrument::playVertice() {
 
 		
 		else {
-			if ((((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))) > 32767
-				) {
+			if (((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) > 32767)
+			{
 				(this->data.at(this->i)) = 32767;
 			}
-			if ((((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))) < -32767
-				) {
+			if (((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) < -32767)
+			{
 				(this->data.at(this->i)) = -32767;
 			}
 			if ((this->data.at(this->i)) == 0) {
@@ -862,17 +867,7 @@ void instrument::playVertice() {
 	//cout << "play note ";
 
 }
-namespace little_endian_io
-{
-	template <typename Word>
-	std::ostream& write_word(std::ostream& outs, Word value, unsigned size = sizeof(Word))
-	{
-		for (; size; --size, value >>= 8)
-			outs.put(static_cast <char> (value & 0xFF));
-		return outs;
-	}
-}
-using namespace little_endian_io;
+
 
 
 
@@ -892,32 +887,6 @@ void instrument::play() {
 	cout << "play";
 	cout << "\nwrote composition\n";
 	// Write the file headers
-	audioout << "RIFF----WAVEfmt ";     // (chunk size to be filled in later)
-	write_word(this->audioout, 16, 4);  // no extension data
-	write_word(this->audioout, 1, 2);  // PCM - integer samples
-	write_word(this->audioout, 1, 2);  // two channels (stereo file)
-	write_word(this->audioout, 22050, 4);  // samples per second (Hz)
-	write_word(this->audioout, (22050 * 2), 4);  // (Sample Rate * BitsPerSample * Channels) / 8
-	write_word(this->audioout, 4, 2);  // data block size (size of two integer samples, one for each channel, in bytes)
-	write_word(this->audioout, 16, 2);  // number of bits per sample (use a multiple of 8)
-	size_t data_chunk_pos = this->audioout.tellp();
-	this->audioout << "data----";  // (chunk size to be filled in later)
-	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (this->i = 0; this->i < this->sizeSS - 1; this->i++) {
-		write_word(this->audioout, this->data.at(this->i), 2);
-		write_word(this->audioout, this->data.at(this->i), 2);
-	}
-
-	size_t file_length = this->audioout.tellp();
-
-	// Fix the data chunk header to contain the data size
-	this->audioout.seekp(data_chunk_pos + 4);
-	write_word(this->audioout, file_length - data_chunk_pos + 8);
-
-	// Fix the file header to contain the proper RIFF chunk size, which is (file size - 8) bytes
-	this->audioout.seekp(0 + 4);
-	write_word(this->audioout, file_length - 8, 4);
-	this->audioout.close();
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 }
 
@@ -986,6 +955,7 @@ void instrument::initVals() {
 	/*SCRIPTING README
 	*** REMEMBER: DELETE YOUR VOICES AUTOMATION SCRIPTS EVERY TIME YOU RESIZE THE INSTRUMENT VOICE COUNT.
 	PUT FUNCTIONS LIKE ROOT, SIN, ETC in PARENTHESES, OR HAVE ANY AND ALL MULTIPLYING FACTORS BEFORE BUT NOT AFTER.
+	REPRESENT ALL WHOLE NUMBERS AS FLOAT WITH .0.
 	VOICES SPINNER MUST NEVER BE LESS THAN THE NUMBER OF VOICES LISTED IN SCRIPT. YOU MAY SET VOICES SPINNER TO THE 
 	NUMBER OF WHICH THE SCRIPT CALLS FOR, IN ORDER TO TESSELLATE THE SHAPE MORE EFFECTIVELY.
 	
@@ -994,13 +964,11 @@ void instrument::initVals() {
 
 	INTEGER STEPS, FLOAT EVERYTHING ELSE. GOOD PRACTICE TO REPRESENT EVERY WHOLE NUMBER WITH A .0.
 
-	YOU CAN MULTIPLY NUMBERS (WITH *) BY PROPORTIONS OR VALUES BUT DO NOT DIVIDE.
 	
 	VOICES SCRIPTING:
 	START WITH NO STEP NUMBER, COMMA SEPARATED AMP PITCH PHASE, REPEATED FOR EACH VOICE(12 DEFAULT). COLON SEPARATED,
 	
 	AMP,PITCH,PHASE (x Voices number) : (STEP), AMP,PITCH,PHASE (x Voices number):
-	PHASE SHOULD BE FROM 0.0000000000...1 to 2.0 but NOT zero.... zeroes should experimentally be represented by 0.0.
 
 	COMPOSITION SCRIPTING:
 	STEP, AMP, PITCH : STEP, AMP, PITCH, AMP, PITCH : //SET FIRST NOTE TO 0AMP,0PITCH if you have to. Multiple notes 
@@ -1023,48 +991,65 @@ void instrument::initVals() {
 
 
 	this->voiceautomation_script = {
-		"1,1,1,"
-		"3,3,1"
-		"9,9,1:31,"
-		"9,1,1,"
-		"3,3,1,"
-		"1,9,1:32,"
+		"2.0*2*.25,2.0^.25,1,"
+		"2.0*2*.5,2.0^.5,1,"
+		"2.0*2*0.25,2.0^0.0,1,"
+		"2.0*2*1.0,2.0^1.0,1,"
+		"2.0*2*2.0,2.0^2.0,1:45,"
+		"2.0*2*.125,2.0^.125,1,"
+		"2.0^.25,2.0^.25,1,"
+		"2.0^0.0,2.0^0.0,1,"
+		"2.0^.5,2.0^.5,1,"
+		"2.0^1,2.0^1.0,1:46,"
 
 	};
 	this->composition_script = {
-		"00,2,512:"
-		"01,2,256:"
-		"02,2,170.6666:"
-		"03,2,128:"
-		"04,2,102.4:"
-		"05,2,85.3333:"
-		"06,2,512:"
-		"07,2,256:"
-		"08,2,512:"
-		"09,2,256:"
-		"10,2,170.6666:"
-		"11,2,128:"
-		"12,2,102.4:"
-		"13,2,85.3333:"
-		"14,2,512:"
-		"15,2,256:"
-		"16,2,512:"
-		"17,2,256:"
-		"18,2,170.6666:"
-		"19,2,128:"
-		"20,2,102.4:"
-		"21,2,85.3333:"
-		"22,2,512:"
-		"23,2,256:"
-		"24,2,512:"
-		"25,2,256:"
-		"26,2,128:"
-		"27,2,64:"
-		"28,2,32:"
-		"29,2,341.333:"
-		"30,2,170.666:"
-		"31,2,113.7777:32,"
-
+		"00,1,256:"
+		"01,1,512:"
+		"02,1,85.3333:"
+		"03,1,128:"
+		"04,1,113.7777:"
+		"05,1,170.6666:"
+		"06,1,512:"
+		"07,1,341.333:"
+		"08,1,102.4:"
+		"09,1,256:"
+		"10,1,256:"
+		"11,1,512:"
+		"12,1,85.3333:"
+		"13,1,128:"
+		"14,1,113.7777:"
+		"15,1,170.6666:"
+		"16,1,512:"
+		"17,1,341.333:"
+		"18,1,102.4:"
+		"19,1,256:"
+		"20,1,85.3333:"
+		"21,1,512:"
+		"22,1,85.3333:"
+		"23,1,256:"
+		"24,1,113.7777:"
+		"25,1,170.6666:"
+		"26,1,512:"
+		"27,1,341.333:"
+		"28,1,102.4:"
+		"29,1,256:"
+		"30,1,341.333:"
+		"31,1,512:"
+		"32,1,85.3333:"
+		"33,1,128:"
+		"34,1,113.7777:"
+		"35,1,170.6666:"
+		"36,1,512:"
+		"37,1,341.333:"
+		"38,1,102.4:"
+		"39,1,113.7777:"
+		"40,1,512:"
+		"41,1,170.6666:"
+		"42,1,85.3333:"
+		"43,1,128:"
+		"44,1,113.7777:"
+		"45,1,170.6666:46,"
 
 	};
 	this->decay_script = {
