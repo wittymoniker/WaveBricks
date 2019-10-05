@@ -361,7 +361,7 @@ void trackPlay() {
 	}
 
 	for (int i = 0; i < instruments.size(); i++ ){
-		instruments.at(i)->audioout.open((i)+"audio.wav", std::ios::binary);
+		instruments.at(i)->audioout.open(std::to_string(i)+"audio.wav", std::ios::binary);
 		instruments.at(i)->audioout << "RIFF----WAVEfmt ";     // (chunk size to be filled in later)
 		write_word(instruments.at(i)->audioout, 16, 4);  // no extension data
 		write_word(instruments.at(i)->audioout, 1, 2);  // PCM - integer samples
