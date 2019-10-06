@@ -7,7 +7,7 @@
 
 void instrument::assembleVoices() {
 	this->breakpoints = {};
-	int last = 0;
+	float last = 0;
 	if (this->stepvoices.size() < this->composition.size()) {
 		this->stepvoices.resize(this->composition.size());
 	}
@@ -81,11 +81,11 @@ void instrument::assembleVoices() {
 	}
 	for (this->i = 0; this->i < this->decaystep.size(); this->i++) {
 
-		if (!this->decaystep.at(this->i)) {
-			this->decaystep.at(this->i) = last;
+		if (this->decaystep[this->i]!=0) {
+			last = this->decaystep.at(this->i);
 		}
 		else {
-			int last = this->decaystep.at(this->i);
+			this->decaystep[this->i] = last;
 		}
 	}
 
@@ -768,6 +768,7 @@ void instrument::render() {
 
 void instrument::assembleSongData() {
 	this->sizeSS = this->composition.size() * 2 * (22050.0f * (60.0f / this->tempo));
+	this->data = {};
 	(this->data).resize(this->sizeSS);
 	this->updateVoices();
 	this->assembleVoices();
@@ -776,6 +777,7 @@ void instrument::assembleSongData() {
 	float bpm = this->tempo;
 	//ALfloat *soundstream;
 	this->srate = 22050;
+	
 
 	alGenBuffers(1, &(this->soundbuffer));
 	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
@@ -796,7 +798,7 @@ void instrument::assembleSongData() {
 					this->phase = (this->stepvoices.at(this->it).at(2).at(this->ii));
 					(this->step) = (this->it);
 					this->decayf = this->decaystep.at(this->it);
-					//cout << " amp pitch phase:" << this->amp<<","<<this->freq<<","<<this->phase;
+					//cout << "\n amp pitch phase:" << this->amp<<","<<this->freq<<","<<this->phase;
 					this->playVertice();
 
 				}
@@ -822,13 +824,13 @@ void instrument::playVertice() {
 	//cout << " sizeSS:" << this->sizeSS << " currentstep : " << this->step << " decay: " << this->decayf;
 	//data=data;
 	//this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)((this->step + (1.0f * this->decayf)) * (22050.0f * (float)(60.0f / this->tempo))) && this->i < this->sizeSS; this->i = this->i + 1) {
-		if ((this->data.at(this->i) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)(((this->step + (((this->decayf)))) * (22050.0f * (float)(60.0f / this->tempo)))) && this->i < this->sizeSS-1; this->i = this->i + 1) {
+		if ((this->data.at(this->i) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 			+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 			* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) < 32767)
 			&&
-			(this->data.at(this->i) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm *this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-				+ ampadj*(sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+			(this->data.at(this->i) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) > -32768))
 		{
 
@@ -842,13 +844,13 @@ void instrument::playVertice() {
 
 		
 		else {
-			if (((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+			if (((this->data.at(this->i))) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) > 32767)
 			{
 				(this->data.at(this->i)) = 32767;
 			}
-			if (((this->data.at(this->i))) + (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+			if (((this->data.at(this->i))) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) < -32767)
 			{
@@ -958,6 +960,7 @@ void instrument::initVals() {
 	REPRESENT ALL WHOLE NUMBERS AS FLOAT WITH .0.
 	VOICES SPINNER MUST NEVER BE LESS THAN THE NUMBER OF VOICES LISTED IN SCRIPT. YOU MAY SET VOICES SPINNER TO THE 
 	NUMBER OF WHICH THE SCRIPT CALLS FOR, IN ORDER TO TESSELLATE THE SHAPE MORE EFFECTIVELY.
+	EVERY VOICES AND COMP SCRIPT MUST END WITH A STEP NUMBER THAT IS THE STEP +1 OR HIGHER, FOLLOWED BY A COMMA.
 	
 	BEGIN WITH NEW STEP FOR WHICH VOICES WILL TRANSISTION INTO ALONG WITH THE 3*12 INITIALIZERS, SEPARATED BY COMMAS. 
 	CONTINUE.
@@ -991,60 +994,62 @@ void instrument::initVals() {
 
 
 	this->voiceautomation_script = {
-		"2,1.414,0,"
-		"3,1.732,0,"
-		"4,2,0,"
-		"5,2.236,0,"
-		"6,2.449,0:16,"
-		"6,1.414,0,"
-		"5,1.732,0,"
-		"4,2,0,"
-		"3,2.236,0,"
-		"2,2.449,0:32,"
-		"2,1.414,0,"
-		"3,1.732,0,"
-		"4,2,0,"
-		"5,2.236,0,"
-		"6,2.449,0:48,"
+		"1,1,0,"
+		"1,1,2,"
+		"1,1,3,"
+		"1,1,4,"
+		"1,1,5,"
+		"1,1,6,"
+		"1,1,7:32,"
+		"1,1.5,0,"
+		"1,.5,2,"
+		"1,1.5,3,"
+		"1,.5,4,"
+		"1,1.5,5,"
+		"1,.5,6,"
+		"1,1.5,7:33,"
 
 	};
+
+
 	this->composition_script = {
-		"0,1,128:"
-		"1,1,64:"
-		"2,1,32:"
-		"3,1,64:"
-		"4,1,128:"
-		"5,1,256:"
-		"6,1,512:"
-		"7,1,1024:"
-		"8,1,128:"
-		"9,1,64:"
+		"0,1,1024:"
+		"1,1,768:"
+		"2,1,512:"
+		"3,1,256:"
+		"4,1,768:"
+		"5,1,512:"
+		"6,1,64:"
+		"7,1,32:"
+		"8,1,1024:"
+		"9,1,32:"
 		"10,1,32:"
-		"11,1,64:"
-		"12,1,1024:"
-		"13,1,256:"
-		"14,1,512:"
-		"15,1,1024:"
-		"16,1,128:"
-		"17,1,64:"
-		"18,1,32:"
-		"19,1,64:"
-		"20,1,512:"
+		"11,1,2048:"
+		"12,1,4096:"
+		"13,1,768:"
+		"14,1,256:"
+		"15,1,128:"
+		"16,1,1024:"
+		"17,1,768:"
+		"18,1,128:"
+		"19,1,256:"
+		"20,1,768:"
 		"21,1,256:"
-		"22,1,512:"
-		"23,1,1024:"
-		"24,1,128:"
-		"25,1,64:"
-		"26,1,32:"
-		"27,1,64:"
-		"28,1,32:"
-		"29,1,256:"
+		"22,1,64:"
+		"23,1,32:"
+		"24,1,1024:"
+		"25,1,32:"
+		"26,1,64:"
+		"27,1,2048:"
+		"28,1,4096:"
+		"29,1,768:"
 		"30,1,512:"
-		"31,1,1024:32,"
-
+		"31,1,512:32,"
 	};
+
+
 	this->decay_script = {
-		"1,0:"
+		"1.866,0:"
 	};
 }
 void instrument::init_al() {

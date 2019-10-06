@@ -4,16 +4,6 @@ C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(39,30): warning C4018:  '<':
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(41,39): warning C4018:  '<=': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(63,28): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(82,28): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(85,34): warning C4244:  '=': conversion from 'int' to '_Ty', possible loss of data
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(85,34): warning C4244:         with
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(85,34): warning C4244:         [
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(85,34): warning C4244:             _Ty=GLfloat
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(85,34): warning C4244:         ]
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(88,13): warning C4244:  'initializing': conversion from '_Ty' to 'int', possible loss of data
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(88,13): warning C4244:         with
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(88,13): warning C4244:         [
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(88,13): warning C4244:             _Ty=GLfloat
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(88,13): warning C4244:         ]
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(93,30): warning C4244:  'argument': conversion from 'float' to 'const unsigned int', possible loss of data
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(94,50): warning C4244:  'argument': conversion from 'float' to 'const unsigned int', possible loss of data
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(95,52): warning C4244:  'argument': conversion from 'float' to 'const unsigned int', possible loss of data
@@ -209,10 +199,10 @@ C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(710,132): warning C4244:    
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(710,132): warning C4244:         [
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(710,132): warning C4244:             _Ty=GLfloat
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(710,132): warning C4244:         ]
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(771,26): warning C4244:  'argument': conversion from 'float' to 'const unsigned int', possible loss of data
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(785,34): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(790,31): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(791,34): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(797,26): warning C4244:  '=': conversion from 'long' to 'float', possible loss of data
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(879,33): warning C4244:  'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(772,26): warning C4244:  'argument': conversion from 'float' to 'const unsigned int', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(787,34): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(792,31): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(793,34): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(799,26): warning C4244:  '=': conversion from 'long' to 'float', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(881,33): warning C4244:  'initializing': conversion from 'float' to 'unsigned int', possible loss of data
   WaveBricks.vcxproj -> C:\Users\noah\source\repos\WaveBricks\Debug\WaveBricks.exe
