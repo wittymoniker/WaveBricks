@@ -70,6 +70,10 @@ public:
 
 	std::vector<GLfloat> compamp;
 	std::vector<GLfloat> comppitch;
+	std::vector<GLfloat> compamfreq;
+	std::vector<GLfloat> compamint;
+	std::vector<GLfloat> compfmfreq;
+	std::vector<GLfloat> compfmint;
 	std::vector<vector<vector<GLfloat>>> composition;
 
 	std::vector<GLfloat> decaystep;
@@ -113,10 +117,6 @@ public:
 		XMOD_SPINNER,
 		YMOD_SPINNER,
 		ZMOD_SPINNER,
-		FM_SPINNER,
-		FMINT_SPINNER,
-		AM_SPINNER,
-		AMINT_SPINNER,
 
 
 
@@ -167,10 +167,6 @@ public:
 	GLUI_Spinner* pitchscale_spinner_panel;
 	GLUI_Spinner* pitchrot_spinner_panel;
 	GLUI_Spinner* amprot_spinner_panel;
-	GLUI_Spinner* fm_spinner_panel;
-	GLUI_Spinner* fmint_spinner_panel;
-	GLUI_Spinner* am_spinner_panel;
-	GLUI_Spinner* amint_spinner_panel;
 
 	GLUI_EditText* voicesscript_panel;
 	GLUI_EditText* compositionscript_panel;
@@ -212,10 +208,10 @@ public:
 	float xmod_spinner ;
 	float ymod_spinner ;
 	float zmod_spinner ;
-	float fm_spinner ;
-	float fmint_spinner ;
-	float am_spinner ;
-	float amint_spinner ;
+	float fm;
+	float fmint;
+	float am;
+	float amint;
 	float panning_spinner ;
 
 
@@ -257,7 +253,7 @@ public:
 	void assembleSongData();
 	void play();
 	long int it, iu, iy, ii, i, ir;
-	float srate, freq, amp, phase, decayf, bpm, am, amfreq, fm, fmfreq,step;
+	float srate, freq, amp, phase, decayf, bpm,step, amfreq, fmfreq;
 	void playVertice();
 	static void glui_callback(int control_id) {
 
