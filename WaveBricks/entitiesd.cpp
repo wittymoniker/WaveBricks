@@ -900,7 +900,7 @@ void instrument::playVertice() {
 			+
 			((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) < 32767)
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) < 32767)
 			&&
 			(this->data.at(this->i) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
@@ -908,7 +908,7 @@ void instrument::playVertice() {
 				+
 				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) > -32768))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) > -32768))
 		{
 
 			this->data.at(this->i) += (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin( (this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
@@ -917,7 +917,7 @@ void instrument::playVertice() {
 				+ 
 				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))*((i-(this->step*22050*(60/this->tempo)))/(22050 * (60 / this->tempo)))*(this->decayl));
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))*((i-(this->step*22050*(60/this->tempo)))/(22050 * (60 / this->tempo)))*(1.0f+this->decayl));
 			//cout << (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))));
@@ -931,7 +931,7 @@ void instrument::playVertice() {
 				+
 				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) > 32767)
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) > 32767)
 			{
 				(this->data.at(this->i)) = 32767;
 			}
@@ -941,7 +941,7 @@ void instrument::playVertice() {
 				+
 				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) < -32767)
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) < -32767)
 			{
 				(this->data.at(this->i)) = -32767;
 			}
