@@ -169,10 +169,6 @@ void instrument::assemble() {
 	this->compositionscript_panel = synth_panel->add_edittext_to_panel(this->syn_panel, "Composition script:"
 		, this->composition_script, COMPOSITION_SCRIPT, this->glui_callback);
 
-
-	this->decayscript_panel = synth_panel->add_edittext_to_panel(this->syn_panel, "Decay script:"
-		, this->decay_script, DECAY_SCRIPT, this->glui_callback);
-
 	//script so users can define envelope changes over song, stretched by note length in composition
 	   /* GLUI_EditText *envelopescript_panel = synth_panel->add_edittext_to_panel(syn_panel, "Envelope script:"
 																				   ,envelope_script,ENVELOPE_SCRIPT,glui_callback);*/
@@ -186,15 +182,13 @@ void instrument::assemble() {
 
 																																																													 //syn_panel->set_w(600);
 																																																													 //syn_panel->set_h(650);
-
-	this->voicesscript_panel->set_h(20);
+	this->voicesscript_panel->set_h(64);
 	this->voicesscript_panel->set_w(650);
 
-	this->compositionscript_panel->set_h(20);
+
+	this->compositionscript_panel->set_h(64);
 	this->compositionscript_panel->set_w(650);
 
-	this->decayscript_panel->set_h(20);
-	this->decayscript_panel->set_w(650);
 
 	/*    envelopescript_panel->set_h(15);
 		envelopescript_panel->set_w(200);
@@ -393,10 +387,22 @@ void instrument::updateVoices() {
 					this->compamfreq.push_back(atof(tempNumber.c_str()));
 					//cout<<comppitch.at(0);
 					tempNumber = "";
+					placement = "decay";
+				}
+				if (placement == "decay" && tempNumber.length() > 0) {
+					this->compdecay.push_back(atof(tempNumber.c_str()));
+					//cout<<comppitch.at(0);
+					tempNumber = "";
+					placement = "decaylevel";
+				}
+				if (placement == "decaylevel" && tempNumber.length() > 0) {
+					this->compdlev.push_back(atof(tempNumber.c_str()));
+					//cout<<comppitch.at(0);
+					tempNumber = "";
 					placement = "getNewStep";
 				}
 				if (placement == "getNewStep" && tempNumber.length() > 0) {
-					this->composition[step].resize(6);
+					this->composition[step].resize(8);
 					for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 						this->composition[step][0].push_back(this->compamp[this->it]);
 						this->composition[step][1].push_back(this->comppitch[this->it]);
@@ -404,10 +410,12 @@ void instrument::updateVoices() {
 						this->composition[step][3].push_back(this->compfmint[this->it]);
 						this->composition[step][4].push_back(this->compamfreq[this->it]);
 						this->composition[step][5].push_back(this->compamint[this->it]);
+						this->composition[step][6].push_back(this->compdecay[this->it]);
+						this->composition[step][7].push_back(this->compdlev[this->it]);
 					}
 					step = (atof(tempNumber.c_str()));
 					this->composition.resize(step + 1);
-					this->composition[step].resize(6);
+					this->composition[step].resize(8);
 
 					this->compamp = {};
 					this->comppitch = {};
@@ -415,6 +423,8 @@ void instrument::updateVoices() {
 					this->compamint = {};
 					this->compfmfreq = {};
 					this->compfmint = {};
+					this->compdlev = {};
+					this->compdecay = {};
 					tempNumber = "";
 					placement = "amp";
 
@@ -425,7 +435,7 @@ void instrument::updateVoices() {
 			if (composition_script.at(i) == comma) {
 				//cout<<comma;
 				if (placement == "getNewStep" && tempNumber.length() > 0) {
-					this->composition[step].resize(6);
+					this->composition[step].resize(8);
 					for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 						this->composition[step][0].push_back(this->compamp[this->it]);
 						this->composition[step][1].push_back(this->comppitch[this->it]);
@@ -433,10 +443,12 @@ void instrument::updateVoices() {
 						this->composition[step][3].push_back(this->compfmint[this->it]);
 						this->composition[step][4].push_back(this->compamfreq[this->it]);
 						this->composition[step][5].push_back(this->compamint[this->it]);
+						this->composition[step][6].push_back(this->compdecay[this->it]);
+						this->composition[step][7].push_back(this->compdlev[this->it]);
 					}
 					step = (atof(tempNumber.c_str()));
 					this->composition.resize(step + 1);
-					this->composition[step].resize(6);
+					this->composition[step].resize(8);
 
 					this->compamp = {};
 					this->comppitch = {};
@@ -444,6 +456,8 @@ void instrument::updateVoices() {
 					this->compamint = {};
 					this->compfmfreq = {};
 					this->compfmint = {};
+					this->compdlev = {};
+					this->compdecay = {};
 					tempNumber = "";
 					placement = "amp";
 
@@ -481,6 +495,18 @@ void instrument::updateVoices() {
 					this->compamfreq.push_back(atof(tempNumber.c_str()));
 					//cout<<comppitch.at(0);
 					tempNumber = "";
+					placement = "decay";
+				}
+				if (placement == "decay" && tempNumber.length() > 0) {
+					this->compdecay.push_back(atof(tempNumber.c_str()));
+					//cout<<comppitch.at(0);
+					tempNumber = "";
+					placement = "decaylevel";
+				}
+				if (placement == "decaylevel" && tempNumber.length() > 0) {
+					this->compdlev.push_back(atof(tempNumber.c_str()));
+					//cout<<comppitch.at(0);
+					tempNumber = "";
 					placement = "amp";
 				}
 
@@ -488,7 +514,7 @@ void instrument::updateVoices() {
 		}
 	}
 	if (placement == "amp" && tempNumber.length() > 0) {
-		this->composition[step].resize(6);
+		this->composition[step].resize(8);
 		for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 			this->composition[step][0].push_back(this->compamp[this->it]);
 			this->composition[step][1].push_back(this->comppitch[this->it]);
@@ -496,10 +522,12 @@ void instrument::updateVoices() {
 			this->composition[step][3].push_back(this->compfmint[this->it]);
 			this->composition[step][4].push_back(this->compamfreq[this->it]);
 			this->composition[step][5].push_back(this->compamint[this->it]);
+			this->composition[step][6].push_back(this->compdecay[this->it]);
+			this->composition[step][7].push_back(this->compdlev[this->it]);
 		}
 		step = (atof(tempNumber.c_str()));
 		this->composition.resize(step + 1);
-		this->composition[step].resize(6);
+		this->composition[step].resize(8);
 
 		this->compamp = {};
 		this->comppitch = {};
@@ -507,73 +535,39 @@ void instrument::updateVoices() {
 		this->compamint = {};
 		this->compfmfreq = {};
 		this->compfmint = {};
+		this->compdlev = {};
+		this->compdecay = {};
 		tempNumber = "";
 		placement = "amp";
 
 	}
-	if (placement == "amp" && tempNumber.length() > 0) {
-		this->compamp.push_back(atof(tempNumber.c_str()));
-		tempNumber = "";
-		placement = "pitch";
-	}
-	if (placement == "pitch" && tempNumber.length() > 0) {
-		this->comppitch.push_back(atof(tempNumber.c_str()));
-		tempNumber = "";
-		placement = "amp";
-	}
-
-
-	this->decaystep.resize(1);
-	placement = "decay";
-	step = 0;
-	this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (unsigned i = 0; i < this->decay_script.length(); i++) {//decay script interpreter
-		if (this->decay_script.at(i) != colon && this->decay_script[i] != comma) {
-			tempNumber = tempNumber + (this->decay_script[i]);
-			//cout<<"appended tempNumber" +tempNumber;
+	if (placement == "getNewStep" && tempNumber.length() > 0) {
+		this->composition[step].resize(8);
+		for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
+			this->composition[step][0].push_back(this->compamp[this->it]);
+			this->composition[step][1].push_back(this->comppitch[this->it]);
+			this->composition[step][2].push_back(this->compfmfreq[this->it]);
+			this->composition[step][3].push_back(this->compfmint[this->it]);
+			this->composition[step][4].push_back(this->compamfreq[this->it]);
+			this->composition[step][5].push_back(this->compamint[this->it]);
+			this->composition[step][6].push_back(this->compdecay[this->it]);
+			this->composition[step][7].push_back(this->compdlev[this->it]);
 		}
-		else {
-			if (this->decay_script.at(i) == colon) {
-				//cout<<colon;
-				if (placement == "decay" && tempNumber.length() > 0) {
-					this->decaystep[step] = (atof(tempNumber.c_str()));
-					tempNumber = "";
-					placement = "step";
-				}
-				if (placement == "step" && tempNumber.length() > 0) {
-					step = (atof(tempNumber.c_str()));
-					this->decaystep.resize(step + 1);
-					tempNumber = "";
-					placement = "decay";
-				}
-
-			}
-			if (this->decay_script.at(i) == comma) {
-				//cout<<comma;
-				if (placement == "decay" && tempNumber.length() > 0) {
-					this->decaystep[step] = (atof(tempNumber.c_str()));
-					tempNumber = "";
-					placement = "step";
-				}
-				if (placement == "step" && tempNumber.length() > 0) {
-					step = (atof(tempNumber.c_str()));
-					this->decaystep.resize(step + 1);
-					tempNumber = "";
-					placement = "decay";
-				}
-			}
-		}
-	}
-	if (placement == "decay" && tempNumber.length() > 0) {
-		this->decaystep[step] = (atof(tempNumber.c_str()));
-		tempNumber = "";
-		placement = "step";
-	}
-	if (placement == "step" && tempNumber.length() > 0) {
 		step = (atof(tempNumber.c_str()));
-		this->decaystep.resize(step + 1);
+		this->composition.resize(step + 1);
+		this->composition[step].resize(8);
+
+		this->compamp = {};
+		this->comppitch = {};
+		this->compamfreq = {};
+		this->compamint = {};
+		this->compfmfreq = {};
+		this->compfmint = {};
+		this->compdlev = {};
+		this->compdecay = {};
 		tempNumber = "";
-		placement = "decay";
+		placement = "amp";
+
 	}
 
 
@@ -867,7 +861,8 @@ void instrument::assembleSongData() {
 					this->freq = this->composition.at(this->it).at(1).at(this->ir) * (this->stepvoices.at(this->it).at(1).at(this->ii));
 					this->phase = (this->stepvoices.at(this->it).at(2).at(this->ii));
 					(this->step) = (this->it);
-					this->decayf = this->decaystep.at(this->it);
+					this->decayf = this->composition.at(this->it).at(6).at(this->ir);
+					this->decayl = this->composition.at(this->it).at(7).at(this->ir);
 					this->fmint = composition.at(this->it).at(2).at(this->ir);
 					this->fm = composition.at(this->it).at(3).at(this->ir);
 					this->amint = composition.at(this->it).at(4).at(this->ir);
@@ -899,18 +894,30 @@ void instrument::playVertice() {
 	//data=data;
 	//this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)(((this->step + (((this->decayf)))) * (22050.0f * (float)(60.0f / this->tempo)))) && this->i < this->sizeSS-1; this->i = this->i + 1) {
-		if ((this->data.at(this->i) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+		if ((this->data.at(this->i) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 			+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-			* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) < 32767)
-			&&
-			(this->data.at(this->i) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+			* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+			+
+			((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) > -32768))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) < 32767)
+			&&
+			(this->data.at(this->i) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+				+
+				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) > -32768))
 		{
 
-			this->data.at(this->i) += (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin( (this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+			this->data.at(this->i) += (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin( (this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj*(sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0+sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)));
+				* (1.0+sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+				+ 
+				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))*((i-(this->step*22050*(60/this->tempo)))/(22050 * (60 / this->tempo)))*(this->decayl));
 			//cout << (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))));
@@ -918,15 +925,23 @@ void instrument::playVertice() {
 
 		
 		else {
-			if (((this->data.at(this->i))) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+			if (((this->data.at(this->i))) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) > 32767)
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+				+
+				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) > 32767)
 			{
 				(this->data.at(this->i)) = 32767;
 			}
-			if (((this->data.at(this->i))) + (ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+			if (((this->data.at(this->i))) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))) < -32767)
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+				+
+				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
+					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decayl)) < -32767)
 			{
 				(this->data.at(this->i)) = -32767;
 			}
@@ -1051,10 +1066,12 @@ void instrument::initVals() {
 	AMP,PITCH,PHASE (x Voices number) : (STEP), AMP,PITCH,PHASE (x Voices number):
 
 	COMPOSITION SCRIPTING:
-	STEP, AMP, PITCH,  FMINT, FMFREQ, AMINT, AMFREQ: 
-	STEP, AMP, PITCH, FMINT, FMFREQ, AMINT, AMFREQ,       
-	AMP, PITCH, FMINT, FMFREQ, AMINT, AMFREQ : //SET FIRST NOTE TO 0AMP,0PITCH if you have to. Multiple notes 
-	per step in second step.
+
+	STEP, AMP, PITCH,  FMINT, FMFREQ, AMINT, AMFREQ, DECAY TIME +/- STEP, DECAY INTENSITY +/- AMP: 
+	STEP, AMP, PITCH, FMINT, FMFREQ, AMINT, AMFREQ, DECAY TIME +/- STEP, DECAY INTENSITY +/- AMP,       
+	AMP, PITCH, FMINT, FMFREQ, AMINT, AMFREQ, DECAY TIME +/- STEP, DECAY INTENSITY +/- AMP : 
+
+	//Multiple notes per step in second  scripted step.
 
 	
 
@@ -1073,43 +1090,33 @@ void instrument::initVals() {
 
 
 	this->voiceautomation_script = {
-		"1,1,0,"
-		"1,1.5,0,"
-		"1,1.75,0,"
-		"1,1.875,0,"
-		"1,1.93625,0,"
-		"1,1.966875,0,"
-		"1,1.9821875,0:1,"
+		".5,2,0,"
+		"1,4,0,"
+		"1.5,8,0,"
+		"2,16,0:1,"
 
 	};
 
 
 	this->composition_script = {
-		"0,1,512,.1111,2.0,1,2.0:"
-		"1,1,256,0,0,1,1:"
-		"2,1,1024,.1111,1.5,0,0:"
-		"3,1,768,0,0,0,0:"
-
-		"4,1,768,.1111,3,1,4:"
-		"5,1,1024,0,0,1,5:"
-		"6,1,256,.1111,2,0,0:"
-		"7,1,512,0,0,0,0:"
-
-		"8,1,256,.1111,6,1,5:"
-		"9,1,768,0,0,1,2:"
-		"10,1,512,.1111,2,0,0:"
-		"11,1,258,0,0,0,0:"
-
-		"12,1,768,.1111,4,1,6:"
-		"13,1,512,0,0,1,8:"
-		"14,1,256,.1111,2,0,0:"
-		"15,1,1024,0,0,0,0:16,"
-
-	};
+		"0,2,16,0,0,0,0,1,2,"
+		".5,24,0,0,0,0,1,2:"
+		"1,1,52,1,1,0,0,1,2,"
+		".5,48,0,0,1,1,1,2:"
+		"2,1,52,0,0,1,1,1,2,"
+		".5,64,1,1,0,0,1,2:"
+		"3,2,86,0,0,0,0,1,2,"
+		".5,24,0,0,0,0,1,2:"
+		"4,2,48,1,.5,0,0,1,2,"
+		".5,52,0,0,1,.5,1,2:"
+		"5,2,128,0,0,0,0,1,2,"
+		".5,56,2,2,0,0,1,2:"
+		"6,2,86,2,2,0,0,1,2,"
+		".5,24,0,0,0,0,1,2:"
+		"7,2,48,3,3,0,0,1,2,"
+		".5,96,0,0,1,1,1,2:8,"
 
 
-	this->decay_script = {
-		"1,0:"
 	};
 }
 void instrument::init_al() {

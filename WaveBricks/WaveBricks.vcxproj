@@ -71,7 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\noah\source\repos\WaveBricks\OpenAL 1.1 SDK\libs\Win32;C:\Users\noah\source\repos\WaveBricks\glew-2.1.0\lib\Release\Win32;C:\Users\noah\source\repos\WaveBricks\glui-2.37\msvc\lib;C:\Users\noah\source\repos\WaveBricks\OpenAL 1.1 SDK\libs;C:\Users\noah\source\repos\WaveBricks\freeglut-3.2.0\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\noah\source\repos\WaveBricks\freealut-master\include\AL;C:\Users\noah\source\repos\WaveBricks\freeglut-3.2.0\include\GL;C:\Users\noah\source\repos\WaveBricks\glew-2.1.0\include\GL;C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL;C:\Users\noah\source\repos\WaveBricks\OpenAL 1.1 SDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\noah\source\repos\WaveBricks\freeglut-3.2.0\lib;C:\Users\noah\source\repos\WaveBricks\glew-2.1.0\lib\Release\Win32;C:\Users\noah\source\repos\WaveBricks\glui-2.37\msvc\lib;C:\Users\noah\source\repos\WaveBricks\OpenAL 1.1 SDK\libs\Win32;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Users\noah\source\repos\WaveBricks\freealut-master\include\AL;C:\Users\noah\source\repos\WaveBricks\freeglut-3.2.0\include\GL;C:\Users\noah\source\repos\WaveBricks\glew-2.1.0\include\GL;C:\Users\noah\source\repos\WaveBricks\glui-2.37\include\GL;C:\Users\noah\source\repos\WaveBricks\OpenAL 1.1 SDK\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\noah\source\repos\WaveBricks\freeglut-3.2.0\lib;C:\Users\noah\source\repos\WaveBricks\glew-2.1.0\lib\Release\Win32;C:\Users\noah\source\repos\WaveBricks\glui-2.37\msvc\lib;C:\Users\noah\source\repos\WaveBricks\OpenAL 1.1 SDK\libs\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -132,10 +137,6 @@
     <ClCompile Include="entities.cpp" />
     <ClCompile Include="entitiesd.cpp" />
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="alext.h" />
-    <ClInclude Include="alut.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

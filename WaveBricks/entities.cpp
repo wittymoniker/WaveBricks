@@ -74,6 +74,8 @@ public:
 	std::vector<GLfloat> compamint;
 	std::vector<GLfloat> compfmfreq;
 	std::vector<GLfloat> compfmint;
+	std::vector<GLfloat> compdecay;
+	std::vector<GLfloat> compdlev;
 	std::vector<vector<vector<GLfloat>>> composition;
 
 	std::vector<GLfloat> decaystep;
@@ -223,7 +225,6 @@ public:
 	string composition_script;
 	string voiceautomation_script;
 	string filter_script;
-	string decay_script;
 
 
 	int destroy_button;
@@ -301,6 +302,7 @@ public:
 	ALshort* dataAL;
 	GLfloat vertices;
 	GLfloat colors;
+	float decayl;
 
 
 

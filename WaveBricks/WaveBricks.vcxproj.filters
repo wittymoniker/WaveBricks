@@ -26,14 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="alext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="alut.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
 </Project>

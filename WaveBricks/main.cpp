@@ -523,66 +523,6 @@ void display()
 		instruments.at(it)->currentStep = (tracking / tempo);
 		instruments.at(it)->tempo = tempo;
 		instruments.at(it)->render();
-
-
-
-		//float verts[instruments[it].voices_spinner*3];
-	   // float colors[instruments[it].voices_spinner*4];
-		//std::string vertexShader;
-		//std::string fragmentShader;
-		//unsigned int indices[instruments[it].voices_spinner*3];
-		/*for (int i=0;i<instruments[it].voices_spinner;i++){
-			indices[i]=i;
-
-		}
-		for (int i=instruments[it].voices_spinner-1;i>=0;i--){
-			indices[instruments[it].voices_spinner+i]=instruments[it].voices_spinner-1-i;
-		}
-		for (int i=instruments[it].voices_spinner-1;i>=0;i--){
-			indices[instruments[it].voices_spinner*2+i]=i;
-		}*/
-		//glPatchParameteri(GL_PATCH_VERTICES,instruments[it].voices_spinner);
-		//glPushMatrix();
-		//glBegin(GL_PATCHES);
-		/*for(int i=0; i<instruments[it].voices_spinner; i++){
-			glColor3f(instruments[it].instrumentPoly[i][3],instruments[it].instrumentPoly[i][4],instruments[it].instrumentPoly[i][5]);
-			cout<<instruments[it].instrumentPoly[i][3]<<" "<<instruments[it].instrumentPoly[i][4]<<" "<<instruments[it].instrumentPoly[i][5]<<" COLORS\n";
-			glVertex3f(instruments[it].instrumentPoly[i][0],instruments[it].instrumentPoly[i][1],instruments[it].instrumentPoly[i][2]);
-			cout<<instruments[it].instrumentPoly[i][0]<<" "<<instruments[it].instrumentPoly[i][1]<<" "<<instruments[it].instrumentPoly[i][2]<<" VERTS\n";
-		}*/
-		//cout << "\nEND CHUNK\n";
-		//glEnd();
-		//glPopMatrix();
-		/*Renderer renderer;
-		renderer.Clear();
-		VertexArray va;
-		VertexBuffer vb(verts, instruments[it].voices_spinner*3*4);
-
-		Shader shader("shade.shader", "shader2.shader");
-
-		VertexBufferLayout layout;
-		layout.Push<float>(3);
-		va.AddBuffer(vb, layout);
-		IndexBuffer ib(indices,instruments[it].voices_spinner * 3*4);
-		//shader.Bind();
-
-
-		shader.SetUniform4f("u_Color",0.8f,0.3f,0.8f,1.0f);
-
-		//va.Bind();
-		//ib.Bind();
-		//GLint MaxPatchVertices = 0;
-		//glGetIntegerv(GL_MAX_PATCH_VERTICES, &MaxPatchVertices);
-		//printf("Max supported patch vertices %d\n", MaxPatchVertices);
-		glPatchParameteri(GL_PATCH_VERTICES, instruments[it].voices_spinner*3);
-		renderer.Draw(va, ib, shader);
-		float r = 0.0f;
-		float increment=0.05f;
-		va.Unbind();
-		vb.Unbind();
-		ib.Unbind();
-		shader.Unbind();
-		*/
 	}
 	if (playbutton) {
 		trackPlay();
