@@ -76,6 +76,7 @@ public:
 	std::vector<GLfloat> compfmint;
 	std::vector<GLfloat> compdecay;
 	std::vector<GLfloat> compdlev;
+	std::vector<GLfloat> compdplev;
 	std::vector<vector<vector<GLfloat>>> composition;
 
 	std::vector<GLfloat> decaystep;
@@ -303,6 +304,7 @@ public:
 	GLfloat vertices;
 	GLfloat colors;
 	float decayl;
+	float decaypl;
 
 
 

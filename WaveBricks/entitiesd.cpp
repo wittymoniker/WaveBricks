@@ -399,10 +399,16 @@ void instrument::updateVoices() {
 					this->compdlev.push_back(atof(tempNumber.c_str()));
 					//cout<<comppitch.at(0);
 					tempNumber = "";
+					placement = "decaypitchlevel";
+				}
+				if (placement == "decaypitchlevel" && tempNumber.length() > 0) {
+					this->compdplev.push_back(atof(tempNumber.c_str()));
+					//cout<<comppitch.at(0);
+					tempNumber = "";
 					placement = "getNewStep";
 				}
 				if (placement == "getNewStep" && tempNumber.length() > 0) {
-					this->composition[step].resize(8);
+					this->composition[step].resize(9);
 					for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 						this->composition[step][0].push_back(this->compamp[this->it]);
 						this->composition[step][1].push_back(this->comppitch[this->it]);
@@ -412,10 +418,11 @@ void instrument::updateVoices() {
 						this->composition[step][5].push_back(this->compamint[this->it]);
 						this->composition[step][6].push_back(this->compdecay[this->it]);
 						this->composition[step][7].push_back(this->compdlev[this->it]);
+						this->composition[step][8].push_back(this->compdplev[this->it]);
 					}
 					step = (atof(tempNumber.c_str()));
 					this->composition.resize(step + 1);
-					this->composition[step].resize(8);
+					this->composition[step].resize(9);
 
 					this->compamp = {};
 					this->comppitch = {};
@@ -425,6 +432,7 @@ void instrument::updateVoices() {
 					this->compfmint = {};
 					this->compdlev = {};
 					this->compdecay = {};
+					this->compdplev = {};
 					tempNumber = "";
 					placement = "amp";
 
@@ -435,7 +443,7 @@ void instrument::updateVoices() {
 			if (composition_script.at(i) == comma) {
 				//cout<<comma;
 				if (placement == "getNewStep" && tempNumber.length() > 0) {
-					this->composition[step].resize(8);
+					this->composition[step].resize(9);
 					for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 						this->composition[step][0].push_back(this->compamp[this->it]);
 						this->composition[step][1].push_back(this->comppitch[this->it]);
@@ -445,10 +453,11 @@ void instrument::updateVoices() {
 						this->composition[step][5].push_back(this->compamint[this->it]);
 						this->composition[step][6].push_back(this->compdecay[this->it]);
 						this->composition[step][7].push_back(this->compdlev[this->it]);
+						this->composition[step][8].push_back(this->compdplev[this->it]);
 					}
 					step = (atof(tempNumber.c_str()));
 					this->composition.resize(step + 1);
-					this->composition[step].resize(8);
+					this->composition[step].resize(9);
 
 					this->compamp = {};
 					this->comppitch = {};
@@ -458,6 +467,7 @@ void instrument::updateVoices() {
 					this->compfmint = {};
 					this->compdlev = {};
 					this->compdecay = {};
+					this->compdplev = {};
 					tempNumber = "";
 					placement = "amp";
 
@@ -507,6 +517,12 @@ void instrument::updateVoices() {
 					this->compdlev.push_back(atof(tempNumber.c_str()));
 					//cout<<comppitch.at(0);
 					tempNumber = "";
+					placement = "decaypitchlevel";
+				}
+				if (placement == "decaypitchlevel" && tempNumber.length() > 0) {
+					this->compdplev.push_back(atof(tempNumber.c_str()));
+					//cout<<comppitch.at(0);
+					tempNumber = "";
 					placement = "amp";
 				}
 
@@ -514,7 +530,7 @@ void instrument::updateVoices() {
 		}
 	}
 	if (placement == "amp" && tempNumber.length() > 0) {
-		this->composition[step].resize(8);
+		this->composition[step].resize(9);
 		for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 			this->composition[step][0].push_back(this->compamp[this->it]);
 			this->composition[step][1].push_back(this->comppitch[this->it]);
@@ -524,10 +540,11 @@ void instrument::updateVoices() {
 			this->composition[step][5].push_back(this->compamint[this->it]);
 			this->composition[step][6].push_back(this->compdecay[this->it]);
 			this->composition[step][7].push_back(this->compdlev[this->it]);
+			this->composition[step][8].push_back(this->compdplev[this->it]);
 		}
 		step = (atof(tempNumber.c_str()));
 		this->composition.resize(step + 1);
-		this->composition[step].resize(8);
+		this->composition[step].resize(9);
 
 		this->compamp = {};
 		this->comppitch = {};
@@ -537,12 +554,13 @@ void instrument::updateVoices() {
 		this->compfmint = {};
 		this->compdlev = {};
 		this->compdecay = {};
+		this->compdplev = {};
 		tempNumber = "";
 		placement = "amp";
 
 	}
 	if (placement == "getNewStep" && tempNumber.length() > 0) {
-		this->composition[step].resize(8);
+		this->composition[step].resize(9);
 		for (this->it = 0; this->it < this->comppitch.size(); this->it++) {
 			this->composition[step][0].push_back(this->compamp[this->it]);
 			this->composition[step][1].push_back(this->comppitch[this->it]);
@@ -552,10 +570,11 @@ void instrument::updateVoices() {
 			this->composition[step][5].push_back(this->compamint[this->it]);
 			this->composition[step][6].push_back(this->compdecay[this->it]);
 			this->composition[step][7].push_back(this->compdlev[this->it]);
+			this->composition[step][8].push_back(this->compdplev[this->it]);
 		}
 		step = (atof(tempNumber.c_str()));
 		this->composition.resize(step + 1);
-		this->composition[step].resize(8);
+		this->composition[step].resize(9);
 
 		this->compamp = {};
 		this->comppitch = {};
@@ -565,6 +584,7 @@ void instrument::updateVoices() {
 		this->compfmint = {};
 		this->compdlev = {};
 		this->compdecay = {};
+		this->compdplev = {};
 		tempNumber = "";
 		placement = "amp";
 
@@ -854,7 +874,7 @@ void instrument::assembleSongData() {
 		
 		//cout << "composition[it]: " << composition[it].size();
 		for (this->iu = 0; this->iu < this->composition[this->it].size(); this->iu++) {
-			for (this->ir = 0; (this->ir) < (this->composition.at(this->it).at(5).size()); (this->ir) = (this->ir + 1)) {
+			for (this->ir = 0; (this->ir) < (this->composition.at(this->it).at(8).size()); (this->ir) = (this->ir + 1)) {
 				for (this->ii = 0; this->ii < this->voices_spinner; (this->ii) = (this->ii + 1)) {
 					//cout << "\n verticeplay, stepvoices pitch: " << this->stepvoices.at(this->it).at(1).at(this->ii);
 					this->amp = this->composition.at(this->it).at(0).at(this->ir) * (this->stepvoices.at(this->it).at(0).at(this->ii));
@@ -863,6 +883,7 @@ void instrument::assembleSongData() {
 					(this->step) = (this->it);
 					this->decayf = this->composition.at(this->it).at(6).at(this->ir);
 					this->decayl = this->composition.at(this->it).at(7).at(this->ir);
+					this->decaypl = this->composition.at(this->it).at(8).at(this->ir);
 					this->fmint = composition.at(this->it).at(2).at(this->ir);
 					this->fm = composition.at(this->it).at(3).at(this->ir);
 					this->amint = composition.at(this->it).at(4).at(this->ir);
@@ -894,30 +915,54 @@ void instrument::playVertice() {
 	//data=data;
 	//this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
 	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)(((this->step + ((1.0f+(this->decayf)))) * (22050.0f * (float)(60.0f / this->tempo)))) && this->i < this->sizeSS-1; this->i = this->i + 1) {
-		if ((this->data.at(this->i) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-			+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-			* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+		if ((this->data.at(this->i) + (ALshort)(((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i + 
+			(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+			(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+			+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+			(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+			* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am))))
 			+
-			((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) < 32767)
+			((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i + 
+			(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+			(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+				+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+				(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am)))) * (((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl))) < 32767)
 			&&
-			(this->data.at(this->i) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+			(this->data.at(this->i) + (ALshort)(((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i + 
+			(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+			(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+				+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+				(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am))))
 				+
-				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) > -32768))
+				((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i + 
+				(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+					+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+						(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am)))) * (((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl))) > -32768))
 		{
 
-			this->data.at(this->i) += (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin( (this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-				+ ampadj*(sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0+sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+			this->data.at(this->i) += (ALshort)(((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i +
+				(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin( (this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+				+ ampadj*(sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) + 
+				(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050*(60.0f/tempo)) * i))))
+				* (1.0+sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am))))
 				+ 
-				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))*((i-(this->step*22050*(60/this->tempo)))/(22050 * (60 / this->tempo)))*(1.0f+this->decayl));
+				((ampadj * (((sin((((this->freq+(this->freq*((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i +
+				(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+					+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) + 
+						(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am))))*(((i-(this->step*22050*(60/this->tempo)))/(22050 * (60 / this->tempo)))*(1.0f + this->decayl)));
 			//cout << (ALshort)(ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i) * this->phase + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//+ (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) * (this->fm * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 				//* (sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))));
@@ -925,28 +970,41 @@ void instrument::playVertice() {
 
 		
 		else {
-			if (((this->data.at(this->i))) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+			if (((this->data.at(this->i))) + (ALshort)(((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i +
+				(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+				+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+				(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am))))
 				+
-				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) > 32767)
+				((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i + 
+				(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+					+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+						(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am)))) * (((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl))) > 32767)
 			{
 				(this->data.at(this->i)) = 32767;
 			}
-			if (((this->data.at(this->i))) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-				+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
+			if (((this->data.at(this->i))) + (ALshort)(((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i +
+				(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+				+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+				(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+				* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am))))
 				+
-				((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
-					+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
-					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am)))) * ((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl)) < -32767)
+				((ampadj * (((sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i + 
+				(this->phase * (22050.0 / (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl)))))))) +
+				(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i)))))
+					+ ampadj * (sin((((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+					(((this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * 2.0 * this->PI) / 22050 * i) +
+						(this->fm * (this->freq + (this->freq * ((((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (this->decaypl))))) * sin((this->fmfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i))))
+					* (1.0 + sin((this->amfreq * 2.0 * this->PI) / (22050 * (60.0f / tempo)) * i) * this->am)))) * (((i - (this->step * 22050 * (60 / this->tempo))) / (22050 * (60 / this->tempo))) * (1.0f + this->decayl))) < -32767)
 			{
 				(this->data.at(this->i)) = -32767;
-			}
-			if ((this->data.at(this->i)) == 0) {
-				(this->data.at(this->i)) = 0;
 			}
 		}
 		//}
@@ -1099,22 +1157,22 @@ void instrument::initVals() {
 
 
 	this->composition_script = {
-		"0,2,16,0,0,0,0,1,2,"
-		".5,24,0,0,0,0,2,2:"
-		"1,1,52,1,1,0,0,1,2,"
-		".5,48,0,0,1,1,2,2:"
-		"2,1,52,0,0,1,1,1,2,"
-		".5,64,1,1,0,0,2,2:"
-		"3,2,86,0,0,0,0,1,2,"
-		".5,24,0,0,0,0,2,2:"
-		"4,2,48,1,.5,0,0,1,2,"
-		".5,52,0,0,1,.5,2,2:"
-		"5,2,128,0,0,0,0,1,2,"
-		".5,56,1,1,0,0,2,2:"
-		"6,2,86,1,1,0,0,1,2,"
-		".5,24,0,0,0,0,2,2:"
-		"7,2,48,1,.5,0,0,1,2,"
-		".5,96,0,.5,1,1,1,2:8,"
+		"0,2,16,0,0,0,0,1,2,.101,"
+		".5,24,0,0,0,0,2,2,-.101:"
+		"1,1,52,1,1,0,0,1,2,-.101,"
+		".5,48,0,0,1,1,2,2,.101:"
+		"2,1,52,0,0,1,1,1,2,-.101,"
+		".5,64,1,1,0,0,2,2,-.101:"
+		"3,2,86,0,0,0,0,1,2,.101,"
+		".5,24,0,0,0,0,2,2,.101:"
+		"4,2,48,1,.5,0,0,1,2,-.101,"
+		".5,52,0,0,1,.5,2,2,.101:"
+		"5,2,128,0,0,0,0,1,2,.101,"
+		".5,56,1,1,0,0,2,2,-.101:"
+		"6,2,86,1,1,0,0,1,2,-.101,"
+		".5,24,0,0,0,0,2,2,-.101:"
+		"7,2,48,1,.5,0,0,1,2,.101,"
+		".5,96,0,.5,1,1,1,2,.101:8,"
 
 
 	};
