@@ -893,7 +893,7 @@ void instrument::playVertice() {
 	//cout << " sizeSS:" << this->sizeSS << " currentstep : " << this->step << " decay: " << this->decayf;
 	//data=data;
 	//this->it = 0, this->iu = 0, this->iy = 0, this->ii = 0, this->i = 0, this->ir = 0;
-	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)(((this->step + (((this->decayf)))) * (22050.0f * (float)(60.0f / this->tempo)))) && this->i < this->sizeSS-1; this->i = this->i + 1) {
+	for (this->i = (long)(this->step * (22050.0f * (float)(60.0f / this->tempo))); this->i < (long)(((this->step + ((1.0f+(this->decayf)))) * (22050.0f * (float)(60.0f / this->tempo)))) && this->i < this->sizeSS-1; this->i = this->i + 1) {
 		if ((this->data.at(this->i) + (ALshort)(((ampadj * (((sin(((this->freq * 2.0 * this->PI) / 22050 * i + (this->phase * (22050.0 / this->freq))) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i)))))
 			+ ampadj * (sin(((this->freq * 2.0 * this->PI) / 22050 * i) + ((this->freq * 2.0 * this->PI) / 22050 * i) + (this->fm * this->freq * sin((this->fmfreq * 2.0 * this->PI) / 22050 * i))))
 			* (1.0 + sin((this->amfreq * 2.0 * this->PI) / 22050 * i) * this->am))))
@@ -1100,21 +1100,21 @@ void instrument::initVals() {
 
 	this->composition_script = {
 		"0,2,16,0,0,0,0,1,2,"
-		".5,24,0,0,0,0,1,2:"
+		".5,24,0,0,0,0,2,2:"
 		"1,1,52,1,1,0,0,1,2,"
-		".5,48,0,0,1,1,1,2:"
+		".5,48,0,0,1,1,2,2:"
 		"2,1,52,0,0,1,1,1,2,"
-		".5,64,1,1,0,0,1,2:"
+		".5,64,1,1,0,0,2,2:"
 		"3,2,86,0,0,0,0,1,2,"
-		".5,24,0,0,0,0,1,2:"
+		".5,24,0,0,0,0,2,2:"
 		"4,2,48,1,.5,0,0,1,2,"
-		".5,52,0,0,1,.5,1,2:"
+		".5,52,0,0,1,.5,2,2:"
 		"5,2,128,0,0,0,0,1,2,"
-		".5,56,2,2,0,0,1,2:"
-		"6,2,86,2,2,0,0,1,2,"
-		".5,24,0,0,0,0,1,2:"
-		"7,2,48,3,3,0,0,1,2,"
-		".5,96,0,0,1,1,1,2:8,"
+		".5,56,1,1,0,0,2,2:"
+		"6,2,86,1,1,0,0,1,2,"
+		".5,24,0,0,0,0,2,2:"
+		"7,2,48,1,.5,0,0,1,2,"
+		".5,96,0,.5,1,1,1,2:8,"
 
 
 	};
