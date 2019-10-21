@@ -1,4 +1,5 @@
-﻿  entitiesd.cpp
+﻿  entities.cpp
+  entitiesd.cpp
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(15,28): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(39,30): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(41,39): warning C4018:  '<=': signed/unsigned mismatch
@@ -248,5 +249,17 @@ C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(871,34): warning C4018:  '<'
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(876,31): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(877,34): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(883,26): warning C4244:  '=': conversion from 'long' to 'float', possible loss of data
-C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(1028,33): warning C4244:  'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+  main.cpp
+C:\Users\noah\source\repos\WaveBricks\entitiesd.cpp(1048,33): warning C4244:  'initializing': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(203,7): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(203,15): warning C4244:  '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(352,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\main.cpp(357,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\main.cpp(363,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\main.cpp(373,25): warning C4244:  'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(381,22): warning C4244:  'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+C:\Users\noah\source\repos\WaveBricks\main.cpp(400,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\noah\source\repos\WaveBricks\main.cpp(520,22): warning C4018:  '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\noah\source\repos\WaveBricks\main.cpp(580,11): warning C4778:  'printf' : unterminated format string '%\t'
   WaveBricks.vcxproj -> C:\Users\noah\source\repos\WaveBricks\Debug\WaveBricks.exe
